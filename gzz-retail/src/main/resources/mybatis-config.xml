@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 属性：定义配置外在化 -->
+    <properties resource="jdbc.properties">
+        <property name="dialect" value="${jdbc.dialect}"/>
+    </properties>
+    <!-- 设置：定义mybatis的一些全局性设置 -->
+    <settings>
+        <!-- 这个配置使全局的映射器启用或禁用缓存   -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。  -->
+        <!-- 查询时，关闭关联对象即时加载以提高性能 -->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载。 -->
+        <!-- 设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指 定)，不会加载关联表的所有字段，以提高性能 -->
+        <!--当开启时，任何方法的调用都会加载该对象的所有属性。否则，每个属性会按需加载（参考lazyLoadTriggerMethods).  (true in ≤3.4.1) -->
+        <setting name="aggressiveLazyLoading" value="false" />
+        <!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->
+        <!--是否允许单一语句返回多结果集（需要兼容驱动）。-->
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <!-- 允许使用列标签代替列名 -->
+        <!--使用列标签代替列名。不同的驱动在这方面会有不同的表现， 具体可参考相关驱动文档或通过测试这两种不同的模式来观察所用驱动的结果。-->
+        <setting name="useColumnLabel" value="true" />
+        <!-- 给予被嵌套的resultMap以字段-属性的映射支持 FULL,PARTIAL -->
+        <!--指定 MyBatis 应如何自动映射列到字段或属性-->
+        <setting name="autoMappingBehavior" value="FULL" />
+        <!-- 对于批量更新操作缓存SQL以提高性能 BATCH,SIMPLE -->
+        <!--配置默认的执行器。SIMPLE 就是普通的执行器；REUSE 执行器会重用预处理语句（prepared statements）； BATCH 执行器将重用语句并执行批量更新。-->
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <!-- 设置超时时间，它决定驱动等待一个数据库响应的时间。  -->
+        <!-- 数据库超过25000秒仍未响应则超时 -->
+        <setting name="defaultStatementTimeout" value="25000" />
+        <!-- 不允许使用自定义的主键值(比如由程序生成的UUID 32位编码作为键值)，数据表的PK生成策略将被覆盖 -->
+        <!-- 尽管一些驱动拒绝兼容但仍然有效（比如 Derby）   -->
+        <!--允许 JDBC 支持自动生成主键，需要驱动兼容。 如果设置为 true 则这个设置强制使用自动生成主键，尽管一些驱动不能兼容但仍可正常工作（比如 Derby）。-->
+        <setting name="useGeneratedKeys" value="false" />
+        <!-- 数据库 下划线字段和 java 实体 bean 的驼峰标识相互转化 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--增加到日志名称的前缀， 默认没有-->
+        <setting name="logPrefix" value=""/>
+        <!-- 打印查询语句 -->
+        <!-- SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING，可以根据自己的需要进行配置 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <!-- 配置默认的执行器。SIMPLE 执行器没有什么特别之处。REUSE 执行器重用预处理语句。BATCH 执行器重用语句和批量更新
+        <setting name="defaultExecutorType" value="REUSE" />
+        -->
+        <!-- Specifies which Object's methods trigger a lazy load -->
+        <!-- 	指定哪个对象的方法触发一次延迟加载。-->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+
+        <!-- Allows using RowBounds on nested statements -->
+        <!--允许在嵌套语句中使用分页（RowBounds）。如果允许使用则设置为false。-->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!--允许在嵌套语句中使用分页（ResultHandler）。如果允许使用则设置为false。-->
+        <setting name="safeResultHandlerEnabled" value="true"/>
+        <!-- MyBatis uses local cache to prevent circular references and speed up repeated nested queries. By default (SESSION) all queries executed during a session are cached. If localCacheScope=STATEMENT
+            local session will be used just for statement execution, no data will be shared between two different calls to the same SqlSession. -->
+        <!--默认值为 SESSION，这种情况下会缓存一个会话中执行的所有查询。 若设置值为 STATEMENT，本地会话仅用在语句执行上，对相同 SqlSession 的不同调用将不会共享数据。 -->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!-- Specifies the JDBC type for null values when no specific JDBC type was provided for the parameter. Some drivers require specifying the column JDBC type but others work with generic values
+            like NULL, VARCHAR or OTHER. -->
+        <!--当没有为参数提供特定的 JDBC 类型时，为空值指定 JDBC 类型-->
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+
+        <!--指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，这对于有 Map.keySet() 依赖或 null 值初始化的时候是有用的。注意基本类型（int、boolean等）是不能设置成 null 的。-->
+        <setting name="callSettersOnNulls" value="false"/>
+        <!--允许使用方法签名中的名称作为语句参数名称。 为了使用该特性，你的工程必须采用Java 8编译，并且加上-parameters选项。（从3.4.1开始）-->
+        <setting name="useActualParamName" value="true"/>
+        <!--当返回行的所有列都是空时，MyBatis默认返回null。 当开启这个设置时，MyBatis会返回一个空实例。 请注意，它也适用于嵌套的结果集 (i.e. collectioin and association)。（从3.4.2开始） -->
+        <setting name="returnInstanceForEmptyRow" value="false"/>
+        <!--指定VFS的实现， 默认未指定-->
+        <setting name="vfsImpl" value=""/>
+        <!--为驱动的结果集获取数量（fetchSize）设置一个提示值。此参数只可以在查询设置中被覆盖。 -->
+        <setting name="defaultFetchSize" value="100"/>
+        <!--指定发现自动映射目标未知列（或者未知属性类型）的行为-->
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!--指定 Mybatis 创建具有延迟加载能力的对象所用到的代理工具-->
+        <setting name="proxyFactory" value="JAVASSIST"/>
+        <!--指定一个提供Configuration实例的类-->
+        <setting name="configurationFactory" value=""/>
+
+    </settings>
+    <!-- 别名, entity(实体)的别名 -->
+    <!-- 实体类,简称 -设置别名 -->
+    <!-- 类型名称：为一些类定义别名 -->
+    <typeAliases>
+        <!--
+            通过package, 可以直接指定package的名字， mybatis会自动扫描你指定包下面的javabean,
+            并且默认设置一个别名，默认的名字为： javabean 的首字母小写的非限定类名来作为它的别名。
+            也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user)
+        -->
+        <!--
+        <package name="com.gzz.doo.domain.model"/>
+         -->
+        <!-- 系统权限相关实体 -->
+        <!--
+        <typeAlias type="com.surea.gm.entity.SysUser" alias="SysUser"/>
+        -->
+    </typeAliases>
+    <!-- 类型处理器：定义Java类型与数据库中的数据类型之间的转换关系 -->
+<!--    <typeHandlers>-->
+<!--    </typeHandlers>-->
+    <!-- 对象工厂 -->
+<!--    <objectFactory>-->
+
+<!--    </objectFactory>-->
+    <!--
+    <objectWrapperFactory>
+    </objectWrapperFactory>
+    -->
+    <!-- 插件：mybatis的插件,插件可以修改mybatis的内部运行规则	-->
+    <plugins>
+        <!--  分页拦截器	-->
+		<plugin interceptor="com.gzz.boot.mybatis.PaginationInterceptor">
+			 <property name="DIALECT" value="${jdbc.dialect}" />
+             <property name="SPLIT_PAGE" value=".*ByPage.*" />
+		</plugin>
+        <!-- 自动填写新增修改人、时间拦截器-->
+        <plugin interceptor="com.gzz.boot.mybatis.autofill.AutoFillInterceptor"></plugin>
+        <!-- 数据源选择拦截器-->
+		<plugin interceptor="com.gzz.boot.mybatis.DataSourceInterceptor"></plugin>
+	</plugins>
+
+    <!-- 多环境：配置mybatis的环境 默认开发dev-->
+    <environments default="development">
+        <!-- 开发环境-->
+        <environment id="development">
+            <!-- 事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!-- 数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/doo"/>
+                <property name="username" value="root"/>
+                <property name="password" value="passwd"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 数据库厂商标识 -->
+    <!--
+    <databaseIdProvider></databaseIdProvider>
+     -->
+    <!-- 映射器：指定映射文件或者映射类 -->
+    <!-- 实体接口映射资源 -->
+    <!--
+        说明：如果xxMapper.xml配置文件放在和xxMapper.java统一目录下，mappers也可以省略，
+        因为org.mybatis.spring.mapper.MapperFactoryBean默认会去查找与xxMapper.java相同目录和名称的xxMapper.xml
+    -->
+    <!-- 指定映射器路径,四种注册Mapper的方式,@在Spring-Context.xml中配自动找 -->
+    <!--
+    <mappers>
+        通过package元素将会把指定包下面的所有Mapper接口进行注册
+           <package name="com.viow.doo.dao"/>
+           通过mapper元素的resource属性可以指定一个相对于类路径的Mapper.xml文件
+        <mapper resource="mappers/UserMapper.xml" />
+        通过mapper元素的url属性可以指定一个通过URL请求道的Mapper.xml文件
+        <mapper url="mappers/LoginMapper.xml" />
+        通过mapper元素的class属性可以指定一个Mapper接口进行注册
+        <mapper class="com.viow.doo.dao.IDemoMapper" />
+    </mappers>
+    -->
+</configuration>

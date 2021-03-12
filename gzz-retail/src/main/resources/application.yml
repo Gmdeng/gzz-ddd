@@ -1,0 +1,70 @@
+server:
+  port: 9999
+  servlet: #统一请求头
+    context-path: /api/
+spring:
+  application:
+    name: gzz-ddd
+  profiles:
+    active: dev # 使用测试环境
+  mvc:
+    throw-exception-if-no-handler-found: true #出错时，直接抛出异常
+  resources:
+    add-mappings: false #不建立资源文件映射
+  #数据源
+  datasource:
+    # 配置数据源类型 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      #2.连接池配置
+#      #初始化连接池的连接数量 大小，最小，最大
+#      initial-size: 5
+#      min-idle: 5
+#      max-active: 20
+#      #配置获取连接等待超时的时间
+#      max-wait: 60000
+    ### Druid数据源1 主数据库
+    db-master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+      username: root
+      password: passwd
+    ### Druid数据源2 从数据库
+    db-slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+      username: root
+      password: passwd
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    #password: passwd
+    # 连接超时时间（毫秒）
+    timeout: 10000
+    # 连接池配置，springboot2.0中直接使用jedis或者lettuce配置连接池
+    # Jedis ：直连模式，在多个线程间共享一个 Jedis 实例时是线程不安全的，
+    #        如果想要在多线程环境下使用 Jedis，需要使用连接池，每个线程都去拿自己的 Jedis 实例，当连接数量增多时，物理连接成本较高。
+    # Lettuce：连接是基于Netty的，连接实例可以在多个线程间共享，
+    #         所以，一个多线程的应用可以使用同一个连接实例，而不用担心并发线程的数量。当然这个也是可伸缩的设计，一个连接实例不够的情况也可以按需增加连接实例。
+    #    　　　　　　通过异步的方式可以让我们更好的利用系统资源，而不用浪费线程等待网络或磁盘I/O。
+    Jedis:
+      pool:
+        # 连接池 最大活跃连接数，负数为不限制
+        max-active: 8
+        # 等待可用连接的最大时间，负数为不限制
+        max-wait: -1s
+        # 连接池中的最大空闲连接
+        max-idle: 50
+        # 连接池中的最小空闲连接
+        min-idle: 5
+#Logback配置示
+logging:
+  level:
+    root: info  # root日志以WARN级别输出, 这里设置，logback-spring.xml中配置无效
+  config: classpath:logback-spring.xml # 日志配置文件路径
+#
+mybatis:
+  # config-location: classpath:mybatis.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

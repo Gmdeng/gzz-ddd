@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别从低到高分为TRACE < DEBUG < INFO < WARN < ERROR < FATAL，如果设置为WARN，则低于WARN的信息都不会输出 -->
+<!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true -->
+<!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
+<!-- debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<configuration debug="false" scan="true" scanPeriod="10 seconds">
+    <!-- 读取 spring.application.name 属性来生成日志文件名
+        scope：作用域
+        name：在 logback-spring.xml 使用的键
+        source：application.properties 文件中的键
+        defaultValue：默认值
+     -->
+    <springProperty scope="context" name="LOG_APP_NAME" source="spring.application.name" defaultValue="app"/>
+    <!--设置存储路径变量-->
+    <property name="LOG_HOME" value="/opt/logs"/>
+    <!--设置输出格式-->
+    <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符, %L行号-->
+    <!--
+    【logbck】%blue([requestId:%X{requestId:-syslogId}]) %d{yyyy-MM-dd HH:mm:ss.SSS} %red([%thread]) %5level - %msg%n
+    -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} %L - %msg%n"/>
+    <!--控制台输出appender-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--设置输出格式、编码-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder" >
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--文件输出,时间窗口滚动-->
+    <appender name="infoOutput" class="ch.qos.logback.core.rolling.RollingFileAppender" >
+        <!--日志名,指定最新的文件名，其他文件名使用FileNamePattern -->
+        <File>${LOG_HOME}/timeFile/out.log</File>
+        <!--文件滚动模式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名,可设置文件类型为gz,开启文件压缩-->
+            <FileNamePattern>${LOG_HOME}/timeFile/info.%d{yyyy-MM-dd, UTC}.%i.log.gz</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--按大小分割同一天的-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <!--输出格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %L - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 在默认级别上再此过滤，(只记录INFO), 配置 onMatch，onMismatch 可实现只输出单个级别-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <!--接受匹配-->
+            <onMatch>ACCEPT</onMatch>
+            <!--拒绝不匹配的 DENY-->
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+    </appender>
+
+    <!--Error文件输出,时间窗口滚动-->
+    <appender name="errorOutput" class="ch.qos.logback.core.rolling.RollingFileAppender" >
+        <!--日志名,指定最新的文件名，其他文件名使用FileNamePattern -->
+        <File>${LOG_HOME}/errors/error.log</File>
+        <!--文件滚动模式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名,可设置文件类型为gz,开启文件压缩-->
+            <FileNamePattern>${LOG_HOME}/errors/error.%d{yyyy-MM-dd, UTC}.%i.log.gz</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--按大小分割同一天的-->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <!--输出格式-->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <!--设置编码-->
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- 在默认级别上再此过滤-->
+<!--        LevelFilter： 级别过滤器，根据日志级别进行过滤。如果日志级别等于配置级别，过滤器会根据onMath 和 onMismatch接收或拒绝日志-->
+<!--        ThresholdFilter： 临界值过滤器，过滤掉低于指定临界值的日志。当日志级别等于或高于临界值时，过滤器返回NEUTRAL；当日志级别低于临界值时，日志会被拒绝。-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+<!--            设置过滤级别-->
+            <level>ERROR</level>
+            <!--接受匹配 用于配置符合过滤条件的操作-->
+            <onMatch>ACCEPT</onMatch>
+            <!--拒绝不匹配的 DENY  用于配置不符合过滤条件的操作-->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="sqlOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/sql/sql_log.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出文件名 -->
+            <FileNamePattern>${LOG_HOME}/sql/sql_log.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+
+    <!-- 打印mysql日志  name= 存放mapper的包名; 注意mybatis-plus.configuration.log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+            如果log-impl: org.apache.ibatis.logging.stdout.StdOutImpl ;则只会打印到控制台;不会存放到文件
+        -->
+    <logger name="com.gzz.console.infra.persistence.mapper" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="sqlOutput" />
+    </logger>
+    <!--指定基础的日志输出级别-->
+    <root level="info">
+        <!--appender将会添加到这个loger-->
+        <appender-ref ref="console"/>
+        <appender-ref ref="infoOutput"/>
+        <appender-ref ref="errorOutput"/>
+    </root>
+    <!-- 启动相关的不输出-->
+    <logger name="o.s.b.c.l.ClasspathLoggingApplicationListener" level="ERROR"/>
+    <logger name="o.s.b.factory.support" level="ERROR"/>
+    <!--
+    <logger name="com.gzz.console" level="ERROR" additivity="true">
+        <appender-ref ref="errorOutput"/>
+    </logger>
+    -->
+    <!-- 多环境日志输出 -->
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+<!--    <springProfile name="test,dev">-->
+        <!-- 控制com.example.service下类的打印，使用console打印warn级别日志 -->
+        <!-- 设置addtivity是因为这里已经指定了appender，如果再向上传递就会被root下的appender再次打印 -->
+        <!-- 是否向上级 loger(也就是 root 节点)传递打印信息。默认为 true -->
+<!--        <logger name="com.gzz" level="DEBUG" additivity="false">-->
+<!--            <appender-ref ref="console"/>-->
+<!--        </logger>-->
+<!--        <root level="DEBUG">-->
+<!--            <appender-ref ref="console"/>-->
+<!--            <appender-ref ref="timeFileOutput"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
+    <!-- 生产环境. -->
+<!--    <springProfile name="prod">-->
+<!--        <root level="INFO">-->
+<!--            <appender-ref ref="console"/>-->
+<!--            <appender-ref ref="timeFileOutput"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
+</configuration>

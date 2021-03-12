@@ -1,0 +1,19 @@
+https://blog.csdn.net/csyuyaoxiadn/article/details/56016359
+
+
+https://www.cnblogs.com/NieXiaoHui/p/6100895.html
+
+
+https://gitee.com/wqrzsy/lp-demo/blob/master/lp-shiro-jwt/src/main/java/com/cn/lp/filter/JwtAuthFilter.java
+
+
+
+    CountDownLatch和CyclicBarrier区别：
+    1.countDownLatch是一个计数器，线程完成一个记录一个，计数器递减，只能只用一次
+    2.CyclicBarrier的计数器更像一个阀门，需要所有线程都到达，然后继续执行，计数器递增，提供reset功能，可以多次使用
+https://www.jianshu.com/p/3182121a2c32
+https://baijiahao.baidu.com/s?id=1667358787034051395&wfr=spider&for=pc
+
+https://blog.csdn.net/weixin_37548740/article/details/100576695?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.nonecase
+
+
