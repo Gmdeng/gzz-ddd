@@ -10,5 +10,6 @@ import java.lang.annotation.*;
 @Documented
 public @interface CustomException {
     boolean printError() default false;
+
     int errorLevel() default 0; // 异常级别
 }

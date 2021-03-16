@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/cms/article")
 public class ArticleManApi {
-    public HttpResult man(){
+    public HttpResult man() {
         return null;
     }
 }

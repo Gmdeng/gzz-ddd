@@ -9,11 +9,11 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.service.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class SwaggerConfig {
                 .title("集成JWT API文档")
                 .description("描述")
                 .termsOfServiceUrl("http://www.baidu.com")
-                .contact(new Contact("Ricky Deng","http://www.g-zz.com","hi.gmdeng@gmail.com"))
+                .contact(new Contact("Ricky Deng", "http://www.g-zz.com", "hi.gmdeng@gmail.com"))
                 .version("1.0")
                 .build();
         return apiInfo;

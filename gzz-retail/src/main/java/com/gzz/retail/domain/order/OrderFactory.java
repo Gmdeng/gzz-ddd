@@ -19,9 +19,10 @@ public class OrderFactory {
 
     /**
      * 创建销售订单
+     *
      * @return
      */
-    public SaleOrder buildSaleOrder(){
+    public SaleOrder buildSaleOrder() {
         SaleOrder order = new SaleOrder();
         order.no(idGenerator.generateNo("GM"))
                 .timeOn(new Date())
@@ -31,7 +32,6 @@ public class OrderFactory {
     }
 
     /**
-     *
      * @param m
      * @return
      */

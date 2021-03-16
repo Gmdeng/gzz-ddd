@@ -26,9 +26,10 @@ public class SystemRepo {
 
     /**
      * 模块保存
+     *
      * @param m
      */
-    public void saveModule(Module m){
+    public void saveModule(Module m) {
         //ZModule zModule = BeanUtil.deepCopy(m, ZModule.class);
 
         ZModule zModule = new ZModule();
@@ -38,20 +39,19 @@ public class SystemRepo {
         zModule.setUpdateBy("Testing");
         // zModule.setCreateOn(new Date());
         zModule.setCreateBy("Testing");
-        if(zModule.getId() == null){
+        if (zModule.getId() == null) {
             moduleMapper.insert(zModule);
-        }else{
+        } else {
             moduleMapper.update(zModule);
         }
     }
 
     /**
-     *
      * @param moduleId
      * @return
      */
-    public Module getModuleById(Long moduleId){
-        ZModule zModule =  moduleMapper.getById(moduleId);
+    public Module getModuleById(Long moduleId) {
+        ZModule zModule = moduleMapper.getById(moduleId);
         Module m = new Module();
         BeanUtils.copyProperties(zModule, m);
         zModule.setUrl("wss://g-zz.com");
@@ -60,10 +60,9 @@ public class SystemRepo {
     }
 
     /**
-     *
      * @return
      */
-    public List<Module> getModuleList(ParamMap param){
-        return  moduleMapper.findList(param);
+    public List<Module> getModuleList(ParamMap param) {
+        return moduleMapper.findList(param);
     }
 }

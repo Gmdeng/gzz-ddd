@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *  Redis 缓存配置
+ * Redis 缓存配置
  */
 @Slf4j
 @Configuration
@@ -59,10 +59,10 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
             sb.append(target.getClass().getName());
             sb.append("::");
             sb.append(method.getName());
-            for (Object obj: params) {
-                sb.append(":"+ String.valueOf(obj));
+            for (Object obj : params) {
+                sb.append(":" + String.valueOf(obj));
             }
-            String rsToUse =sb.toString();
+            String rsToUse = sb.toString();
             log.info("Generator auto Key -->{}", rsToUse);
             return rsToUse;
         });
@@ -70,6 +70,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 
     /**
      * json序列化
+     *
      * @return
      */
     @Bean
@@ -84,14 +85,16 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会跑出异常
         // mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         // 上面的过时，替代方法
-        mapper.activateDefaultTyping( LaissezFaireSubTypeValidator.instance ,
+        mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
                 ObjectMapper.DefaultTyping.NON_FINAL,
                 JsonTypeInfo.As.WRAPPER_ARRAY);
         serializer.setObjectMapper(mapper);
         return serializer;
     }
+
     /**
-     *配置缓存管理器
+     * 配置缓存管理器
+     *
      * @param connectionFactory
      * @return
      */
@@ -215,26 +218,27 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 
     /**
      * 异常处理，当Redis 发生异常时，打印日志，但是程序正常走
+     *
      * @return
      */
     @Bean
-    public CacheErrorHandler errorHandler(){
-        return new CacheErrorHandler(){
+    public CacheErrorHandler errorHandler() {
+        return new CacheErrorHandler() {
             // logger.info("初始化 -> [{}]", "Redis CacheErrorHandler");
             @Override
             public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
-                log.error("Redis occur handleCacheGetError: key -> [{}]",key, exception);
+                log.error("Redis occur handleCacheGetError: key -> [{}]", key, exception);
             }
 
             @Override
             public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
-                log.error("Redis occur handleCachePutError: key -> [{}]; value -> [{}]",key,value, exception);
+                log.error("Redis occur handleCachePutError: key -> [{}]; value -> [{}]", key, value, exception);
 
             }
 
             @Override
             public void handleCacheEvictError(RuntimeException exception, Cache cache, Object key) {
-                log.error("Redis occur handleCacheEvictError: key -> [{}]",key, exception);
+                log.error("Redis occur handleCacheEvictError: key -> [{}]", key, exception);
             }
 
             @Override

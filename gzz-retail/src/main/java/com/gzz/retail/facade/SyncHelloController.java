@@ -18,16 +18,17 @@ public class SyncHelloController {
 
     /**
      * 异步方法
+     *
      * @return
      */
     @RequestMapping("/asyn1")
-    public String getAsynHello(){
+    public String getAsynHello() {
         long n = Instant.now().toEpochMilli();
         //异步
         String s = helloService.asynchSayHello();
 
         long f = Instant.now().toEpochMilli();
-        return s + " 时间: " + (f-n);
+        return s + " 时间: " + (f - n);
 
     }
 
@@ -36,14 +37,14 @@ public class SyncHelloController {
      * * @return
      */
     @RequestMapping("/sync1")
-    public String getSyncHello(){
+    public String getSyncHello() {
 
         long n = Instant.now().toEpochMilli();
         //异步
         String s = helloService.synchSayHello();
 
         long f = Instant.now().toEpochMilli();
-        return s + " 时间: " + (f-n);
+        return s + " 时间: " + (f - n);
     }
 
     /**
@@ -52,11 +53,11 @@ public class SyncHelloController {
      * * @return
      */
     @RequestMapping("/thread/asyn")
-    public String getThreadSyncHello(){
+    public String getThreadSyncHello() {
         long n = Instant.now().toEpochMilli();
         //异步
         String s = helloService.threadAsynchSayHello();
         long f = Instant.now().toEpochMilli();
-        return s + " 时间: " + (f-n);
+        return s + " 时间: " + (f - n);
     }
 }

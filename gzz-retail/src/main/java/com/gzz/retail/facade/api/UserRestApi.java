@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(value="用户API",tags={"用户操作接口"})
+@Api(value = "用户API", tags = {"用户操作接口"})
 @RestController
 @RequestMapping("/user")
 public class UserRestApi {

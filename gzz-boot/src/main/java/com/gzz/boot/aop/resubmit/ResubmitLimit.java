@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 public @interface ResubmitLimit {
     /**
      * 延时时间 在延时多久后可以再次提交
+     *
      * @return Time unit is  one second
      */
     int delaySeconds() default 20;

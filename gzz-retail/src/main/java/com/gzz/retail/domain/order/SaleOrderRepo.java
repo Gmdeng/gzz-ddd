@@ -15,11 +15,11 @@ public class SaleOrderRepo {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    public void makeOrder(){
+    public void makeOrder() {
         /**
          *  Redis事务
          */
-       List<Object> txResults = redisTemplate.execute(new SessionCallback<List<Object>>() {
+        List<Object> txResults = redisTemplate.execute(new SessionCallback<List<Object>>() {
             public List<Object> execute(RedisOperations operations) throws DataAccessException {
                 operations.multi();
                 operations.opsForSet().add("key", "value1");
@@ -30,7 +30,7 @@ public class SaleOrderRepo {
 //                operations.unwatch(); //不加key : 取消所有 watch 监听
                 return operations.exec();
             }
-       });
+        });
 
     }
 }

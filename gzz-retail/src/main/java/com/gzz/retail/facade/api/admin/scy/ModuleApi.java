@@ -31,16 +31,17 @@ public class ModuleApi {
 
     /**
      * 保存数据
+     *
      * @return
      */
     @PostMapping("/saveData")
-    public HttpResult saveData(ModuleParam param){
+    public HttpResult saveData(ModuleParam param) {
         ValidationResult err = ValidationUtils.validate(param);
         if (err.isHasError()) {
             return HttpResult.fail().data(err.getErrors());
         }
-        Consumer<Integer> consumer = x->{
-            int a= x+2;
+        Consumer<Integer> consumer = x -> {
+            int a = x + 2;
             System.out.println(a);
             System.out.println(a + "_");
         };
@@ -50,20 +51,24 @@ public class ModuleApi {
 
     /**
      * 审核数据
+     *
      * @return
      */
-    public HttpResult authData(){
+    public HttpResult authData() {
         return HttpResult.success();
     }
+
     /**
-     *  数据列表
+     * 数据列表
+     *
      * @return
      */
     @GetMapping("/getList")
     public HttpResult getList() {
         ParamMap params = new ParamMap();
-        List<ZModule> dataList  =  izModuleMapper.findList(params);
-        List<ModuleVo> lists  =BeanConvertUtil.convertList(ZModule.class, ModuleVo.class, dataList, (s, t) -> {});
+        List<ZModule> dataList = izModuleMapper.findList(params);
+        List<ModuleVo> lists = BeanConvertUtil.convertList(ZModule.class, ModuleVo.class, dataList, (s, t) -> {
+        });
         ModuleVo zeroNode = new ModuleVo();
         zeroNode.setId(0L);
         return HttpResult.success(toTreeNode(zeroNode, lists));
@@ -72,14 +77,15 @@ public class ModuleApi {
 
     /**
      * 剃归 目录节点树
-     * @param node 上级节点
+     *
+     * @param node   上级节点
      * @param source 源列表
      * @return
      */
-    private List<ModuleVo> toTreeNode(ModuleVo node, List<ModuleVo> source){
+    private List<ModuleVo> toTreeNode(ModuleVo node, List<ModuleVo> source) {
         return source.stream()
-                .filter(it-> it.getParentId()== node.getId())
-                .map(m->{
+                .filter(it -> it.getParentId() == node.getId())
+                .map(m -> {
                     m.setChildren(toTreeNode(m, source));
                     return m;
                 }).collect(Collectors.toList());

@@ -18,15 +18,27 @@ public class PBrandSqlProvider {
 
     // 选择性新增SQL
     public String insertSelective(PBrand pBrand) {
-        return new SQL(){
+        return new SQL() {
             {
                 INSERT_INTO("p_brand");
-                if (pBrand.getId() != null) {VALUES("id", "#{id}");}
-                if (pBrand.getCnName() != null) {VALUES("cn_name", "#{cnName}");}
-                if (pBrand.getEnName() != null) {VALUES("en_name", "#{enName}");}
-                if (pBrand.getLogo() != null) {VALUES("logo", "#{logo}");}
-                if (pBrand.getWebsite() != null) {VALUES("website", "#{website}");}
-                if (pBrand.getStroy() != null) {VALUES("stroy", "#{stroy}");}
+                if (pBrand.getId() != null) {
+                    VALUES("id", "#{id}");
+                }
+                if (pBrand.getCnName() != null) {
+                    VALUES("cn_name", "#{cnName}");
+                }
+                if (pBrand.getEnName() != null) {
+                    VALUES("en_name", "#{enName}");
+                }
+                if (pBrand.getLogo() != null) {
+                    VALUES("logo", "#{logo}");
+                }
+                if (pBrand.getWebsite() != null) {
+                    VALUES("website", "#{website}");
+                }
+                if (pBrand.getStroy() != null) {
+                    VALUES("stroy", "#{stroy}");
+                }
             }
         }.toString();
     }
@@ -37,22 +49,33 @@ public class PBrandSqlProvider {
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].cnName}, #'{'list[{0}].enName}, #'{'list[{0}].logo}, #'{'list[{0}].website}, #'{'list[{0}].stroy})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            rows.add(mf.format(new Object[] { i }));
+            rows.add(mf.format(new Object[]{i}));
         }
         return "INSERT INTO p_brand (id, cn_name, en_name, logo, website, stroy) VALUES "
-        + String.join(", ", rows);
+                + String.join(", ", rows);
 
     }
+
     // 选择性更新SQL
     public String update(PBrand pBrand) {
         return new SQL() {
             {
                 UPDATE("p_brand");
-                if (pBrand.getCnName() != null) {SET("cn_name=#{cnName}");}
-                if (pBrand.getEnName() != null) {SET("en_name=#{enName}");}
-                if (pBrand.getLogo() != null) {SET("logo=#{logo}");}
-                if (pBrand.getWebsite() != null) {SET("website=#{website}");}
-                if (pBrand.getStroy() != null) {SET("stroy=#{stroy}");}
+                if (pBrand.getCnName() != null) {
+                    SET("cn_name=#{cnName}");
+                }
+                if (pBrand.getEnName() != null) {
+                    SET("en_name=#{enName}");
+                }
+                if (pBrand.getLogo() != null) {
+                    SET("logo=#{logo}");
+                }
+                if (pBrand.getWebsite() != null) {
+                    SET("website=#{website}");
+                }
+                if (pBrand.getStroy() != null) {
+                    SET("stroy=#{stroy}");
+                }
                 WHERE("id=#{id}");
             }
         }.toString();
@@ -64,7 +87,7 @@ public class PBrandSqlProvider {
             {
                 SELECT("*");
                 FROM("p_brand");
-                if(param.get("name") !=null ) WHERE("name like CONCAT('%',#{param.name},'%')");
+                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
             }
         }.toString();
     }
@@ -75,7 +98,7 @@ public class PBrandSqlProvider {
             {
                 SELECT("*");
                 FROM("p_brand");
-                if(param.get("name") !=null ) WHERE("name like CONCAT('%',#{param.name},'%')");
+                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
 
             }
         }.toString();

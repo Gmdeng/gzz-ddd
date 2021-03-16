@@ -2,7 +2,7 @@ package com.gzz.boot.mybatis.query;
 
 import java.util.List;
 
-public  class Criterion {
+public class Criterion {
     private String condition;
     private Object value;
     private Object secondValue;
@@ -11,6 +11,7 @@ public  class Criterion {
     private boolean betweenValue;
     private boolean listValue;
     private String typeHandler;
+
     protected Criterion(String condition) {
         super();
         this.condition = condition;

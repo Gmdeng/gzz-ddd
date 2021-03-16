@@ -9,9 +9,10 @@ import java.sql.SQLException;
 /**
  * 用于启动H2数据库服务的监听器，在应用系统初始化时就启动H2数据库的服务
  */
-public class H2DBServerStartListener  implements ServletContextListener {
+public class H2DBServerStartListener implements ServletContextListener {
     //H2数据库服务器启动实例
     private Server server;
+
     /*
      * Web应用初始化时启动H2数据库
      */

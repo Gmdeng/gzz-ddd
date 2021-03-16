@@ -31,7 +31,6 @@ import java.util.Properties;
  * MyBatis 物理分页拦截器
  *
  * @author Gm
- *
  */
 @Slf4j
 @Intercepts({
@@ -43,7 +42,7 @@ import java.util.Properties;
                 // 接口类型中的方法
                 method = "prepare",
                 // 接口类型中的方法的参数。
-                args = { Connection.class, Integer.class }) })
+                args = {Connection.class, Integer.class})})
 public class PaginationInterceptor implements Interceptor {
     private final static ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private final static ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
@@ -59,8 +58,8 @@ public class PaginationInterceptor implements Interceptor {
 
         // 获取statementHandler包装类
         MetaObject metaStatementHandler = SystemMetaObject.forObject(statementHandler);
-		// MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY,
-		//		DEFAULT_OBJECT_WRAPPER_FACTORY, DEFAULT_REFLECTOR_FACTORY);
+        // MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY,
+        //		DEFAULT_OBJECT_WRAPPER_FACTORY, DEFAULT_REFLECTOR_FACTORY);
 
         // 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
         while (metaStatementHandler.hasGetter("h")) {
@@ -95,8 +94,8 @@ public class PaginationInterceptor implements Interceptor {
             String sqlQuery = boundSql.getSql();
             /* ============================================================= */
             // 获取进行数据库操作管理参数的handler , 获取请求时的参数MAP
-			// ParameterHandler parameterHandler = (ParameterHandler) metaStatementHandler.getValue("delegate.parameterHandler");
-			// Object param = parameterHandler.getParameterObject();
+            // ParameterHandler parameterHandler = (ParameterHandler) metaStatementHandler.getValue("delegate.parameterHandler");
+            // Object param = parameterHandler.getParameterObject();
             Object params = boundSql.getParameterObject();
             // 获取参数MATEOBJECT
             // MetaObject metaObject = SystemMetaObject.forObject(params);

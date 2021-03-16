@@ -20,11 +20,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Properties;
+
 @Intercepts({
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
-        ,@Signature(type = ParameterHandler.class, method = "setParameter", args = {PreparedStatement.class})
-        ,@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
-        ,@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
+        , @Signature(type = ParameterHandler.class, method = "setParameter", args = {PreparedStatement.class})
+        , @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
+        , @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})
 })
 public class DemoInterceptor implements Interceptor {
     @Override
@@ -57,7 +58,7 @@ public class DemoInterceptor implements Interceptor {
         //这里我们简单的通过传入的是Page对象就认定它是需要进行分页操作的。
 
         //通过反射获取delegate父类BaseStatementHandler的mappedStatement属性
-        MappedStatement mappedStatement = (MappedStatement)ReflectUtils.getFieldValue(delegate, "mappedStatement");
+        MappedStatement mappedStatement = (MappedStatement) ReflectUtils.getFieldValue(delegate, "mappedStatement");
         return null;
     }
 

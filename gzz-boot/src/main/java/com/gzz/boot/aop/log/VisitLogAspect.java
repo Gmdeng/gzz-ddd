@@ -2,12 +2,11 @@ package com.gzz.boot.aop.log;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Strings;
-
-import com.gzz.core.util.AopUtil;
 import com.gzz.core.exception.BizzException;
 import com.gzz.core.request.BaseRequest;
 import com.gzz.core.request.Operator;
 import com.gzz.core.request.Request;
+import com.gzz.core.util.AopUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
@@ -34,18 +32,17 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class VisitLogAspect {
     private static final Logger logger = LoggerFactory.getLogger("PARAM");
     private static final int SLOW_QUERY = 100;
-    private Set<Integer> globalWarnCode = new HashSet<>();
-    private ConcurrentMap<String, CopyOnWriteArraySet<Integer>> methodWarnCode = new ConcurrentHashMap<>();
-    private Map<String, Collection<Integer>> partErrorCode = new HashMap<>();
-
-
     /**
      * method 和 class 都可以被切面到，如果一个类已经被 类处理过了 那么切面不在处理。
      */
     private static final ThreadLocal<Map<String, Local>> processMethod = ThreadLocal.withInitial(HashMap::new);
+    private Set<Integer> globalWarnCode = new HashSet<>();
+    private ConcurrentMap<String, CopyOnWriteArraySet<Integer>> methodWarnCode = new ConcurrentHashMap<>();
+    private Map<String, Collection<Integer>> partErrorCode = new HashMap<>();
 
     /**
      * 方法切口
+     *
      * @param pjp
      * @return
      * @throws Throwable
@@ -57,6 +54,7 @@ public class VisitLogAspect {
 
     /**
      * 类切口
+     *
      * @param pjp
      * @return
      * @throws Throwable
@@ -68,6 +66,7 @@ public class VisitLogAspect {
 
     /**
      * 执行切面的处理
+     *
      * @param pjp
      * @return
      * @throws Throwable
@@ -137,7 +136,7 @@ public class VisitLogAspect {
                         if (Strings.isNullOrEmpty(userAgent) && Strings.isNullOrEmpty(((Request) arg).getSource())) {
                             return;
                         }
-                        request.setSource(Strings.isNullOrEmpty(request.getSource())? userAgent : request.getSource());
+                        request.setSource(Strings.isNullOrEmpty(request.getSource()) ? userAgent : request.getSource());
                     }
                 }
                 break;
@@ -190,7 +189,7 @@ public class VisitLogAspect {
     }
 
     private Map<String, Object> initParam(String methodName, Object[] args, Exception e, long execTime) {
-        Map<String, Object> param =new HashMap<>();
+        Map<String, Object> param = new HashMap<>();
         param.put("execTime", execTime);
         if (isSlowRequest(execTime)) {
             param.put("slowQuery", true);
@@ -227,6 +226,7 @@ public class VisitLogAspect {
 
     /**
      * 打印日志
+     *
      * @param methodName
      * @param e
      * @param str
@@ -262,6 +262,7 @@ public class VisitLogAspect {
 
     /**
      * 打印业务异常信息
+     *
      * @param ex
      * @param exceptionInfo
      * @param str
@@ -293,6 +294,7 @@ public class VisitLogAspect {
 
     /**
      * 格式化响应内容
+     *
      * @param annotation
      * @param param
      * @return
@@ -304,6 +306,7 @@ public class VisitLogAspect {
 
     /**
      * 处理参数
+     *
      * @param methodName
      * @param args
      * @return
@@ -314,6 +317,7 @@ public class VisitLogAspect {
 
     /**
      * 格式化异常信息
+     *
      * @param e
      * @return
      */
@@ -330,6 +334,7 @@ public class VisitLogAspect {
 
     /**
      * 获取异常信息
+     *
      * @param e
      * @return
      */
@@ -346,6 +351,7 @@ public class VisitLogAspect {
 
     /**
      * 获取异常编码
+     *
      * @param e
      * @return
      */

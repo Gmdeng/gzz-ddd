@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class RequestUtils {
     /**
-     *
      * @param request
      * @return
      */
@@ -26,15 +25,15 @@ public class RequestUtils {
             entry = (Map.Entry) entries.next();
             name = (String) entry.getKey();
             Object valueObj = entry.getValue();
-            if(null == valueObj){
+            if (null == valueObj) {
                 value = "";
-            }else if(valueObj instanceof String[]){
-                String[] values = (String[])valueObj;
-                for(int i=0;i<values.length;i++){
+            } else if (valueObj instanceof String[]) {
+                String[] values = (String[]) valueObj;
+                for (int i = 0; i < values.length; i++) {
                     value = values[i] + ",";
                 }
-                value = value.substring(0, value.length()-1);
-            }else{
+                value = value.substring(0, value.length() - 1);
+            } else {
                 value = valueObj.toString();
             }
             returnMap.put(name, value);

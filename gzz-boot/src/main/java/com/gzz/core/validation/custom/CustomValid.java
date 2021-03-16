@@ -17,21 +17,23 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- *  自定定义验证
+ * 自定定义验证
  */
 
-@Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = CustomValid.Validator.class)
 @Documented
 public @interface CustomValid {
     Class<? extends CustomValidator>[] value();
+
     String message() default "字段不符合条件约束";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
     /**
@@ -58,26 +60,26 @@ public @interface CustomValid {
         public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
             try {
                 StringBuilder sb = new StringBuilder();
-                checkerClasses.forEach(c->{
+                checkerClasses.forEach(c -> {
                     CustomValidator checker = allCheckers.get(c);
-                    if(checker!=null){
+                    if (checker != null) {
                         try {
                             checker.check(object);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             sb.append(e.getMessage()).append(" ");
                         }
                     }
                 });
-                if(sb.length() > 0) {
+                if (sb.length() > 0) {
                     constraintValidatorContext.disableDefaultConstraintViolation();
                     constraintValidatorContext
                             .buildConstraintViolationWithTemplate(sb.toString())
                             .addConstraintViolation();
                     return false;
-                }else{
+                } else {
                     return true;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.warn("", e);
                 return false;
             }

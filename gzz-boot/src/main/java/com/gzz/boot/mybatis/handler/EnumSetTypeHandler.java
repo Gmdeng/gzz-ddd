@@ -35,7 +35,7 @@ public class EnumSetTypeHandler<E extends Enum<E>> extends BaseTypeHandler<Set<E
         for (E p : parameter) {
             value += p.ordinal();
         }
-        ps.setInt(i , value);
+        ps.setInt(i, value);
     }
 
     @Override
@@ -67,10 +67,10 @@ public class EnumSetTypeHandler<E extends Enum<E>> extends BaseTypeHandler<Set<E
 
     private Set<E> toOrdinalEnum(int ordinal) {
         try {
-           // return enums[ordinal];
+            // return enums[ordinal];
             Set<E> sets = new HashSet<>();
             for (E p : enums) {
-                if((ordinal & p.ordinal()) ==  p.ordinal())
+                if ((ordinal & p.ordinal()) == p.ordinal())
                     sets.add(p);
             }
             return sets;

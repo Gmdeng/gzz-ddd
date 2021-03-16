@@ -83,7 +83,6 @@ public class AuthRestApi {
     }
 
     /**
-     *
      * @return
      */
     @GetMapping("/getTRedisTest")

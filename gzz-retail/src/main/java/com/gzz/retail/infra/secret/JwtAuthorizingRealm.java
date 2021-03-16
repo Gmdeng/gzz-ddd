@@ -2,9 +2,9 @@ package com.gzz.retail.infra.secret;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.gzz.boot.shiro.jwt.JwtSecretUser;
 import com.gzz.boot.shiro.jwt.JwtToken;
 import com.gzz.boot.shiro.jwt.JwtUtil;
-import com.gzz.boot.shiro.jwt.JwtSecretUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +25,7 @@ public class JwtAuthorizingRealm extends AuthorizingRealm {
 
     /**
      * 必须重写此方法，不然Shiro会报错
+     *
      * @param token
      * @return
      */
@@ -34,11 +35,11 @@ public class JwtAuthorizingRealm extends AuthorizingRealm {
     }
 
     /**
-     *  shiro 身份验证
-     * @param token
-     * @return  boolean
-     * @throws AuthenticationException 抛出的异常将有统一的异常处理返回给前端
+     * shiro 身份验证
      *
+     * @param token
+     * @return boolean
+     * @throws AuthenticationException 抛出的异常将有统一的异常处理返回给前端
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -71,9 +72,9 @@ public class JwtAuthorizingRealm extends AuthorizingRealm {
             String password = (String) claims.get("password");
             JwtSecretUser principal = null; // 从数据库获取
             return new SimpleAuthenticationInfo(username, password, getName());
-        }catch (ExpiredJwtException e) {
+        } catch (ExpiredJwtException e) {
             throw new ExpiredCredentialsException("TOKE过期");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.error(ex.getMessage());
         }
         return null;
@@ -81,6 +82,7 @@ public class JwtAuthorizingRealm extends AuthorizingRealm {
 
     /**
      * 角色、权限认证
+     *
      * @param principals
      * @return
      */
@@ -113,7 +115,7 @@ public class JwtAuthorizingRealm extends AuthorizingRealm {
             }
             info = new SimpleAuthorizationInfo();
             info.setStringPermissions(rolesSet);   // 放入权限信息
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new AuthenticationException("授权失败!");
         }
         return info;

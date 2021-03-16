@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 使用异步时启用线程池
+ *
  * @Async
  */
 @EnableAsync
@@ -19,7 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class AsyncConfig implements AsyncConfigurer {
     @Override
     public Executor getAsyncExecutor() {
-        
+
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 这一步千万不能忘了，否则报错： java.lang.IllegalStateException: ThreadPoolTaskExecutor not initialized
         // 而且最好放在最上面  否则下面set方法对Executor都不会生效

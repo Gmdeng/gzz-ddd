@@ -7,7 +7,9 @@ import java.util.HashMap;
  */
 public class JwtSecretUser extends HashMap<String, Object> {
 
-    public JwtSecretUser() { }
+    public JwtSecretUser() {
+    }
+
     public JwtSecretUser(String userName, String passwd) {
         put("userName", userName);
         put("passwd", passwd);
@@ -18,7 +20,7 @@ public class JwtSecretUser extends HashMap<String, Object> {
     }
 
     public void setUID(String uid) {
-        put("uid",  uid);
+        put("uid", uid);
     }
 
     public String getUserName() {
@@ -26,7 +28,7 @@ public class JwtSecretUser extends HashMap<String, Object> {
     }
 
     public void setUserName(String userName) {
-        put("userName",  userName);
+        put("userName", userName);
     }
 
     public String getPasswd() {

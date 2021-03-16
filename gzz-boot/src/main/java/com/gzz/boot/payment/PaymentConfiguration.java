@@ -17,19 +17,21 @@ public class PaymentConfiguration {
 
     /**
      * 微信
+     *
      * @return
      */
     @Bean
-    public WxPayProcessor wxPaymentProcessor(){
-        return  new WxPayProcessor();
+    public WxPayProcessor wxPaymentProcessor() {
+        return new WxPayProcessor();
     }
 
     /**
      * 支付宝
+     *
      * @return
      */
     @Bean
-    public AliPayProcessor aliPayProcessor(){
+    public AliPayProcessor aliPayProcessor() {
         return new AliPayProcessor();
     }
 }

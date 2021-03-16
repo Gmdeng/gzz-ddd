@@ -47,9 +47,10 @@ public class Account {
 
     /**
      * 存入
+     *
      * @param amount 金额
      */
-    public void deposit(BigDecimal amount){
+    public void deposit(BigDecimal amount) {
 
     }
 
@@ -73,7 +74,6 @@ public class Account {
     }
 
 
-
     /**
      * 冻结金额
      *
@@ -94,7 +94,6 @@ public class Account {
 
     /**
      * 冻结账户
-     *
      */
     public void doLock() {
 
@@ -102,7 +101,6 @@ public class Account {
 
     /**
      * 解冻账户
-     *
      */
     public void doUnLock() {
 

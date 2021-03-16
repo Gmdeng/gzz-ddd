@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentApi {
 
     /**
-     *  评论列表
+     * 评论列表
+     *
      * @return
      */
     @PostMapping("/list")
@@ -22,7 +23,8 @@ public class CommentApi {
     }
 
     /**
-     *  增加评论
+     * 增加评论
+     *
      * @return
      */
     @PostMapping("/add")
@@ -31,7 +33,8 @@ public class CommentApi {
     }
 
     /**
-     *  删除评论
+     * 删除评论
+     *
      * @return
      */
     @PostMapping("/remove")

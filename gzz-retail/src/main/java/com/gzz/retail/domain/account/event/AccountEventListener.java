@@ -10,7 +10,6 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 /**
  * 观察者模式
- *
  */
 @Component
 @Slf4j
@@ -18,22 +17,23 @@ public class AccountEventListener {
 
     /**
      * 实现事务监控
+     *
      * @param event
      */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void changeItemSales(AccountChangeEvent event){
+    public void changeItemSales(AccountChangeEvent event) {
         log.info("");
-        log.info("changeItemSales" + event.getOrigin()+" | " + event.getTarget());
+        log.info("changeItemSales" + event.getOrigin() + " | " + event.getTarget());
     }
 
     @EventListener
-    public void changeSkuSellCount(AccountUpdateEvent event){
-        log.info("changeSkuSellCount" +event.getOrigin()+" | " + event.getTarget() +" | " +event.getEventVersion() +" | "+ event.getOccurredOn());
+    public void changeSkuSellCount(AccountUpdateEvent event) {
+        log.info("changeSkuSellCount" + event.getOrigin() + " | " + event.getTarget() + " | " + event.getEventVersion() + " | " + event.getOccurredOn());
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
             @Override
             public void afterCommit() {
-               //
-               log.info("afterCommit...........................");
+                //
+                log.info("afterCommit...........................");
             }
         });
     }

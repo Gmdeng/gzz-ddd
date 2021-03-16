@@ -33,16 +33,15 @@ public class SystemApp {
         systemRepo.saveModule(module);
     }
 
-    public Module getModule(Long moduleId){
-        return  systemRepo.getModuleById(moduleId);
+    public Module getModule(Long moduleId) {
+        return systemRepo.getModuleById(moduleId);
     }
 
     /**
-     *
      * @return
      */
-    public List<Module> getModuleList(ParamMap param){
+    public List<Module> getModuleList(ParamMap param) {
 
-        return  systemRepo.getModuleList(param);
+        return systemRepo.getModuleList(param);
     }
 }

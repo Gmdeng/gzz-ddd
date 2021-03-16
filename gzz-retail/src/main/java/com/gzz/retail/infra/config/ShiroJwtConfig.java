@@ -50,14 +50,14 @@ public class ShiroJwtConfig {
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/swagger-resources/**", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
-        filterChainDefinitionMap.put("/favicon.ico","anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
         // 测试开放
         filterChainDefinitionMap.put("/auth/**", "anon");
-        filterChainDefinitionMap.put("/account/**","anon");
-        filterChainDefinitionMap.put("/servlet/**","anon");
-        filterChainDefinitionMap.put("/demo/**","anon");
+        filterChainDefinitionMap.put("/account/**", "anon");
+        filterChainDefinitionMap.put("/servlet/**", "anon");
+        filterChainDefinitionMap.put("/demo/**", "anon");
         // 业务开放权限
-        filterChainDefinitionMap.put("/admin/**","anon");
+        filterChainDefinitionMap.put("/admin/**", "anon");
 
         // 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
         filterChainDefinitionMap.put("/**", "jwt");
@@ -96,6 +96,7 @@ public class ShiroJwtConfig {
 
     /**
      * 密码验证器+ 重试限制
+     *
      * @return
      */
     @Bean
@@ -103,6 +104,7 @@ public class ShiroJwtConfig {
         JwtCredentialsMatcher jwtCredentialsMatcher = new JwtCredentialsMatcher();
         return jwtCredentialsMatcher;
     }
+
     /**
      * 创建自定义的UserRealm @bean
      */

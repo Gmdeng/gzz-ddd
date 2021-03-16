@@ -64,11 +64,11 @@ public class XmlUtil {
      */
     public static String mapToXml(Map<String, String> data) throws Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder= documentBuilderFactory.newDocumentBuilder();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         org.w3c.dom.Document document = documentBuilder.newDocument();
         org.w3c.dom.Element root = document.createElement("xml");
         document.appendChild(root);
-        for (String key: data.keySet()) {
+        for (String key : data.keySet()) {
             String value = data.get(key);
             if (value == null) {
                 value = "";
@@ -89,8 +89,7 @@ public class XmlUtil {
         String output = writer.getBuffer().toString(); //.replaceAll("\n|\r", "");
         try {
             writer.close();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
         }
         return output;
     }

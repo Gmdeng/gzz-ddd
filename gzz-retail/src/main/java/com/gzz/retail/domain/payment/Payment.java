@@ -1,6 +1,5 @@
 package com.gzz.retail.domain.payment;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;

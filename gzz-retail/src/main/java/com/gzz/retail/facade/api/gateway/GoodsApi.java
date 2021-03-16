@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoodsApi {
     /**
      * 商品分类 列表
+     *
      * @return
      */
     @GetMapping("/catalogs")
@@ -22,6 +23,7 @@ public class GoodsApi {
 
     /**
      * 商品列表
+     *
      * @return
      */
     @GetMapping("/lists")
@@ -31,6 +33,7 @@ public class GoodsApi {
 
     /**
      * 商品明细
+     *
      * @return
      */
     @GetMapping("/detail")
@@ -40,6 +43,7 @@ public class GoodsApi {
 
     /**
      * 商品可用库存
+     *
      * @return
      */
     @GetMapping("/stock")
@@ -50,6 +54,7 @@ public class GoodsApi {
 
     /**
      * 商品skus
+     *
      * @return
      */
     @GetMapping("/skus")

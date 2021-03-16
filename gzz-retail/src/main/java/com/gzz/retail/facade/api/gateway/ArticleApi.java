@@ -7,21 +7,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  文章 /资讯 information
+ * 文章 /资讯 information
  */
 @RestController
 @RequestMapping("/gateway/article")
 public class ArticleApi {
     /**
      * 文章分类
+     *
      * @return
      */
     @GetMapping("/catalogs")
     public HttpResult getCatalogs() {
         return HttpResult.fail("时间" + System.currentTimeMillis());
     }
+
     /**
-     *  文章列表
+     * 文章列表
+     *
      * @return
      */
     @PostMapping("/list")
@@ -30,7 +33,8 @@ public class ArticleApi {
     }
 
     /**
-     *  文章详细
+     * 文章详细
+     *
      * @return
      */
     @PostMapping("/info")
@@ -39,7 +43,8 @@ public class ArticleApi {
     }
 
     /**
-     *  单页文章 Single
+     * 单页文章 Single
+     *
      * @return
      */
     @PostMapping("/page")

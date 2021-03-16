@@ -14,12 +14,7 @@ import java.util.stream.Collectors;
  */
 public class DomainRegistry implements ApplicationContextAware {
     private static ApplicationContext applicationContext;
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if (DomainRegistry.applicationContext == null) {
-            DomainRegistry.applicationContext = applicationContext;
-        }
-    }
+
     public static <T> T bean(Class<T> clazz) {
         if (applicationContext == null) {
             throw new RuntimeException("bean.not.exist");
@@ -41,6 +36,7 @@ public class DomainRegistry implements ApplicationContextAware {
         }
         return result;
     }
+
     public static <T> Map<String, T> getBeanMapOfType(Class<T> clazz) {
         Map<String, T> map = applicationContext.getBeansOfType(clazz);
         return map;
@@ -68,11 +64,9 @@ public class DomainRegistry implements ApplicationContextAware {
         return bean(clazz);
     }
 
-
     public static <T> T repo(Class<T> clazz) {
         return bean(clazz);
     }
-
 
     public static <T> List<T> allBeans(Class<T> clazz) {
         if (applicationContext == null) {
@@ -97,6 +91,13 @@ public class DomainRegistry implements ApplicationContextAware {
             throw new RuntimeException("bean.not.exist");
         }
         return beans;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        if (DomainRegistry.applicationContext == null) {
+            DomainRegistry.applicationContext = applicationContext;
+        }
     }
 
 

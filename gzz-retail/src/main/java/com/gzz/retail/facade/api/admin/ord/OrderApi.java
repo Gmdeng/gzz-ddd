@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  订单
+ * 订单
  */
 
 @RestController
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderApi {
 
     /**
-     *  下订单
+     * 下订单
+     *
      * @return
      */
     @PostMapping("/make")
@@ -23,7 +24,8 @@ public class OrderApi {
     }
 
     /**
-     *  提交订单
+     * 提交订单
+     *
      * @return
      */
     @PostMapping("/submit")
@@ -32,7 +34,8 @@ public class OrderApi {
     }
 
     /**
-     *  取消订单
+     * 取消订单
+     *
      * @return
      */
     @PostMapping("/cancel")
@@ -42,6 +45,7 @@ public class OrderApi {
 
     /**
      * 订单确认收货(recepet)
+     *
      * @return
      */
     @PostMapping("/receive")
@@ -50,7 +54,8 @@ public class OrderApi {
     }
 
     /**
-     *  我的订单
+     * 我的订单
+     *
      * @return
      */
     @PostMapping("/myOrders")

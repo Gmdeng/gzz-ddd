@@ -3,15 +3,13 @@ package com.gzz.boot.shiro.jwt;
 import com.gzz.core.request.Operator;
 import com.gzz.core.request.OperatorContextHolder;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 验码密码
@@ -23,13 +21,14 @@ public class JwtCredentialsMatcher implements CredentialsMatcher {
     private static final String RETRYLIMIT_PREFIX = "shiro:cache:retrylimit:";
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
     /**
      * Matcher中直接调用工具包中的verify方法即可
      */
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo authenticationInfo) {
         log.info("开始密码验证");
-        String token = ((JwtToken)authenticationToken).getToken();
+        String token = ((JwtToken) authenticationToken).getToken();
         System.out.println("authenticationToken = " + authenticationToken + ", authenticationInfo = " + authenticationInfo);
 
 //        JwtSecretUser user = (JwtSecretUser)authenticationInfo.getPrincipals().getPrimaryPrincipal();
@@ -47,7 +46,7 @@ public class JwtCredentialsMatcher implements CredentialsMatcher {
 //        }
         //得到DefaultJwtParser
         Boolean verify = JwtUtil.isVerify(token);
-        log.info("JWT密码效验结果="+verify);
+        log.info("JWT密码效验结果=" + verify);
         if (verify) {
             // 如果正确,从缓存中将用户登录计数 清除
             // redisTemplate.delete(getRetrylimitKey(user.getUserName()));
@@ -63,6 +62,7 @@ public class JwtCredentialsMatcher implements CredentialsMatcher {
         }
         return verify;
     }
+
     /**
      * 根据用户名 解锁用户
      *

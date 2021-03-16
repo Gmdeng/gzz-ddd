@@ -17,12 +17,12 @@ import org.aspectj.lang.annotation.Before;
 //@Component
 public class DynamicDataSourceAspect {
     @Before("@annotation(com.gzz.boot.mybatis.dynamic.DynamicDataSource))")
-    public void switchDataSource(JoinPoint joinPoint, DynamicDataSource dataSource){
+    public void switchDataSource(JoinPoint joinPoint, DynamicDataSource dataSource) {
         DataSourceContextHolder.setDataSourceKey(dataSource.value());
     }
 
     @After("@annotation(com.gzz.boot.mybatis.dynamic.DynamicDataSource))")
-    public void restoreDataSource(JoinPoint joinPoint, DynamicDataSource dataSource){
+    public void restoreDataSource(JoinPoint joinPoint, DynamicDataSource dataSource) {
         DataSourceContextHolder.setDataSourceKey(DataSourceType.MASTER);
 
     }

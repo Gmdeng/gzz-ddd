@@ -27,16 +27,17 @@ public class AccountRestApi {
 
     /**
      * 全局异常处理 测试
+     *
      * @param num
      * @return
      */
     @GetMapping("/testGlobalException")
     public String testGlobalException(Integer num, String name) throws BizzException {
         // TODO 演示需要，实际上参数是否为空通过 @RequestParam(required = true)  就可以控制
-        if (num == null ) {
+        if (num == null) {
             // throw new BusinessException(400, "num不能为空");
         }
         int i = 10 / num;
-        return name+ "result:" + i;
+        return name + "result:" + i;
     }
 }

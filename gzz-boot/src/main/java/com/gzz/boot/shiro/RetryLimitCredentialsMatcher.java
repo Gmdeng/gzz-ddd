@@ -17,9 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher {
 
-    private final Logger logger = LogManager.getLogger();
     private static final String RETRYLIMIT_PREFIX = "shiro:cache:retrylimit:";
-
+    private final Logger logger = LogManager.getLogger();
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 

@@ -13,14 +13,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- *  异步执行
+ * 异步执行
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/servlet/AsyncServlet" })
+@WebServlet(asyncSupported = true, urlPatterns = {"/servlet/AsyncServlet"})
 public class AsyncServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     public AsyncServlet() {
         super();
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long t1 = System.currentTimeMillis();
         // 开启异步

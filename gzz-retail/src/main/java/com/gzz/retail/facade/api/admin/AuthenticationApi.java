@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  授权认证相关
+ * 授权认证相关
  */
 @RestController
 @RequestMapping("/admin/authentication")
 public class AuthenticationApi {
 
     /**
-     *  登录
+     * 登录
+     *
      * @return
      */
     @PostMapping("/login")
@@ -22,7 +23,8 @@ public class AuthenticationApi {
     }
 
     /**
-     *  注册
+     * 注册
+     *
      * @return
      */
     @PostMapping("/register")
@@ -31,7 +33,8 @@ public class AuthenticationApi {
     }
 
     /**
-     *  找回密码
+     * 找回密码
+     *
      * @return
      */
     @PostMapping("/findPasswd")

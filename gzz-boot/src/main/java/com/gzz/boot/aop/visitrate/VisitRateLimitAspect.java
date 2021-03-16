@@ -2,7 +2,6 @@ package com.gzz.boot.aop.visitrate;
 
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.gzz.boot.aop.resubmit.ResubmitLimit;
 import com.gzz.core.response.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,14 +21,13 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 @Order(3)
 public class VisitRateLimitAspect {
-    //用来存放不同接口的RateLimiter(key为接口名称，value为RateLimiter)
-    private ConcurrentHashMap<String, RateLimiter> map = new ConcurrentHashMap<>();
-
-    private RateLimiter rateLimiter;
-
     // 创建一个限流器，设置每秒放置的令牌数为5个。
     // 返回的RateLimiter对象可以保证1秒内不会给超过5个令牌
     RateLimiter r = RateLimiter.create(5);
+    //用来存放不同接口的RateLimiter(key为接口名称，value为RateLimiter)
+    private ConcurrentHashMap<String, RateLimiter> map = new ConcurrentHashMap<>();
+    private RateLimiter rateLimiter;
+
     // RateLimiter r = RateLimiter.create(2, 3, TimeUnit.SECONDS);
     @Around("@annotation(com.gzz.boot.aop.visitrate.VisitRateLimit)")
     public Object handleResubmit(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -41,9 +39,9 @@ public class VisitRateLimitAspect {
         String functionName = method.getName(); // 注解所在方法名区分不同的限流策略
 
         //获取rateLimiter
-        if(map.containsKey(functionName)){
+        if (map.containsKey(functionName)) {
             rateLimiter = map.get(functionName);
-        }else {
+        } else {
             // 创建每秒只发出5个令牌对像放在MAP中
             map.put(functionName, RateLimiter.create(limitNum));
             rateLimiter = map.get(functionName);

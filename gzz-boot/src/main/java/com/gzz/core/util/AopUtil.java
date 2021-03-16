@@ -74,6 +74,7 @@ public class AopUtil {
         }
         return currentMethod;
     }
+
     public static Method getMethod(JoinPoint pjp) {
         Signature sig = pjp.getSignature();
         if (!(sig instanceof MethodSignature)) {
@@ -91,6 +92,7 @@ public class AopUtil {
         }
         return currentMethod;
     }
+
     /**
      * 错识信息
      *

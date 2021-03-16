@@ -13,9 +13,10 @@ import java.util.Date;
 
 /**
  * 自定义数据类型转换
- *
+ * <p>
  * 适合用于long保存日期
  * 日期转UNIX_TIMESTAMP(数字)类型转换处理
+ *
  * @param
  */
 @MappedTypes(Date.class)
@@ -31,23 +32,24 @@ public class CustomDateTypeHandler extends BaseTypeHandler<Date> {
     }
 
     /**
-     *  根据列名，获取可以为空的结果
+     * 根据列名，获取可以为空的结果
      */
     @Override
     public Date getNullableResult(ResultSet rs, String columnName) throws SQLException {
         Long sqlTimetamp = rs.getLong(columnName);
-        if (null != sqlTimetamp){
+        if (null != sqlTimetamp) {
             return new Date(sqlTimetamp);
         }
         return null;
     }
+
     /**
-     *  根据列名，获取可以为空的结果
+     * 根据列名，获取可以为空的结果
      */
     @Override
     public Date getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         Long sqlTimetamp = rs.getLong(columnIndex);
-        if (null != sqlTimetamp){
+        if (null != sqlTimetamp) {
             return new Date(sqlTimetamp);
         }
         return null;
@@ -56,7 +58,7 @@ public class CustomDateTypeHandler extends BaseTypeHandler<Date> {
     @Override
     public Date getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         Long sqlTimetamp = cs.getLong(columnIndex);
-        if (null != sqlTimetamp){
+        if (null != sqlTimetamp) {
             return new Date(sqlTimetamp);
         }
         return null;

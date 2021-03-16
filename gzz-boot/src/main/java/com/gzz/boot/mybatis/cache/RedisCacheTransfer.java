@@ -1,6 +1,5 @@
 package com.gzz.boot.mybatis.cache;
 
-import com.gzz.boot.mybatis.cache.RedisCache;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
@@ -8,7 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 public class RedisCacheTransfer {
 
-    public RedisCacheTransfer(RedisTemplate<String, Object> redisTemplate){
+    public RedisCacheTransfer(RedisTemplate<String, Object> redisTemplate) {
         RedisCache.setRedisTemplate(redisTemplate);
     }
 }

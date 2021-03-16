@@ -23,38 +23,35 @@ public class SmsAutoConfiguration {
     private SmsProperties properties;
 
     /**
-     *
      * @return
      */
     //判断属性是否等于true
-    @ConditionalOnProperty(prefix = "gzz.sms",name = "type", havingValue = "aliyun")
+    @ConditionalOnProperty(prefix = "gzz.sms", name = "type", havingValue = "aliyun")
     @Bean
     @Primary
-    public AliyunSmsProcessor aliyunSmsProcessor(){
+    public AliyunSmsProcessor aliyunSmsProcessor() {
         log.info("=======" + properties.getClusterName());
         log.info("=======" + properties.getClusterNodes());
         log.info("=======" + properties.getUserName());
         log.info("=======" + properties.getPassword());
-        return  new AliyunSmsProcessor();
+        return new AliyunSmsProcessor();
     }
 
     /**
-     *
      * @return
      */
-    @ConditionalOnProperty(prefix = "gzz.sms",name = "type", havingValue = "baidu")
+    @ConditionalOnProperty(prefix = "gzz.sms", name = "type", havingValue = "baidu")
     @Bean
-    public BaiduSmsProcessor baiduSmsProcessor(){
+    public BaiduSmsProcessor baiduSmsProcessor() {
         return new BaiduSmsProcessor();
     }
 
     /**
-     *
      * @return
      */
-    @ConditionalOnProperty(prefix = "gzz.sms",name = "type", havingValue = "tencent")
+    @ConditionalOnProperty(prefix = "gzz.sms", name = "type", havingValue = "tencent")
     @Bean
-    public TencentSmsProcessor TencentSmsProcessor(){
+    public TencentSmsProcessor TencentSmsProcessor() {
         return new TencentSmsProcessor();
     }
 }

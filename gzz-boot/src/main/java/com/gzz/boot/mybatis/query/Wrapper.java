@@ -1,10 +1,6 @@
 package com.gzz.boot.mybatis.query;
 
-import org.apache.commons.collections.CollectionUtils;
-
-import java.util.Objects;
-
-public abstract class Wrapper<T>  {
+public abstract class Wrapper<T> {
     /**
      * 实体对象（子类实现）
      *

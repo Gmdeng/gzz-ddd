@@ -61,7 +61,7 @@ public class GeneratedCriteria {
 
     public GeneratedCriteria andNotEqualTo(Long value) {
         addCriterion("id <>", value, "id");
-        return  this;
+        return this;
     }
 
     public GeneratedCriteria andGreaterThan(Long value) {

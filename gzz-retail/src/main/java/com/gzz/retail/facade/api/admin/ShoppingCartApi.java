@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/shoppingCart")
 public class ShoppingCartApi {
     /**
-     *  列表
+     * 列表
+     *
      * @return
      */
     @GetMapping("/list")
@@ -22,7 +23,8 @@ public class ShoppingCartApi {
     }
 
     /**
-     *  添加
+     * 添加
+     *
      * @return
      */
     @PostMapping("/add")
@@ -31,7 +33,8 @@ public class ShoppingCartApi {
     }
 
     /**
-     *  修改
+     * 修改
+     *
      * @return
      */
     @PostMapping("/modify")
@@ -40,7 +43,8 @@ public class ShoppingCartApi {
     }
 
     /**
-     *  移出
+     * 移出
+     *
      * @return
      */
     @GetMapping("/remove")
@@ -49,7 +53,8 @@ public class ShoppingCartApi {
     }
 
     /**
-     *  选中
+     * 选中
+     *
      * @return
      */
     @GetMapping("/choose")
@@ -58,7 +63,8 @@ public class ShoppingCartApi {
     }
 
     /**
-     *  不选中
+     * 不选中
+     *
      * @return
      */
     @GetMapping("/unChoose")

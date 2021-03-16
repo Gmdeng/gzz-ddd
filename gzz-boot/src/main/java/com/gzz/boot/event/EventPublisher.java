@@ -17,7 +17,7 @@ public class EventPublisher implements ApplicationContextAware {
         if (applicationContext != null) {
             applicationContext.publishEvent(domainEvent);
         } else {
-            log.warn("publish domain event fail because ApplicationContext null, event={}", JSON.toJSONString(domainEvent) );
+            log.warn("publish domain event fail because ApplicationContext null, event={}", JSON.toJSONString(domainEvent));
         }
     }
 

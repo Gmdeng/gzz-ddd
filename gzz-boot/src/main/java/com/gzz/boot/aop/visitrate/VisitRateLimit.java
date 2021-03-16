@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 public @interface VisitRateLimit {
     /**
      * 默认每秒限流10个
+     *
      * @return Time unit is  one second
      */
     int visitRate() default 20;

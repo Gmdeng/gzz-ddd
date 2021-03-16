@@ -6,15 +6,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ *
  */
 @Component
 public class ContextUtils implements ApplicationContextAware {
     public static ApplicationContext appctx;
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        appctx = applicationContext;
-    }
 
     /**
      * 获取对象
@@ -46,5 +42,10 @@ public class ContextUtils implements ApplicationContextAware {
      */
     public static boolean containsBean(String name) {
         return appctx.containsBean(name);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        appctx = applicationContext;
     }
 }

@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  收货地址信息
+ * 收货地址信息
  */
 @RestController
 @RequestMapping("/admin/address")
 public class AddressApi {
     /**
-     *  地址列表
+     * 地址列表
+     *
      * @return
      */
     @PostMapping("/list")
@@ -21,7 +22,8 @@ public class AddressApi {
     }
 
     /**
-     *  地址详细
+     * 地址详细
+     *
      * @return
      */
     @PostMapping("/info")
@@ -30,7 +32,8 @@ public class AddressApi {
     }
 
     /**
-     *  新增/修改地址
+     * 新增/修改地址
+     *
      * @return
      */
     @PostMapping("/modify")
@@ -39,7 +42,8 @@ public class AddressApi {
     }
 
     /**
-     *  设置默认
+     * 设置默认
+     *
      * @return
      */
     @PostMapping("/default")

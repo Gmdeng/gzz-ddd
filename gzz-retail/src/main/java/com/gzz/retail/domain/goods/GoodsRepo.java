@@ -21,12 +21,13 @@ public class GoodsRepo {
 
     /**
      * 加载商品
+     *
      * @return
      */
-    public Goods loadGoods(Long goodsId){
+    public Goods loadGoods(Long goodsId) {
         PGoods pGoods = pGoodsMapper.getById(goodsId);
-        if(pGoods == null) return null;
-        return  BeanUtil.shadowCopy(pGoods, Goods.class);
+        if (pGoods == null) return null;
+        return BeanUtil.shadowCopy(pGoods, Goods.class);
     }
 
 
@@ -34,13 +35,13 @@ public class GoodsRepo {
      * 保存商品
      */
     @Transactional
-    public void saveGoods(Goods goods){
-      PGoods pGoods =  BeanUtil.deepCopy(goods, PGoods.class);
-      if(pGoods.getId() == null){
-          pGoodsMapper.insert(pGoods);
-      }else{
-          pGoodsMapper.update(pGoods);
-      }
+    public void saveGoods(Goods goods) {
+        PGoods pGoods = BeanUtil.deepCopy(goods, PGoods.class);
+        if (pGoods.getId() == null) {
+            pGoodsMapper.insert(pGoods);
+        } else {
+            pGoodsMapper.update(pGoods);
+        }
 
     }
 }

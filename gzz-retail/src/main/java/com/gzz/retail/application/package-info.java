@@ -1,11 +1,11 @@
 package com.gzz.retail.application;
 /**
  * 对应六边形架构的输入适配器
- * 
+ * <p>
  * 应用层 同时也对应了Clean Architecture 中的Application Business Rule。
- *
+ * <p>
  * 客户端代码存放的地方，负责组装调用领域模型，仓库，控制事务，对应六边形架构的应用服务层
- *
+ * <p>
  * 从项目实践中，它作为{{粗粒度}}业务的入口。（也称这为一个Use Case）。
  * 这一层中不应该包含复杂的业务规则。
  * 而是对Domain层进行协调。
@@ -21,7 +21,7 @@ package com.gzz.retail.application;
  * 对外 为展现层提供各种应用功能（service）
  * 对内 调用领域层（领域对象或领域服务）完成各种业务逻辑任务（task）。
  * 这一层也很适合写一些任务处理，日志监控。
- *
+ * <p>
  * 用来封装业务逻辑
  * 面向用例。
  * 粗粒度。

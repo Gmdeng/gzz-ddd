@@ -1,14 +1,14 @@
 package com.gzz.retail.infra.persistence.mapper.provider;
 
-import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-
-import com.gzz.retail.infra.persistence.pojo.PCatalogAttr;
-import org.apache.ibatis.jdbc.SQL;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
+import com.gzz.retail.infra.persistence.pojo.PCatalogAttr;
+import org.apache.ibatis.jdbc.SQL;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 主要用途：根据复杂的业务需求来动态生成SQL.
@@ -18,13 +18,21 @@ public class PCatalogAttrSqlProvider {
 
     // 选择性新增SQL
     public String insertSelective(PCatalogAttr pCatalogAttr) {
-        return new SQL(){
+        return new SQL() {
             {
                 INSERT_INTO("p_catalog_attr");
-                if (pCatalogAttr.getId() != null) {VALUES("id", "#{id}");}
-                if (pCatalogAttr.getCatalogId() != null) {VALUES("catalog_id", "#{catalogId}");}
-                if (pCatalogAttr.getName() != null) {VALUES("name", "#{name}");}
-                if (pCatalogAttr.getValues() != null) {VALUES("values", "#{values}");}
+                if (pCatalogAttr.getId() != null) {
+                    VALUES("id", "#{id}");
+                }
+                if (pCatalogAttr.getCatalogId() != null) {
+                    VALUES("catalog_id", "#{catalogId}");
+                }
+                if (pCatalogAttr.getName() != null) {
+                    VALUES("name", "#{name}");
+                }
+                if (pCatalogAttr.getValues() != null) {
+                    VALUES("values", "#{values}");
+                }
             }
         }.toString();
     }
@@ -35,20 +43,27 @@ public class PCatalogAttrSqlProvider {
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].catalogId}, #'{'list[{0}].name}, #'{'list[{0}].values})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            rows.add(mf.format(new Object[] { i }));
+            rows.add(mf.format(new Object[]{i}));
         }
         return "INSERT INTO p_catalog_attr (id, catalog_id, name, values) VALUES "
-        + String.join(", ", rows);
+                + String.join(", ", rows);
 
     }
+
     // 选择性更新SQL
     public String update(PCatalogAttr pCatalogAttr) {
         return new SQL() {
             {
                 UPDATE("p_catalog_attr");
-                if (pCatalogAttr.getCatalogId() != null) {SET("catalog_id=#{catalogId}");}
-                if (pCatalogAttr.getName() != null) {SET("name=#{name}");}
-                if (pCatalogAttr.getValues() != null) {SET("values=#{values}");}
+                if (pCatalogAttr.getCatalogId() != null) {
+                    SET("catalog_id=#{catalogId}");
+                }
+                if (pCatalogAttr.getName() != null) {
+                    SET("name=#{name}");
+                }
+                if (pCatalogAttr.getValues() != null) {
+                    SET("values=#{values}");
+                }
                 WHERE("id=#{id}");
             }
         }.toString();
@@ -60,7 +75,7 @@ public class PCatalogAttrSqlProvider {
             {
                 SELECT("*");
                 FROM("p_catalog_attr");
-                if(param.get("name") !=null ) WHERE("name like CONCAT('%',#{param.name},'%')");
+                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
             }
         }.toString();
     }
@@ -71,7 +86,7 @@ public class PCatalogAttrSqlProvider {
             {
                 SELECT("*");
                 FROM("p_catalog_attr");
-                if(param.get("name") !=null ) WHERE("name like CONCAT('%',#{param.name},'%')");
+                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
 
             }
         }.toString();

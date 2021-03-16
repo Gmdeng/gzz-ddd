@@ -13,13 +13,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 日期验证
  */
-@Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })
+@Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = DateTimeValid.Validator.class)
 @Documented

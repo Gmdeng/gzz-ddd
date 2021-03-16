@@ -1,31 +1,7 @@
 package com.gzz.core.util;
 
 import lombok.extern.slf4j.Slf4j;
-import java.io.IOException;
-import java.io.InterruptedIOException;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.*;
-
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpEntityEnclosingRequest;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.NoHttpResponseException;
-import org.apache.http.ParseException;
+import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -35,7 +11,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
-
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.config.SocketConfig;
@@ -52,6 +27,22 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
+import javax.net.ssl.*;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  */
@@ -64,7 +55,7 @@ public class HttpClientUtil {
      */
     static {
         // SSL套接字连接工厂,NoopHostnameVerifier为信任所有服务器
-        SSLContext sslContext= null;
+        SSLContext sslContext = null;
         try {
             //SSLContext context = SSLContext.getInstance(SSLConnectionSocketFactory.TLS);
             //SSLContext context = SSLContext.getInstance("TLS");
@@ -86,16 +77,16 @@ public class HttpClientUtil {
                     return new X509Certificate[0];
                 }
             };
-            sslContext.init(null, new TrustManager[] {tm}, null);
-        }catch(IllegalStateException ille) {
+            sslContext.init(null, new TrustManager[]{tm}, null);
+        } catch (IllegalStateException ille) {
             log.error("SSL上下文创建失败，由于" + ille.getLocalizedMessage());
             ille.printStackTrace();
-        }catch(Exception  e) {
+        } catch (Exception e) {
             log.error("SSL" + e.getMessage());
         }
         Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("http", PlainConnectionSocketFactory.getSocketFactory())
-                .register("https", new SSLConnectionSocketFactory( sslContext, NoopHostnameVerifier.INSTANCE))
+                .register("https", new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE))
                 .build();
         //
         SocketConfig config = SocketConfig.custom()
@@ -182,7 +173,7 @@ public class HttpClientUtil {
                 // 此处重定向处理 此处还未验证
                 String newUri = response.getLastHeader("Location").getValue();
                 HttpGet httpGet = new HttpGet(newUri);
-                response = httpClient.execute(httpGet,context);
+                response = httpClient.execute(httpGet, context);
             }
             // 获取响应实体
             HttpEntity entity = response.getEntity();
@@ -190,7 +181,7 @@ public class HttpClientUtil {
             if (entity != null) {
                 log.debug("ContentType:" + entity.getContentType());
                 Charset charset = ContentType.getOrDefault(entity).getCharset();
-                charset = charset== null? Charset.forName("UTF-8"): charset;
+                charset = charset == null ? Charset.forName("UTF-8") : charset;
                 content = EntityUtils.toString(entity, charset);
             }
         } catch (ConnectTimeoutException cte) {
@@ -224,16 +215,15 @@ public class HttpClientUtil {
      * 发送 post请求
      *
      * @param url
-     * @param params
-     *            参数
+     * @param params 参数
      * @return
      */
-    public static String doPost(Map<String, String> headers,String url, Map<String, Object> params) {
+    public static String doPost(Map<String, String> headers, String url, Map<String, Object> params) {
         // 创建httppost
         HttpPost httpPost = new HttpPost(url);
         log.info("请求地址URI==>" + httpPost.getURI().toString());
         // 添加头部参数
-        if (headers != null){
+        if (headers != null) {
             for (Map.Entry<String, String> e : headers.entrySet()) {
                 httpPost.addHeader(e.getKey(), e.getValue());
             }
@@ -261,6 +251,7 @@ public class HttpClientUtil {
 
         return HandleResult(httpPost);
     }
+
     public static String doPost(String url, Map<String, Object> params) {
         return doPost(null, url, params);
     }
@@ -269,15 +260,14 @@ public class HttpClientUtil {
      * 发送 post请求
      *
      * @param url
-     * @param params
-     *            参数 字符串 eg: age=90&name=小明
+     * @param params 参数 字符串 eg: age=90&name=小明
      * @return
      */
     public static String doPost(Map<String, String> headers, String url, String params) {
         HttpPost httpPost = new HttpPost(url);
         log.info("请求地址URI==>" + httpPost.getURI().toString());
         // 添加头部参数
-        if (headers != null){
+        if (headers != null) {
             for (Map.Entry<String, String> e : headers.entrySet()) {
                 httpPost.addHeader(e.getKey(), e.getValue());
             }
@@ -293,8 +283,9 @@ public class HttpClientUtil {
         }
         return HandleResult(httpPost);
     }
+
     public static String doPost(String url, String params) {
-        return doPost(null ,url, params);
+        return doPost(null, url, params);
     }
 
 
@@ -305,10 +296,10 @@ public class HttpClientUtil {
      * @param params
      * @return
      */
-    public static String doGet(Map<String, String> headers,String url, Map<String, Object> params) {
+    public static String doGet(Map<String, String> headers, String url, Map<String, Object> params) {
         HttpGet httpGet = new HttpGet(url);
         // 添加头部参数
-        if (headers != null){
+        if (headers != null) {
             for (Map.Entry<String, String> e : headers.entrySet()) {
                 httpGet.addHeader(e.getKey(), e.getValue());
             }
@@ -348,6 +339,7 @@ public class HttpClientUtil {
     public static String doGet(String url) {
         return doGet(url, null);
     }
+
     public static String doGet(String url, Map<String, Object> params) {
         return doGet(null, url, params);
     }

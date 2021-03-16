@@ -26,16 +26,17 @@ public class AsyncCallableController {
 
     /**
      * 异步方法
+     *
      * @return
      */
     @RequestMapping("/demo/asyn")
-    public String getAsynHello(){
+    public String getAsynHello() {
         long n = Instant.now().toEpochMilli();
         //异步
         //String s = helloService.asynchSayHello();
 
         long f = Instant.now().toEpochMilli();
-        return "s " + " 时间: " + (f-n);
+        return "s " + " 时间: " + (f - n);
 
     }
 
@@ -44,13 +45,13 @@ public class AsyncCallableController {
      * * @return
      */
     @RequestMapping("/demo/sync")
-    public String getSyncHello(){
+    public String getSyncHello() {
 
         long n = Instant.now().toEpochMilli();
         //同步
         //String s = helloService.synchSayHello();
 
         long f = Instant.now().toEpochMilli();
-        return "s " + " 时间: " + (f-n);
+        return "s " + " 时间: " + (f - n);
     }
 }

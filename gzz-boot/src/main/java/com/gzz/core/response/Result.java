@@ -13,21 +13,21 @@ public class Result {
 
     public Result(ResultCode resultCode, Object data) {
         this.code = resultCode.code();
-        this.message = resultCode.message();
+        this.message = resultCode.text();
         this.data = data;
     }
 
     public static Result failure(ResultCode resultCode) {
         Result result = new Result();
         result.setCode(resultCode.code());
-        result.setMessage(resultCode.message());
+        result.setMessage(resultCode.text());
         return result;
     }
 
     public static Result failure(ResultCode resultCode, Object data) {
         Result result = new Result();
         result.setCode(resultCode.code());
-        result.setMessage(resultCode.message());
+        result.setMessage(resultCode.text());
         result.setData(data);
         return result;
     }
@@ -36,7 +36,7 @@ public class Result {
         Result result = new Result();
         //result.set
         result.setCode(ResultCode.SUCCESS.code());
-        result.setMessage(ResultCode.SUCCESS.message());
+        result.setMessage(ResultCode.SUCCESS.text());
         return result;
     }
 
@@ -44,7 +44,7 @@ public class Result {
         Result result = new Result();
         //result.set
         result.setCode(ResultCode.SUCCESS.code());
-        result.setMessage(ResultCode.SUCCESS.message());
+        result.setMessage(ResultCode.SUCCESS.text());
         result.setData(data);
         return result;
     }

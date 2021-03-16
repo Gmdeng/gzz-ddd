@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 操作人员
@@ -22,10 +21,12 @@ public class Operator implements Serializable {
     private String userName;
     private String token;
     private String ipAddr;
-    public Operator(String userId,String ipAddr ) {
-        this.userId =userId;
-        this.ipAddr= ipAddr;
+
+    public Operator(String userId, String ipAddr) {
+        this.userId = userId;
+        this.ipAddr = ipAddr;
     }
+
     public Operator(Map<String, String> properties) {
         this.userName = properties.get(CONTEXT_KEY_USER_NAME);
         // this.userId = Optional.ofNullable(properties.get(CONTEXT_KEY_USER_ID)).map(Long::parseLong).orElse(null);

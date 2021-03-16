@@ -14,10 +14,10 @@ import java.io.IOException;
  * 纯servlet
  */
 @WebServlet(urlPatterns = {"/servlet/demo", "/servlet/h"},
-  initParams = {
-    @WebInitParam(name = "username", value = "tom"),
-    @WebInitParam(name = "encode", value = "utf-8")
-})
+        initParams = {
+                @WebInitParam(name = "username", value = "tom"),
+                @WebInitParam(name = "encode", value = "utf-8")
+        })
 public class DemoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +33,7 @@ public class DemoServlet extends HttpServlet {
 
         this.doPost(request, response);
     }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.getWriter().println("33333333333333333333333333");

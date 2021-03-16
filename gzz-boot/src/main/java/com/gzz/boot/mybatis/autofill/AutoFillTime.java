@@ -1,7 +1,6 @@
 package com.gzz.boot.mybatis.autofill;
 
 import java.lang.annotation.*;
-import java.util.Date;
 
 /**
  * 访问日志注解

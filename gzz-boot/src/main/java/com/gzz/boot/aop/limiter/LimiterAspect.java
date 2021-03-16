@@ -21,12 +21,12 @@ import java.lang.reflect.Method;
 
 /**
  * 限流拦截器
- *
  */
 @Slf4j
 @Aspect
 @Configuration
 public class LimiterAspect {
+    private static final String UNKNOWN = "unknown";
     private final RedisTemplate<String, Serializable> limitRedisTemplate;
 
     @Autowired
@@ -96,8 +96,6 @@ public class LimiterAspect {
         lua.append("\nreturn c;");
         return lua.toString();
     }
-
-    private static final String UNKNOWN = "unknown";
 
     public String getIpAddress() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();

@@ -26,31 +26,35 @@ import org.springframework.context.annotation.Import;
 public class AutoConfig implements DisposableBean {
     /**
      * 短信
+     *
      * @param smsProcessor
      * @return
      */
     @Bean
     @ConditionalOnMissingBean(SmsTemplate.class)
-    public SmsTemplate smsTemplate(SmsProcessor smsProcessor){
-        return  new SmsTemplate(smsProcessor);
+    public SmsTemplate smsTemplate(SmsProcessor smsProcessor) {
+        return new SmsTemplate(smsProcessor);
     }
 
     /**
      * 访问日志AOP拦截
+     *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name="gzz.visitlog.enable", havingValue = "true")
+    @ConditionalOnProperty(name = "gzz.visitlog.enable", havingValue = "true")
     @ConditionalOnMissingBean(VisitLogAspect.class) //是否已实例添加到容器中
     public VisitLogAspect visitLogAspect() {
         return new VisitLogAspect();
     }
+
     /**
      * 重复提交AOP拦截
+     *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name="gzz.resubmit.enable", havingValue = "true")
+    @ConditionalOnProperty(name = "gzz.resubmit.enable", havingValue = "true")
     @ConditionalOnMissingBean(ResubmitLimitAspect.class) //是否已实例添加到容器中
     public ResubmitLimitAspect resubmitLimitAspect() {
         return new ResubmitLimitAspect();
@@ -58,10 +62,11 @@ public class AutoConfig implements DisposableBean {
 
     /**
      * 访问频率每秒限流AOP拦截
+     *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name="gzz.visitrate.enable", havingValue = "true")
+    @ConditionalOnProperty(name = "gzz.visitrate.enable", havingValue = "true")
     @ConditionalOnMissingBean(VisitRateLimitAspect.class) //是否已实例添加到容器中
     public VisitRateLimitAspect visitRateLimitAspect() {
         return new VisitRateLimitAspect();
@@ -69,6 +74,7 @@ public class AutoConfig implements DisposableBean {
 
     /**
      * 异常处理 AOP拦截
+     *
      * @return
      */
     @Bean
@@ -79,6 +85,7 @@ public class AutoConfig implements DisposableBean {
 
     /**
      * 事件发布器
+     *
      * @return
      */
     @Bean
@@ -89,6 +96,7 @@ public class AutoConfig implements DisposableBean {
 
     /**
      * ID生成器
+     *
      * @return
      */
     @Bean

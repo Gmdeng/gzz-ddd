@@ -14,15 +14,14 @@ import java.util.concurrent.Executors;
  */
 public class IdGenerator {
     public static final long SJDBC_EPOCH;
-//    private static final long SEQUENCE_BITS = 12L;
+    //    private static final long SEQUENCE_BITS = 12L;
 //    private static final long WORKER_ID_BITS = 10L;
 //    private static final long SEQUENCE_MASK = 4095L;
 //    private static final long WORKER_ID_LEFT_SHIFT_BITS = 12L;
 //    private static final long TIMESTAMP_LEFT_SHIFT_BITS = 22L;
 //    private static final long WORKER_ID_MAX_VALUE = 1024L;
     private static long workerId = 100L;
-    private long sequence;
-    private long lastTime;
+
     static {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, 0, 1);
@@ -33,8 +32,10 @@ public class IdGenerator {
         SJDBC_EPOCH = calendar.getTimeInMillis();
     }
 
+    private long sequence;
+    private long lastTime;
+
     /**
-     *
      * @param args
      */
     public static void main(String[] args) {
@@ -76,7 +77,7 @@ public class IdGenerator {
         /**
          *
          */
-        for(Iterator<String> it = map.keySet().iterator(); it.hasNext();){
+        for (Iterator<String> it = map.keySet().iterator(); it.hasNext(); ) {
             String key = it.next();
             System.out.println(key + "=" + map.get(key));
         }

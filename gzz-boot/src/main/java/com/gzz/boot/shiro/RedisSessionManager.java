@@ -39,7 +39,7 @@ public class RedisSessionManager extends DefaultWebSessionManager {
         try {
             session = super.retrieveSession(sessionKey);
         } catch (UnknownSessionException e) {
-            logger.error(sessionId +"  :" +e.getMessage() );
+            logger.error(sessionId + "  :" + e.getMessage());
         }
         if (request != null && sessionId != null && session != null) {
             request.setAttribute(sessionId.toString(), session);

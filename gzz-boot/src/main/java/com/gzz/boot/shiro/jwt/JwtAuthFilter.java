@@ -117,7 +117,7 @@ public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
              *  原因是 JWT直接在过滤器里验证  验证成功与否 都是直接返回到过滤器中 成功在进入controller
              *  失败直接返回进入springboot自定义异常处理页面
              */
-            log.error("登录处理：" +e.getMessage());
+            log.error("登录处理：" + e.getMessage());
         }
         return false;
     }
@@ -176,7 +176,7 @@ public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
     /**
      * 为response设置header，实现跨域
      */
-    private void setHeader(HttpServletRequest request,HttpServletResponse response){
+    private void setHeader(HttpServletRequest request, HttpServletResponse response) {
         //跨域的header设置
         response.setHeader("Access-control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Methods", request.getMethod());
@@ -184,7 +184,7 @@ public class JwtAuthFilter extends BasicHttpAuthenticationFilter {
         response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
         //防止乱码，适用于传输JSON数据
         //Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild
-        response.setHeader("Content-Type","application/json;charset=UTF-8");
+        response.setHeader("Content-Type", "application/json;charset=UTF-8");
         response.setStatus(HttpStatus.OK.value());
     }
 }

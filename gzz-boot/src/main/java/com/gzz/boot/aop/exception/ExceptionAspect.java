@@ -1,7 +1,6 @@
 package com.gzz.boot.aop.exception;
 
 import com.alibaba.fastjson.JSON;
-import com.gzz.boot.aop.log.VisitLog;
 import com.gzz.core.util.AopUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -10,8 +9,6 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
@@ -27,8 +24,8 @@ import java.util.Map;
  * Pointcut定义时，还可以使用&&、||、! 这三个运算
  * Pointcut格式：
  * execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
- *各个pattern分别表示：
- *
+ * 各个pattern分别表示：
+ * <p>
  * 修饰符匹配（modifier-pattern?）
  * 返回值匹配（ret-type-pattern）可以为*表示任何返回值,全路径的类名等
  * 类路径匹配（declaring-type-pattern?）
@@ -52,14 +49,14 @@ public class ExceptionAspect {
      * 服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Serclet的inti()方法
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         for (IExceptionProcess process : DEFAULT_EXCEPTION_PROCESS) {
             map.put(process.processClass(), process);
         }
 
-        if (exceptionProcess!=null){
+        if (exceptionProcess != null) {
             for (IExceptionProcess process : exceptionProcess) {
-                map.put(process.processClass(),process);
+                map.put(process.processClass(), process);
             }
         }
     }
@@ -68,12 +65,13 @@ public class ExceptionAspect {
             List<IExceptionProcess> exceptionProcess) {
         this.exceptionProcess = exceptionProcess;
     }
+
     //连接点是@RequestMapping注解的方法
     @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)" +
             "||@annotation(org.springframework.web.bind.annotation.GetMapping)" +
             "||@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    private void RequestMappingPointcut() {}
-
+    private void RequestMappingPointcut() {
+    }
 
 
     //抛出的异常在这边捕获
@@ -95,7 +93,6 @@ public class ExceptionAspect {
     }
 
 
-
     // 自定义异常处理
     @Around("@annotation(com.gzz.boot.aop.exception.CustomException)||" +
             "@within(com.gzz.boot.aop.exception.CustomException)")
@@ -108,8 +105,8 @@ public class ExceptionAspect {
      */
     private Object processException(ProceedingJoinPoint pjp) throws Throwable {
         Method method = AopUtil.getMethod(pjp);
-        Class<?> returnType=null;
-        if (method!=null){
+        Class<?> returnType = null;
+        if (method != null) {
             returnType = method.getReturnType();
         }
 
@@ -119,19 +116,19 @@ public class ExceptionAspect {
                 return pjp.proceed();
             } catch (Throwable e) {
                 Object result;
-                if (returnType!=null){
+                if (returnType != null) {
                     IExceptionProcess exceptionProcess = map.get(returnType);
-                    if (exceptionProcess==null){
-                        throw  e;
+                    if (exceptionProcess == null) {
+                        throw e;
                     }
                     result = exceptionProcess.processException(e);
                     if (annotation.printError()) {
-                        log.error("处理异常 result="+result.toString(),e);
+                        log.error("处理异常 result=" + result.toString(), e);
                     }
                     return result;
 
                 }
-                throw  e;
+                throw e;
             }
         } else {
             return pjp.proceed();

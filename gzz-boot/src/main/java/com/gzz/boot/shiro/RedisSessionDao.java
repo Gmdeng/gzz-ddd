@@ -22,11 +22,15 @@ import java.util.concurrent.TimeUnit;
  * 继承AbstractSessionDAO，实现Redis Session的增刪改查操作
  */
 public class RedisSessionDao extends AbstractSessionDAO {
-    private final Logger logger = LogManager.getLogger();
     private static final String SESSION_PREFIX = "shiro:session:";
+    private final Logger logger = LogManager.getLogger();
     private RedisTemplate<String, Object> redisTemplate;
 
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate){
+    private static String getKey(Serializable id) {
+        return SESSION_PREFIX + id.toString();
+    }
+
+    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -82,7 +86,6 @@ public class RedisSessionDao extends AbstractSessionDAO {
         return id;
     }
 
-
     /**
      * 读取Session
      *
@@ -101,8 +104,8 @@ public class RedisSessionDao extends AbstractSessionDAO {
             Object obj = redisTemplate.boundValueOps(getKey(id)).get();
             // Object obj = redisTemplate.opsForValue().get(getKey(id));
             return (Session) obj;
-        }catch (Exception e) {
-            logger.error("获取失败"+ e.getMessage());
+        } catch (Exception e) {
+            logger.error("获取失败" + e.getMessage());
         }
         return null;
     }
@@ -112,10 +115,6 @@ public class RedisSessionDao extends AbstractSessionDAO {
             Serializable id = session.getId();
             redisTemplate.opsForValue().set(getKey(id), session, 30, TimeUnit.MINUTES);
         }
-    }
-
-    private static String getKey(Serializable id) {
-        return SESSION_PREFIX + id.toString();
     }
 
     private Set<String> keys() {

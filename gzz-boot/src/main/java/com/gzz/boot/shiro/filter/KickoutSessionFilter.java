@@ -22,8 +22,8 @@ import java.util.LinkedList;
  * 限制并发登录人数
  */
 public class KickoutSessionFilter extends AccessControlFilter {
-    private final Logger logger = LogManager.getLogger();
     private static final String RETRYLIMIT_PREFIX = "shiro:cache:retrylimit:";
+    private final Logger logger = LogManager.getLogger();
     /**
      * 同一个帐号最大会话数 默认1
      */

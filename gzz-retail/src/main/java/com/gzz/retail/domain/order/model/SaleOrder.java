@@ -43,13 +43,13 @@ public class SaleOrder {
 
 
     // 打折
-    public void doDiscount(){
+    public void doDiscount() {
         //TODO
 
     }
 
     // 手续费
-    public void doCommission(){
+    public void doCommission() {
 
     }
 }

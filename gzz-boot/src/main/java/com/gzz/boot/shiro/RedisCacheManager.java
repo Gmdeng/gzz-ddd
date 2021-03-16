@@ -16,8 +16,8 @@ import java.util.Set;
  * 实现用户角色、权限缓存管理
  */
 public class RedisCacheManager implements CacheManager {
-    private final Logger logger = LogManager.getLogger();
     private static final String CACHE_KEY = "redis-cache";
+    private final Logger logger = LogManager.getLogger();
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 

@@ -71,7 +71,7 @@ public class PreventSubmitAspect {
 
             //拼接锁前缀，采用同一方法，同一用户,同一接口
             String temp = requestUri.concat(Arrays.asList(args).toString()) + (userId != null ? userId : "");
-            temp = temp.replaceAll("/","");
+            temp = temp.replaceAll("/", "");
 
             //拼接rediskey
             String lockPrefix = API_LOCK_PREVENT_SUBMIT.concat(temp);
@@ -84,18 +84,18 @@ public class PreventSubmitAspect {
 //            lock.lock();
 
             String flag = this.stringRedisTemplate.opsForValue().get(redisPrefix);
-            if(StringUtils.isNotEmpty(flag)){
+            if (StringUtils.isNotEmpty(flag)) {
                 throw new BizzException("您当前的操作太频繁了,请稍后再试!");
             }
 
             //存入redis,设置失效时间
-            this.stringRedisTemplate.opsForValue().set(redisPrefix,redisPrefix,INVALID_NUMBER, TimeUnit.SECONDS);
+            this.stringRedisTemplate.opsForValue().set(redisPrefix, redisPrefix, INVALID_NUMBER, TimeUnit.SECONDS);
 
             //执行目标方法
             Object result = joinPoint.proceed(args);
             return result;
 
-        }finally {
+        } finally {
 //            if(lock != null){
 //                lock.unlock();
 //            }

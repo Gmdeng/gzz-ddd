@@ -26,7 +26,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         for (OperateType operateType : parameter) {
             value += operateType.value();
         }
-        ps.setInt(i , value);
+        ps.setInt(i, value);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = rs.getInt(columnName);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if((value & operateType.value()) == operateType.value()){
+            if ((value & operateType.value()) == operateType.value()) {
                 sets.add(operateType);
             }
         }
@@ -46,7 +46,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = rs.getInt(columnIndex);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if((value & operateType.value()) == operateType.value()){
+            if ((value & operateType.value()) == operateType.value()) {
                 sets.add(operateType);
             }
         }
@@ -58,7 +58,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = cs.getInt(columnIndex);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if((value & operateType.value()) == operateType.value()){
+            if ((value & operateType.value()) == operateType.value()) {
                 sets.add(operateType);
             }
         }

@@ -23,10 +23,10 @@ public class AutoFillInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        MappedStatement mappedStatement = (MappedStatement)invocation.getArgs()[0];
+        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
         // 新增修改时
-        if(SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
+        if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
             Object parameter = invocation.getArgs()[1];
             Field[] fields = parameter.getClass().getDeclaredFields();
             for (Field f : fields) {
@@ -37,12 +37,12 @@ public class AutoFillInterceptor implements Interceptor {
                     if (StringUtil.isEmpty(fillTime.value())) {
                         d = new Date();
                     } else {
-                        try{
+                        try {
                             SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
                             d = sdf.parse(fillTime.value());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             log.warn("无效的日期默认值");
-                            d= new Date();
+                            d = new Date();
                         }
                     }
                     SetFieldValue(f, new Date(), parameter);
@@ -69,18 +69,20 @@ public class AutoFillInterceptor implements Interceptor {
         System.out.println(properties);
         System.out.println(maxTime);
     }
+
     // 获取当前用户id
-    private String currentUser(){
+    private String currentUser() {
         Operator user = OperatorContextHolder.GetOperator();
-        if(user == null) {
+        if (user == null) {
             return "AutoModifyer";
-        }else{
-            return  user.getUserId();
+        } else {
+            return user.getUserId();
         }
     }
 
     /**
      * 属性设值
+     *
      * @param f
      * @param value
      * @param clzz
@@ -89,7 +91,7 @@ public class AutoFillInterceptor implements Interceptor {
     private void SetFieldValue(Field f, Object value, Object clzz) throws IllegalAccessException {
         // 获取原来的访问控制权限
         boolean accessFlag = f.isAccessible();
-        if(!f.isAccessible())
+        if (!f.isAccessible())
             f.setAccessible(true);
         f.set(clzz, value);
         f.setAccessible(accessFlag);

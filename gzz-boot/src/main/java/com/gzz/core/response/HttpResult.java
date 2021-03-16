@@ -32,8 +32,13 @@ public class HttpResult extends HashMap<String, Object> {
         return result(999, "失败");
     }
 
+
     public static HttpResult fail(String msg) {
         return result(999, msg);
+    }
+
+    public static HttpResult fail(ResultCode ret) {
+        return result(ret.code(), ret.text());
     }
 
     public static HttpResult warn() {
@@ -69,8 +74,9 @@ public class HttpResult extends HashMap<String, Object> {
         super.put("data", data);
         return this;
     }
-    public HttpResult message(Object data) {
-        super.put("msg", data);
+
+    public HttpResult message(String msg) {
+        super.put("msg", msg);
         return this;
     }
 

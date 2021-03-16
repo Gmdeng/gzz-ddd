@@ -15,7 +15,7 @@ public class GoodsService {
     @Autowired
     private IPBrandMapper pBrandMapper;
 
-    public List<Brand> getBrandList(){
+    public List<Brand> getBrandList() {
         Brand brand = new Brand();
 
         return pBrandMapper.findList(null);

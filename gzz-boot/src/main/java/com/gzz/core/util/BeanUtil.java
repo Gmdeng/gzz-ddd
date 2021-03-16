@@ -41,7 +41,7 @@ public class BeanUtil {
      * 将源对象数据值复制替换目标对象
      *
      * @param destObj 目标对象
-     * @param srcObj 源对象
+     * @param srcObj  源对象
      * @param <S>
      * @param <T>
      * @return
@@ -56,14 +56,14 @@ public class BeanUtil {
                     value = field.get(srcObj);
                 } catch (IllegalAccessException e) {
                     //e.printStackTrace();
-                }finally {
+                } finally {
                     field.setAccessible(false);
                 }
                 if (value == null) {
                     continue;
                 }
                 Field targetField = destObj.getClass().getDeclaredField(field.getName());
-                if(targetField == null) continue;
+                if (targetField == null) continue;
 
                 targetField.setAccessible(true);
                 try {
@@ -80,8 +80,6 @@ public class BeanUtil {
     }
 
     /**
-     *
-     *
      * @param srcData
      * @param targetClass
      * @param <S>
@@ -93,9 +91,7 @@ public class BeanUtil {
     }
 
     /**
-     *
-     *
-     * @param srcData 源
+     * @param srcData     源
      * @param targetClass
      * @param <S>
      * @param <T>

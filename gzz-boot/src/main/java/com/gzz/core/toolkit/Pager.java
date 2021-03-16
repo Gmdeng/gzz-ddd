@@ -4,7 +4,6 @@ package com.gzz.core.toolkit;
  * 分页工具类
  *
  * @author Gm
- *
  */
 public class Pager {
     private int pageSize = 25; // 页面记录大小
@@ -54,6 +53,7 @@ public class Pager {
     public int getIndexPage() {
         return this.indexPage;
     }
+
     public void setIndexPage(int indexPage) {
         this.indexPage = indexPage;
         this.offset = this.pageSize * (this.indexPage - 1);

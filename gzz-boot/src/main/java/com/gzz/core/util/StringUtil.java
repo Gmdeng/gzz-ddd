@@ -8,12 +8,13 @@ import java.util.Formatter;
  * 字符串工具类
  */
 public class StringUtil {
-    private static final String hexDigits[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
-            "E", "F" };
+    private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
+            "E", "F"};
 
     /**
      * byte数组转16进制字符串
-     *      高位在前
+     * 高位在前
+     *
      * @param hash
      * @return
      */
@@ -39,6 +40,7 @@ public class StringUtil {
     /**
      * byte数组转16进制
      * 高位在前
+     *
      * @param hash
      * @return
      */
@@ -65,6 +67,7 @@ public class StringUtil {
         }
         return result;
     }
+
     /**
      * 检查指定的字符串是否为空。
      * <ul>
@@ -92,28 +95,30 @@ public class StringUtil {
 
     /**
      * 对象不为空
+     *
      * @param value 待检查的对象
      * @return
      */
     public static boolean isNotEmpty(Object value) {
-        if(value == null) return false;
+        if (value == null) return false;
         return !isEmpty(value.toString());
     }
 
     /**
      * 对象为空
+     *
      * @param value 待检查的对象
      * @return
      */
     public static boolean isNull(Object value) {
-        if(value == null) return true;
+        if (value == null) return true;
         return false;
     }
+
     /**
      * 随机生成纯字母
      *
-     * @param count
-     *            长度
+     * @param count 长度
      * @return
      */
     public static String randomChar(int count) {
@@ -123,8 +128,7 @@ public class StringUtil {
     /**
      * 随机生成数字各字母
      *
-     * @param count
-     *            长度
+     * @param count 长度
      * @return
      */
     public static String randomCharNum(int count) {
@@ -134,8 +138,7 @@ public class StringUtil {
     /**
      * 随机生成数字
      *
-     * @param count
-     *            长度
+     * @param count 长度
      * @return
      */
     public static String randomNum(int count) {

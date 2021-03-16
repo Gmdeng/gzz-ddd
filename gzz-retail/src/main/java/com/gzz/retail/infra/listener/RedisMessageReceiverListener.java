@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 订阅监听处理
- *
  */
 @Component
 public class RedisMessageReceiverListener implements MessageListener {

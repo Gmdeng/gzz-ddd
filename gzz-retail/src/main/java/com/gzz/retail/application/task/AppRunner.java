@@ -1,6 +1,5 @@
 package com.gzz.retail.application.task;
 
-import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- *
  * Application启动后运行,日志打印微服务关键配置信息(服务名,微服务注册中心地址,配置中心)
  */
 @Slf4j

@@ -9,12 +9,12 @@ import javax.annotation.PostConstruct;
 public class EventBusListener {
 
     @PostConstruct
-    public void init(){
+    public void init() {
 
     }
 
     @Subscribe
-    public void tranfer(){
+    public void tranfer() {
 
     }
 }

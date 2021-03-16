@@ -1,10 +1,11 @@
 package com.gzz.boot.shiro.jwt;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -57,6 +58,7 @@ public class JwtUtil {
 
     /**
      * 生成TOKEN
+     *
      * @param claims
      * @return
      */

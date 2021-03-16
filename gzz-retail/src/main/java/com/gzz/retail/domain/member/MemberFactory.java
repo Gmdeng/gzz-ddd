@@ -8,8 +8,8 @@ import com.gzz.retail.domain.member.model.MemberEntity;
  */
 public class MemberFactory {
     //
-    public MemberEntity createMember(MemberVo userDTO ){
-       //
+    public MemberEntity createMember(MemberVo userDTO) {
+        //
         return new MemberEntity();
     }
 }

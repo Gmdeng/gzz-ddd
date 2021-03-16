@@ -5,29 +5,29 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- *  系统角色
+ * 系统角色
  */
 @Data
 @Accessors(fluent = true)
 public class Role {
     /**
-     *  ID id
+     * ID id
      */
     private Long id;
     /**
-     *  名称 name
+     * 名称 name
      */
     private String name;
     /**
-     *  编码（唯一的，java类名） code
+     * 编码（唯一的，java类名） code
      */
     private String code;
     /**
-     *  排序 idx
+     * 排序 idx
      */
     private int idx;
     /**
-     *  状态 status
+     * 状态 status
      */
     private CommStatus status;
 }

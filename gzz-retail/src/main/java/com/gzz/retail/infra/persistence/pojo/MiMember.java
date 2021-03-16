@@ -28,7 +28,10 @@ public class MiMember implements Serializable {
     private String source;
     private String notes;
     private String avatar;
-    public MiMember(){}
+
+    public MiMember() {
+    }
+
     public MiMember(Long id, String memberNo, String name, String nickName, String certType, String certNo, Date birthday, String sex, String mobile, String email, String address, Integer rank, Integer lvl, String type, Long joinOn, Integer status, Integer createOn, String createBy, Integer updateOn, String updateBy, String source, String notes, String avatar) {
         this.id = id;
         this.memberNo = memberNo;
