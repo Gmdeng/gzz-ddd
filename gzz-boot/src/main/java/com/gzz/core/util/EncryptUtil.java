@@ -15,7 +15,8 @@ import java.util.Set;
 import java.util.SortedMap;
 
 /**
- * 加密解密
+ * 加密解密（非对称的）
+ *
  *
  * @author G-m
  */
@@ -291,11 +292,12 @@ public class EncryptUtil {
     }
 
     /**
+     * 加密， 生成一个消息摘要（）
      * @param origin    待加密串
      * @param algorithm 加密方式 MD5/SHA-1/DSA/DESede/DES/Diffie-Hellman
      * @return
      */
-    public static String Encode(byte[] origin, String algorithm) {
+    private static String Encode(byte[] origin, String algorithm) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance(algorithm);
@@ -332,7 +334,7 @@ public class EncryptUtil {
      */
     public static String UrlToShort(String url) {
         // 可以自定义生成 MD5 加密字符传前的混合 KEY
-        String key = "wuguowei";
+        String key = "g-zz.com";
         // 要使用生成 URL 的字符
         String[] chars = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
                 "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
@@ -343,7 +345,6 @@ public class EncryptUtil {
 
         String[] resUrl = new String[4];
         for (int i = 0; i < 4; i++) {
-
             // 把加密字符按照 8 位一组 16 进制与 0x3FFFFFFF 进行位与运算
             String sTempSubString = hex.substring(i * 8, i * 8 + 8);
 
@@ -408,7 +409,7 @@ public class EncryptUtil {
             int value = Integer.valueOf(data.substring(i * 2, 2 * (i + 1)), 16);
             para[i] = (byte) value;
         }
-        System.out.println("========================");
+        // System.out.println("========================");
         return CRC16Check(para);
     }
 

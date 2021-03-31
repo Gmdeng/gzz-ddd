@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 /**
  * 注册到SPRING上下文中。
+ * 领域注册表
  */
 public class DomainRegistry implements ApplicationContextAware {
     private static ApplicationContext applicationContext;

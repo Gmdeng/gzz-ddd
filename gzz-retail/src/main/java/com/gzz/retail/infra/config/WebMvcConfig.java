@@ -20,7 +20,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 .allowedHeaders("*")
                 // .exposedHeaders()
                 .allowCredentials(true)
-                .maxAge(3600)
-        ;
+                .maxAge(3600);
+
+        super.addCorsMappings(registry);
     }
 }

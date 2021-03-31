@@ -17,7 +17,7 @@ public enum ResultCode {
     /* 授权权限错误 状态码 4000 - 4999 */
     AUTH_ERROR(4000, "权限"),
     /* 数据库错误 状态码 8000 - 8999 */
-    DATABASE_ERROR(8000, "FEGwgkd ");
+    DATABASE_ERROR(8000, "操作异常 ");
     private int code;
     private String text;
 

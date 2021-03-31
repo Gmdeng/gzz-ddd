@@ -8,4 +8,13 @@ package com.gzz.retail.infra;
  * 为领域层 提供持久化机制（最底层的实现）
  * 为用户层 提供组件配置
  * 基础实施层还能够通过架构框架为支持四个层次间的交互模式
+ *
+ * config：配置信息
+ * event：事件相关的，如DomainEvent、MQ、等
+ * exception： 异常类。
+ * repository：存放于数据库相关的，我这里用mybatis， 那么就会有mapper文件、mapper接口等。
+ *
+ * driver
+ * eventbus
+ * mq
  */

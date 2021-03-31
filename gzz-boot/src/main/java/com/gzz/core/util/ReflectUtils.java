@@ -31,23 +31,27 @@ public class ReflectUtils {
     /**
      * 利用反射获取指定对象的指定属性
      *
-     * @param obj       目标对象
+     * @param clazz       目标对象
      * @param fieldName 目标属性
      * @return 目标属性的值
      */
-    public static Object getFieldValue(Object obj, String fieldName) {
+    public static Object getFieldValue(Object clazz, String fieldName) {
         Object result = null;
-        Field field = ReflectUtils.getField(obj, fieldName);
+        Field field = ReflectUtils.getField(clazz, fieldName);
         if (field != null) {
-            field.setAccessible(true);
+            boolean fAccess = field.isAccessible();
+
             try {
-                result = field.get(obj);
+                field.setAccessible(true);
+                result = field.get(clazz);
             } catch (IllegalArgumentException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            }finally {
+                field.setAccessible(fAccess);
             }
         }
         return result;
@@ -56,23 +60,27 @@ public class ReflectUtils {
     /**
      * 利用反射设置指定对象的指定属性为指定的值
      *
-     * @param obj        目标对象
+     * @param clazz      目标对象
      * @param fieldName  目标属性
-     * @param fieldValue 目标值
+     * @param fieldValue 目标属性值
      */
-    public static void setFieldValue(Object obj, String fieldName,
-                                     String fieldValue) {
-        Field field = ReflectUtils.getField(obj, fieldName);
+    public static void setFieldValue(Object clazz, String fieldName,
+                                     Object fieldValue) {
+        Field field = ReflectUtils.getField(clazz, fieldName);
         if (field != null) {
+            boolean fAccess = false;
             try {
+                fAccess = field.isAccessible();
                 field.setAccessible(true);
-                field.set(obj, fieldValue);
+                field.set(clazz, fieldValue);
             } catch (IllegalArgumentException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            }finally {
+                field.setAccessible(fAccess);
             }
         }
     }

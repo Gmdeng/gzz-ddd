@@ -17,6 +17,10 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * xml 格式转换工具类
+ *
+ */
 @Slf4j
 public class XmlUtil {
     /**

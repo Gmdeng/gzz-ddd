@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * 新增修改时自动填写，时间，操作人
+ * 新增修改操作时时自动填写，时间，操作人
  */
 @Slf4j
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})})

@@ -10,8 +10,7 @@ public enum OrderStatus {
     CANCEL(8, "取消"),
     RETURN(16, "退货"),
     FINISH(32, "完成");
-
-
+    
     private int key;
     private String name;
 

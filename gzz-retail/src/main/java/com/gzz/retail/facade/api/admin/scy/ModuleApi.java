@@ -6,11 +6,14 @@ import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.core.validation.ValidationResult;
 import com.gzz.core.validation.ValidationUtils;
+import com.gzz.retail.application.dto.ModuleDto;
+import com.gzz.retail.application.system.ModuleApp;
 import com.gzz.retail.facade.api.admin.scy.param.ModuleParam;
 import com.gzz.retail.facade.api.admin.scy.vo.ModuleVo;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,8 @@ import java.util.stream.Collectors;
 public class ModuleApi {
     @Autowired
     private IZModuleMapper izModuleMapper;
+    @Autowired
+    private ModuleApp moduleApp;
 
     /**
      * 保存数据
@@ -35,17 +40,22 @@ public class ModuleApi {
      * @return
      */
     @PostMapping("/saveData")
-    public HttpResult saveData(ModuleParam param) {
-        ValidationResult err = ValidationUtils.validate(param);
-        if (err.isHasError()) {
-            return HttpResult.fail().data(err.getErrors());
-        }
+    public HttpResult saveData(@Validated ModuleParam param) {
+//        ValidationResult err = ValidationUtils.validate(param);
+//        if (err.isHasError()) {
+//            return HttpResult.fail().data(err.getErrors());
+//        }
         Consumer<Integer> consumer = x -> {
             int a = x + 2;
             System.out.println(a);
             System.out.println(a + "_");
         };
         consumer.accept(19);
+        //
+        ModuleDto dto = BeanConvertUtil.convertOne(ModuleParam.class, ModuleDto.class, param, (src, dest)->{
+
+        });
+        moduleApp.saveModule(dto);
         return HttpResult.success(JSON.toJSONString(param));
     }
 

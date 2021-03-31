@@ -28,6 +28,7 @@ public class Account {
     private int creditDegree;
 
     /**
+     *
      * 把固定金额转入指定账户
      *
      * @param destAccount 输入账户
