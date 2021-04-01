@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class ValidationResult {
     // 校验结果是否有错
-    private boolean hasError;
+    private boolean hasError = false;
     // 校验错误信息
     private Map<String, String> errors;
 
@@ -15,9 +15,9 @@ public class ValidationResult {
         return hasError;
     }
 
-    public void setHasError(boolean hasError) {
-        this.hasError = hasError;
-    }
+//    public void setHasError(boolean hasError) {
+//        this.hasError = hasError;
+//    }
 
     public Map<String, String> getErrors() {
         return errors;
@@ -25,5 +25,6 @@ public class ValidationResult {
 
     public void setErrors(Map<String, String> errors) {
         this.errors = errors;
+        this.hasError = true;
     }
 }

@@ -1,4 +1,4 @@
-package com.gzz.retail.domain.account.model;
+package com.gzz.retail.domain.account.entity;
 /**
  * 存放实体（含聚合根、实体和值对象）相关代码。同一实体所有相关的代码（含对同一实体类多个对象操作的方法，如对多个对象的 count 等）都放在一个实体类中。
  * <p>

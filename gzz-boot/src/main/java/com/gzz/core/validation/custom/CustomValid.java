@@ -80,7 +80,7 @@ public @interface CustomValid {
                     return true;
                 }
             } catch (Exception e) {
-                log.warn("", e);
+                log.warn("自定义验证异常:", e);
                 return false;
             }
         }

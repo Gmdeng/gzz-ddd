@@ -40,7 +40,7 @@ public class ValidationUtils {
         Set<ConstraintViolation<T>> set = validator.validate(obj, groups);
         // if( CollectionUtils.isNotEmpty(set) ){
         if (set != null && set.size() != 0) {
-            result.setHasError(true);
+            // result.setHasError(true);
             Map<String, String> errorMsg = new HashMap<String, String>();
             for (ConstraintViolation<T> cv : set) {
                 errorMsg.put(cv.getPropertyPath().toString(), cv.getMessage());

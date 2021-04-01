@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class ModuleApp {
+public class ModuleCommandApp {
     @Autowired
     private IZModuleMapper moduleMapper;
 

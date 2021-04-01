@@ -4,10 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.core.validation.ValidationResult;
-import com.gzz.core.validation.ValidationUtils;
 import com.gzz.retail.application.dto.ModuleDto;
-import com.gzz.retail.application.system.ModuleApp;
+import com.gzz.retail.application.system.ModuleCommandApp;
 import com.gzz.retail.facade.api.admin.scy.param.ModuleParam;
 import com.gzz.retail.facade.api.admin.scy.vo.ModuleVo;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
@@ -32,7 +30,7 @@ public class ModuleApi {
     @Autowired
     private IZModuleMapper izModuleMapper;
     @Autowired
-    private ModuleApp moduleApp;
+    private ModuleCommandApp moduleApp;
 
     /**
      * 保存数据

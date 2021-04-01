@@ -1,7 +1,7 @@
 package com.gzz.retail.domain.account.event;
 
 import com.gzz.core.model.DomainEvent;
-import com.gzz.retail.domain.account.model.TransactionDetail;
+import com.gzz.retail.domain.account.entity.TransactionDetail;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

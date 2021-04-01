@@ -1,6 +1,6 @@
 package com.gzz.retail.application;
 
-import com.gzz.retail.domain.account.model.Account;
+import com.gzz.retail.domain.account.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;

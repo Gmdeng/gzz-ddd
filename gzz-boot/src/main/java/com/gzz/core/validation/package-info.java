@@ -1,4 +1,4 @@
-package com.gzz.core.validation.custom;
+package com.gzz.core.validation;
 
 /*
 调用方法：
@@ -23,4 +23,8 @@ public class DemoValidator implements CustomValidator<String> {
  @CustomValid(value=DemoValidator.class, message="")
  private String message;
 
+
+
+
+@CheckForbidden.List({@CheckForbidden(message = "", groups = ValidGroup.Add.class), @CheckForbidden(message = "", groups = ValidGroup.UPDATE.class)})
 */

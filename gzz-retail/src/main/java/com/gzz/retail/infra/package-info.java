@@ -17,4 +17,9 @@ package com.gzz.retail.infra;
  * driver
  * eventbus
  * mq
+ *
+ * client: 存放夸服务接口。
+ * Config： 主要存放配置相关代码。
+ * common: 一般存放消息、数据库、缓存、文件、总线、网关、公用的常量、方法、枚举等。
+ * Util: 主要存放平台、开发框架、第三方类库、通用算法等基础代码，你可以为不同的资源类别建立不同的子目录。
  */

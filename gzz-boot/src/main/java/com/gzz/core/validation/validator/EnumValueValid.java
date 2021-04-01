@@ -1,4 +1,4 @@
-package com.gzz.core.validation.custom;
+package com.gzz.core.validation.validator;
 
 import lombok.SneakyThrows;
 
@@ -27,8 +27,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 // */
 //@EnumValueValid(enumValues = Status.class, message = "状态值不在指定范围")
 //private String status;
-
-
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @Documented
@@ -64,7 +62,7 @@ public @interface EnumValueValid {
     /**
      * 校验类逻辑定义
      */
-    class EnumValueValidator implements ConstraintValidator<EnumValueValid, Object> {
+    static class EnumValueValidator implements ConstraintValidator<EnumValueValid, Object> {
 
         //字符串类型数组
         private String[] strValues;

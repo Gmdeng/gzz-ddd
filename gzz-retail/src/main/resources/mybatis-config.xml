@@ -91,7 +91,7 @@
             也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user)
         -->
         <!--
-        <package name="com.gzz.doo.domain.model"/>
+        <package name="com.gzz.doo.domain.entity"/>
          -->
         <!-- 系统权限相关实体 -->
         <!--

@@ -1,4 +1,7 @@
 package com.gzz.core.exception;
 
-public class ArgumentException {
+/**
+ * 参数异常
+ */
+public class ArgumentException extends IllegalArgumentException {
 }

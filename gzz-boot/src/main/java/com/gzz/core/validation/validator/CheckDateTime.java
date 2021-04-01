@@ -1,4 +1,4 @@
-package com.gzz.core.validation.custom;
+package com.gzz.core.validation.validator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +20,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = DateTimeValid.Validator.class)
+@Constraint(validatedBy = CheckDateTime.Validator.class)
 @Documented
-public @interface DateTimeValid {
+public @interface CheckDateTime {
     /**
      * 错误消息  - 关键字段
      *
@@ -55,11 +55,11 @@ public @interface DateTimeValid {
      * 内部类
      */
     @Slf4j
-    static class Validator implements ConstraintValidator<DateTimeValid, String> {
-        DateTimeValid annotation;
+    static class Validator implements ConstraintValidator<CheckDateTime, String> {
+        CheckDateTime annotation;
 
         @Override
-        public void initialize(DateTimeValid constraintAnnotation) {
+        public void initialize(CheckDateTime constraintAnnotation) {
             annotation = constraintAnnotation;
         }
 
@@ -67,13 +67,10 @@ public @interface DateTimeValid {
         public boolean isValid(String value, ConstraintValidatorContext context) {
             // 如果 value 为空则不进行格式验证，为空验证可以使用
             // @NotBlank @NotNull @NotEmpty 等注解来进行控制，职责分离
-            if (value == null) {
-                return true;
-            }
+            if (value == null) return true;
             String format = annotation.format();
-            if (value.length() != format.length()) {
-                return false;
-            }
+            if (value.length() != format.length()) return false;
+
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
             try {
                 simpleDateFormat.parse(value);

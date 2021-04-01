@@ -1,4 +1,4 @@
-package com.gzz.retail.domain.account.model;
+package com.gzz.retail.domain.account.entity;
 
 import com.gzz.boot.event.EventPublisher;
 import com.gzz.retail.domain.account.event.TransactionDetailEvent;

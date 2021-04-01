@@ -7,24 +7,24 @@ public class ValidGroup {
     /**
      * 新增组
      */
-    public interface Add {
+    public interface ADD {
     }
 
     /**
      * 修改组
      */
-    public interface Modify {
+    public interface MODIFY{
     }
 
     /**
      * 第一组
      */
-    public interface First {
+    public interface FIRST {
     }
 
     /**
      * 第二组
      */
-    public interface Second {
+    public interface SECOND {
     }
 }

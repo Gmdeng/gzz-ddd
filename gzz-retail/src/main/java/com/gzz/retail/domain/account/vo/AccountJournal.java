@@ -1,4 +1,4 @@
-package com.gzz.retail.domain.account.model;
+package com.gzz.retail.domain.account.vo;
 
 /**
  * 账户流水

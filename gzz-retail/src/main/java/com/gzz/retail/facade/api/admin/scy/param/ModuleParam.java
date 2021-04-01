@@ -1,5 +1,8 @@
 package com.gzz.retail.facade.api.admin.scy.param;
 
+import com.gzz.core.validation.ValidGroup;
+import com.gzz.core.validation.validator.CheckDateTime;
+import com.gzz.core.validation.validator.CheckForbidden;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -44,6 +47,8 @@ public class ModuleParam {
     /**
      * 图标 icon
      */
+    @CheckDateTime()
+    @CheckForbidden.List({@CheckForbidden(message = "", groups = ValidGroup.Add.class), @CheckForbidden})
     private String icon;
     /**
      * 链接地址 url

@@ -1,6 +1,6 @@
 package com.gzz.retail.domain.account;
 
-import com.gzz.retail.domain.account.model.Account;
+import com.gzz.retail.domain.account.entity.Account;
 import org.springframework.stereotype.Service;
 
 /**
