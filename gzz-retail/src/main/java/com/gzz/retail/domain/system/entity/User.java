@@ -1,4 +1,4 @@
-package com.gzz.retail.domain.system.model;
+package com.gzz.retail.domain.system.entity;
 
 import com.gzz.boot.aop.exception.CustomException;
 import com.gzz.core.exception.BizzException;

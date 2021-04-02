@@ -1,4 +1,4 @@
-package com.gzz.retail.facade.api.admin.scy.param;
+package com.gzz.retail.facade.api.admin.safe.param;
 
 import com.gzz.core.validation.ValidGroup;
 import com.gzz.core.validation.validator.CheckDateTime;

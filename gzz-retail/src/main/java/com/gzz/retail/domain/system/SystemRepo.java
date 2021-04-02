@@ -1,7 +1,7 @@
 package com.gzz.retail.domain.system;
 
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.domain.system.model.Module;
+import com.gzz.retail.domain.system.entity.Module;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;

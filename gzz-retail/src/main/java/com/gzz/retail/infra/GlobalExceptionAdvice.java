@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 全局异常处理
+ * 全局异常统一处理
  *
  * @author G-m
  */

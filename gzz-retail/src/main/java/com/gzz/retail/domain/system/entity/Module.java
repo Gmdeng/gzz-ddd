@@ -1,16 +1,18 @@
-package com.gzz.retail.facade.api.admin.scy.vo;
+package com.gzz.retail.domain.system.entity;
 
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.List;
 import java.util.Set;
 
+/**
+ * 系统模块
+ */
 @Data
 @Accessors
-public class ModuleVo {
+public class Module {
     /**
      * ID id
      */
@@ -18,8 +20,7 @@ public class ModuleVo {
     /**
      * 父模块ID parentId
      */
-    private Long parentId;
-    private List<ModuleVo> children;
+    private Module parent;
     /**
      * 类型 type
      */
@@ -35,7 +36,7 @@ public class ModuleVo {
     /**
      * 操作 operate
      */
-    private Set<OperateType> operate;
+    private Set<OperateType> operates;
     /**
      * 图标 icon
      */
@@ -52,4 +53,23 @@ public class ModuleVo {
      * 状态 status
      */
     private CommStatus status;
+
+
+
+    public void save(){
+
+    }
+
+    public void delete(){
+
+    }
+
+    // 批准（approve）
+    public void accept() {
+
+    }
+    // 拒绝
+    public void reject() {
+
+    }
 }

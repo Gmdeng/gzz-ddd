@@ -1,18 +1,10 @@
-package com.gzz.retail.domain.system.model;
+package com.gzz.retail.application.system.command;
 
-import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.Set;
 
-/**
- * 系统模块
- */
-@Data
-@Accessors
-public class Module {
+public class ModuleInsertCmd {
     /**
      * ID id
      */
@@ -20,7 +12,7 @@ public class Module {
     /**
      * 父模块ID parentId
      */
-    private Module parent;
+    private Long parentId;
     /**
      * 类型 type
      */
@@ -36,7 +28,7 @@ public class Module {
     /**
      * 操作 operate
      */
-    private Set<OperateType> operates;
+    private Set<OperateType> operate;
     /**
      * 图标 icon
      */
@@ -49,8 +41,4 @@ public class Module {
      * 排序 idx
      */
     private int idx;
-    /**
-     * 状态 status
-     */
-    private CommStatus status;
 }

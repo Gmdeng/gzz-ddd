@@ -9,7 +9,7 @@ public enum MessageStatus {
 
     private String name;
 
-    private MessageStatus(Integer id, String name) {
+    MessageStatus(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

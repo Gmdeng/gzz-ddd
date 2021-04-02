@@ -36,6 +36,11 @@ public class BeanConvertUtil {
         BeanCopier copier = BeanCopier.create(source, target, false);
         return copyOne(view, target, consumer, copier);
     }
+
+    public static <S, T> T convertOne(Class<S> source, Class<T> target, S view) {
+        BeanCopier copier = BeanCopier.create(source, target, false);
+        return copyOne(view, target,  (src, dest) -> {}, copier);
+    }
     // 集合对象
 
     /**

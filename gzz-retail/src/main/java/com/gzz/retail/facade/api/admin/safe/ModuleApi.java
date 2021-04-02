@@ -1,13 +1,13 @@
-package com.gzz.retail.facade.api.admin.scy;
+package com.gzz.retail.facade.api.admin.safe;
 
 import com.alibaba.fastjson.JSON;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.dto.ModuleDto;
-import com.gzz.retail.application.system.ModuleCommandApp;
-import com.gzz.retail.facade.api.admin.scy.param.ModuleParam;
-import com.gzz.retail.facade.api.admin.scy.vo.ModuleVo;
+import com.gzz.retail.application.system.ModuleCmdApplication;
+import com.gzz.retail.facade.api.admin.safe.param.ModuleParam;
+import com.gzz.retail.facade.api.admin.safe.vo.ModuleVo;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
  * 系统模块管理
  */
 @RestController
-@RequestMapping("/admin/scy/module")
+@RequestMapping("/admin/safe/module")
 public class ModuleApi {
     @Autowired
     private IZModuleMapper izModuleMapper;
     @Autowired
-    private ModuleCommandApp moduleApp;
+    private ModuleCmdApplication moduleApp;
 
     /**
      * 保存数据
@@ -50,7 +50,7 @@ public class ModuleApi {
         };
         consumer.accept(19);
         //
-        ModuleDto dto = BeanConvertUtil.convertOne(ModuleParam.class, ModuleDto.class, param, (src, dest)->{
+        ModuleDto dto = BeanConvertUtil.convertOne(ModuleParam.class, ModuleDto.class, param, (src, dest) -> {
 
         });
         moduleApp.saveModule(dto);
