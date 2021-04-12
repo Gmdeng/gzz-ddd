@@ -134,7 +134,7 @@ public class BeanUtil {
         } catch (Exception e) {
             return null;
         }
-        merge(obj, srcData);
+        mergeB(obj, srcData);
         return obj;
     }
 }

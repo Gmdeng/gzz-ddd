@@ -8,14 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
 @Data
 @Accessors(chain = true)
 public class Account {
     // 对象标识
-    private long id;
+    private AccountId id;
     // 账户号
-    private String no;
+    private AccountNo no;
     // 余额
     private BigDecimal balance;
     // 可用金额

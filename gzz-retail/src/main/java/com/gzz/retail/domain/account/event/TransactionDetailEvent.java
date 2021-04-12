@@ -1,6 +1,6 @@
 package com.gzz.retail.domain.account.event;
 
-import com.gzz.core.model.DomainEvent;
+import com.gzz.core.model.AbstractDomainEvent;
 import com.gzz.retail.domain.account.entity.TransactionDetail;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class TransactionDetailEvent extends DomainEvent {
+public class TransactionDetailEvent extends AbstractDomainEvent {
     private String origin;
     private String target;
     private TransactionDetail detail;

@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 领域事件抽像
  */
-public abstract class DomainEvent implements IDomainEvent {
+public abstract class AbstractDomainEvent implements IDomainEvent {
     // 事件版本
     protected int eventVersion = 1;
     // 事件发生时间

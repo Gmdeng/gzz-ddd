@@ -2,7 +2,7 @@ package com.gzz.retail.application.system;
 
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.dto.ModuleDto;
-import com.gzz.retail.application.system.query.UserQueryCmd;
+import com.gzz.retail.application.system.query.UserQuery;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class ModuleQueryApplication {
     }
 
 
-    public List<ModuleDto> getModuleByPage(UserQueryCmd cmd){
+    public List<ModuleDto> getModuleByPage(UserQuery cmd){
         return moduleMapper.findListsByPage(cmd.toParam(), cmd.getPager());
     }
 }

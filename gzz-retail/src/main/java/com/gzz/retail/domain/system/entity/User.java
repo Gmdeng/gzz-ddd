@@ -11,35 +11,37 @@ public class User {
     /**
      * ID id
      */
-    private Long id;
+    private UserId userId;
     /**
      * 用户名 userId
      */
-    private String userId;
-    /**
-     * 密码 passwd
-     */
-    private String passwd;
-    /**
-     * 密码盐 salt
-     */
-    private String salt;
+    private String userName;
+
     /**
      * 名称 petName
      */
     private String petName;
+
+    /**
+     * 密码 passwd
+     */
+    private String passwd;
+
+    /**
+     * 密码盐 salt
+     */
+    private String salt;
+
     /**
      * 手机号 mobile
      */
     private String mobile;
+
     /**
      * 允许登录IP allowIpaddr
      */
     private String allowIpaddr;
-    /**
-     * 备注 notes
-     */
-    private String notes;
+
     /**
      * 状态 status
      */

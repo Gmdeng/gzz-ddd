@@ -4,8 +4,9 @@ import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import lombok.Data;
 
+
 @Data
-public class BaseQueryCmd {
+public class BaseQuery {
     private Pager pager;
 
     public ParamMap toParam(){
