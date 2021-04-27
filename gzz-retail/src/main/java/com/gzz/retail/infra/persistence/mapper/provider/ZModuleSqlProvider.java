@@ -3,7 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.StringUtil;
-import com.gzz.retail.infra.persistence.pojo.ZModule;
+import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class ZModuleSqlProvider {
 
     // 选择性新增SQL insertSelective
-    public String dynamicInsert(ZModule zModule) {
+    public String dynamicInsert(ZModulePo zModule) {
         return new SQL() {
             {
                 INSERT_INTO("Z_MODULE");
@@ -70,7 +70,7 @@ public class ZModuleSqlProvider {
     }
 
     // 批量插入
-    public String batchInsert(@Param("dataList") List<ZModule> dataList) {
+    public String batchInsert(@Param("dataList") List<ZModulePo> dataList) {
         MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].id}, #'{'dataList[{0}].parentId}, #'{'dataList[{0}].type}, #'{'dataList[{0}].name}, #'{'dataList[{0}].code}, #'{'dataList[{0}].operate}, #'{'dataList[{0}].icon}, #'{'dataList[{0}].url}, #'{'dataList[{0}].idx}, #'{'dataList[{0}].status}, #'{'dataList[{0}].updateOn}, #'{'dataList[{0}].updateBy}, #'{'dataList[{0}].createOn}, #'{'dataList[{0}].createBy})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
@@ -81,7 +81,7 @@ public class ZModuleSqlProvider {
     }
 
     // 选择性更新SQL
-    public String dynamicUpdate(ZModule zModule) {
+    public String dynamicUpdate(ZModulePo zModule) {
         return new SQL() {
             {
                 UPDATE("Z_MODULE");

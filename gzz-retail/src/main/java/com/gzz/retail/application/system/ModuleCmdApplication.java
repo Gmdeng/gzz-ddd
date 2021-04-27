@@ -3,12 +3,11 @@ package com.gzz.retail.application.system;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.system.command.ModuleAuditCmd;
 import com.gzz.retail.application.system.command.ModuleDeleteCmd;
-import com.gzz.retail.application.system.command.ModuleInsertCmd;
-import com.gzz.retail.application.system.command.ModuleUpdateCmd;
+import com.gzz.retail.application.system.command.ModuleSaveCmd;
 import com.gzz.retail.domain.system.ModuleFactory;
-import com.gzz.retail.domain.system.entity.Module;
-import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
-import com.gzz.retail.infra.persistence.pojo.ZModule;
+import com.gzz.retail.domain.system.entity.ModuleDo;
+import com.gzz.retail.domain.system.primitive.ModuleId;
+import com.gzz.retail.domain.system.repo.ModuleRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,39 +20,32 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModuleCmdApplication {
     @Autowired
-    private IZModuleMapper moduleMapper;
+    private ModuleRepo moduleRepo;
 
     @Autowired
     private ModuleFactory moduleFactory;
 
     /**
-     *
+     *  执行保存命令
      * @param cmd
      */
-    public void insertCmd(ModuleInsertCmd cmd){
-        ZModule zModule = BeanConvertUtil.convertOne(ModuleInsertCmd.class, ZModule.class, cmd, (src, dest) -> {
+    public void saveCmd(ModuleSaveCmd cmd){
+        ModuleDo module = BeanConvertUtil.convertOne(ModuleSaveCmd.class, ModuleDo.class, cmd, (src, dest) -> {
             log.info("=========================" + src);
+            if(src.getModuleId() != null)
+                dest.setModuleId(new ModuleId(src.getModuleId()));
+            dest.setParent(new ModuleDo(new ModuleId(src.getParentId())));
         });
-        moduleMapper.insert(zModule);
-
-    }
-
-    /**
-     *
-     * @param cmd
-     */
-    public void updateCmd(ModuleUpdateCmd cmd){
-        ZModule zModule = BeanConvertUtil.convertOne(ModuleUpdateCmd.class, ZModule.class, cmd);
-        moduleMapper.update(zModule);
+        moduleRepo.save(module);
     }
 
     public void deleteCmd(ModuleDeleteCmd cmd){
-        Module module = moduleFactory.buildModule(cmd.getModuleId());
+        ModuleDo module = moduleFactory.buildModule(cmd.getModuleId());
         module.delete();
     }
 
     public void auditCmd(ModuleAuditCmd cmd){
-        Module module = moduleFactory.buildModule(cmd.getModuleId());
+        ModuleDo module = moduleFactory.buildModule(cmd.getModuleId());
         if(cmd.getStatus() == 0){
             module.accept();
         }else {

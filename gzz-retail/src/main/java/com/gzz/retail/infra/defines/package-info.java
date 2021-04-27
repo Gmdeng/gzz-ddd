@@ -1,10 +1,8 @@
 /**
  * 定义项目统一的
- *
+ * <p>
  * grade  -  级别
  * state  -  状态
- * types  -  类型
- *
- *
+ * primitive  -  类型
  */
 package com.gzz.retail.infra.defines;

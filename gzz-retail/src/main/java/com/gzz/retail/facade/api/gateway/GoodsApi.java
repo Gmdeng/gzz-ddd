@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 商品
  */
 @RestController
-@RequestMapping("/gateway/goo")
+@RequestMapping("/gateway/goods")
 public class GoodsApi {
     /**
      * 商品分类 列表

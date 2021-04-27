@@ -1,36 +1,37 @@
 package com.gzz.retail.infra.defines.state;
 
+import com.gzz.boot.mybatis.handler.IEnumPlus;
+
+import java.util.Optional;
+import java.util.stream.Stream;
+
 /**
  * 发货单状态
  */
-public enum ShipStatus {
+public enum ShipStatus implements IEnumPlus {
     ADD(0, "新建"),
     PACKAGE(2, "打包"),
     DELIVER(4, "交付"),
     CANCEL(8, "取消"),
     FINISH(16, "成功");
 
-    private int key;
-    private String name;
+    String label;
+    Integer key;
 
-
-    ShipStatus(int key, String name) {
+    ShipStatus(Integer key, String label) {
         this.key = key;
-        this.name = name;
+        this.label = label;
     }
 
-    public static ShipStatus valueOf(int value) {
-        for (ShipStatus status : ShipStatus.values()) {
-            if (status.value() == value) return status;
-        }
-        return ADD;
-    }
 
-    public int value() {
-        return this.key;
+    public static Optional<ShipStatus> valueOf(int value) {
+        return Stream.of(values()).filter(x -> x.key == value).findFirst();
     }
+//    public static ShipStatus valueOf(int value) {
+//        for (ShipStatus status : ShipStatus.values()) {
+//            if (status.key == value) return status;
+//        }
+//        return ADD;
+//    }
 
-    public String label() {
-        return this.name;
-    }
 }

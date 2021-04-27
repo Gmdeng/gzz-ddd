@@ -1,7 +1,7 @@
 package com.gzz.retail.domain.account;
 
 import com.gzz.retail.domain.account.event.TransactionDetailEvent;
-import com.gzz.retail.domain.account.entity.Account;
+import com.gzz.retail.domain.account.entity.AccountDo;
 import com.gzz.retail.domain.account.service.ITransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class AccountService {
      * @param amount 金额
      */
     public void transfer(String srcAccountNo, String destAccountNo, BigDecimal amount){
-        Account srcAccount = accountFactory.buildAccount(srcAccountNo);
-        Account destAccount = accountFactory.buildAccount(destAccountNo);
+        AccountDo srcAccount = accountFactory.buildAccount(srcAccountNo);
+        AccountDo destAccount = accountFactory.buildAccount(destAccountNo);
         srcAccount.debit(amount);  // 取出
         destAccount.credit(amount); //存入
         // 发布事件

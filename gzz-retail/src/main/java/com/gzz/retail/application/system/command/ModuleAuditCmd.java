@@ -13,4 +13,8 @@ public class ModuleAuditCmd {
      * status
      */
     private int status;
+
+    public void execute(){
+
+    }
 }

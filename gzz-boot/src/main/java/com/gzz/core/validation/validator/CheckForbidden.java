@@ -1,6 +1,5 @@
 package com.gzz.core.validation.validator;
 
-import com.gzz.core.validation.custom.CustomValid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 

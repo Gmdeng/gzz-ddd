@@ -1,5 +1,6 @@
 package com.gzz.core.validation.validator;
 
+import com.gzz.core.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.Constraint;
@@ -67,7 +68,7 @@ public @interface CheckDateTime {
         public boolean isValid(String value, ConstraintValidatorContext context) {
             // 如果 value 为空则不进行格式验证，为空验证可以使用
             // @NotBlank @NotNull @NotEmpty 等注解来进行控制，职责分离
-            if (value == null) return true;
+            if (StringUtil.isEmpty(value)) return true;
             String format = annotation.format();
             if (value.length() != format.length()) return false;
 

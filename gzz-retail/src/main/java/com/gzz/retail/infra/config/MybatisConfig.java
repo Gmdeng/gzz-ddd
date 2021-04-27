@@ -2,7 +2,7 @@ package com.gzz.retail.infra.config;
 
 import com.gzz.boot.mybatis.DataSourceInterceptor;
 import com.gzz.boot.mybatis.DataSourceRouting;
-import com.gzz.boot.mybatis.PaginationInterceptor;
+import com.gzz.boot.mybatis.interceptor.PaginationInterceptor;
 import com.gzz.boot.mybatis.autofill.AutoFillInterceptor;
 import com.gzz.boot.mybatis.cache.RedisCacheTransfer;
 import org.apache.ibatis.plugin.Interceptor;
@@ -128,7 +128,7 @@ public class MybatisConfig {
         pageProp.setProperty("pageSqlId", "mysql10001");
         PaginationInterceptor pagerInterceptor = new PaginationInterceptor();
         pagerInterceptor.setProperties(pageProp);
-        //
+        // 拦截器插件
         Interceptor[] plugins = {pagerInterceptor, new AutoFillInterceptor(), new DataSourceInterceptor()};
         bean.setPlugins(plugins);
         try {

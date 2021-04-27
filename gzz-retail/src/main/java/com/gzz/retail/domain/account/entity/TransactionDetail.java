@@ -18,7 +18,7 @@ public class TransactionDetail {
     // 交易类型
     private TransactionType type;
     // 所属账户
-    private Account account;
+    private AccountDo account;
     // 交易发生金额
     private BigDecimal amount;
     // 交易发生手续费

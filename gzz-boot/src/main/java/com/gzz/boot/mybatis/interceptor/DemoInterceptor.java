@@ -22,7 +22,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 @Intercepts({
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
+        @Signature(type = Executor.class, method = "queries", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
         , @Signature(type = ParameterHandler.class, method = "setParameter", args = {PreparedStatement.class})
         , @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
         , @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})

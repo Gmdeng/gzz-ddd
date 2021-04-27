@@ -112,7 +112,7 @@
     <!-- 插件：mybatis的插件,插件可以修改mybatis的内部运行规则	-->
     <plugins>
         <!--  分页拦截器	-->
-        <plugin interceptor="com.gzz.boot.mybatis.PaginationInterceptor">
+        <plugin interceptor="com.gzz.boot.mybatis.interceptor.PaginationInterceptor">
             <property name="DIALECT" value="${jdbc.dialect}"/>
             <property name="SPLIT_PAGE" value=".*ByPage.*"/>
         </plugin>

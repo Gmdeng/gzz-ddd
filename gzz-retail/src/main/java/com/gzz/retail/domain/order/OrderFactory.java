@@ -1,8 +1,8 @@
 package com.gzz.retail.domain.order;
 
 import com.gzz.core.util.IdGenerator;
-import com.gzz.retail.domain.member.model.Member;
-import com.gzz.retail.domain.order.model.SaleOrder;
+import com.gzz.retail.domain.member.model.MemberDo;
+import com.gzz.retail.domain.order.model.SaleOrderDo;
 import com.gzz.retail.infra.defines.state.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,8 +22,8 @@ public class OrderFactory {
      *
      * @return
      */
-    public SaleOrder buildSaleOrder() {
-        SaleOrder order = new SaleOrder();
+    public SaleOrderDo buildSaleOrder() {
+        SaleOrderDo order = new SaleOrderDo();
         order.no(idGenerator.generateNo("GM"))
                 .timeOn(new Date())
                 .modeOfPayment(0)
@@ -35,7 +35,7 @@ public class OrderFactory {
      * @param m
      * @return
      */
-    public SaleOrder build(Member m) {
+    public SaleOrderDo build(MemberDo m) {
         return buildSaleOrder().memberNo(m.getNo()).memberName(m.getName());
     }
 }

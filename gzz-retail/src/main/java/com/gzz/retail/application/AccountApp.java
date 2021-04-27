@@ -1,6 +1,6 @@
 package com.gzz.retail.application;
 
-import com.gzz.retail.domain.account.entity.Account;
+import com.gzz.retail.domain.account.entity.AccountDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountApp {
     @Autowired
-    private Account account;
+    private AccountDo account;
 
 }

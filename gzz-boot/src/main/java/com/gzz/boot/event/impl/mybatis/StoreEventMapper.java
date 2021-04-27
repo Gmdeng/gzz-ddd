@@ -9,10 +9,10 @@ import java.util.List;
 public interface StoreEventMapper {
     @Select("select * from dom_stored_event " +
             "where event_id between #{lowStoredEventId} and #{highStoredEventId} " +
-            "ord by event_id")
+            "order by event_id")
     List<StoredEvent> allStoredEventsBetween(@Param("lowStoredEventId") long lowStoredEventId, @Param("highStoredEventId") long highStoredEventId);
 
-    @Select("select * from dom_stored_event where event_id > #{storedEventId} ord by event_id")
+    @Select("select * from dom_stored_event where event_id > #{storedEventId} order by event_id")
     List<StoredEvent> allStoredEventsSince(@Param("storedEventId") long storedEventId);
 
     @Options(useGeneratedKeys = true, keyProperty = "eventId")

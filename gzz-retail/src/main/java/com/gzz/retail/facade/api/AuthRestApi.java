@@ -10,8 +10,8 @@ import com.gzz.core.response.HttpResult;
 import com.gzz.core.validation.ValidationResult;
 import com.gzz.core.validation.ValidationUtils;
 import com.gzz.retail.application.UserApp;
-import com.gzz.retail.application.dto.param.LoginParam;
-import com.gzz.retail.application.dto.param.RegisterParam;
+import com.gzz.retail.application.assembler.dto.param.LoginParam;
+import com.gzz.retail.application.assembler.dto.param.RegisterParam;
 import com.gzz.retail.domain.account.event.AccountChangeEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -95,12 +95,12 @@ public class AuthRestApi {
     @GetMapping("/getUser")
     public HttpResult getUser(String type) {
 
-        //MemberEntity mem = userApp.getMember();
-        //mem.setAddress(UUID.randomUUID().toString());
+        //MemberEntity member = userApp.getMember();
+        //member.setAddress(UUID.randomUUID().toString());
         ;//
 
 
-//        if(mem!= null ){
+//        if(member!= null ){
 //            throw new UnauthenticatedException("无权限进行操作3333");
 //        }
         smsTemplate.sendSMS("hello");
@@ -111,7 +111,7 @@ public class AuthRestApi {
     public HttpResult getTestUser() {
 
         Object obj = restTemplate.getForObject("http://localhost:9999/v1/auth/getUser?type=ALI", Object.class);
-//        if(mem!= null ){
+//        if(member!= null ){
 //            throw new UnauthenticatedException("无权限进行操作3333");
 //        }
         return HttpResult.success(obj);

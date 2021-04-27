@@ -1,6 +1,5 @@
 package com.gzz.retail.domain.member;
 
-import com.gzz.retail.application.dto.resut.MemberVo;
 import com.gzz.retail.domain.member.model.MemberEntity;
 
 /**
@@ -8,7 +7,7 @@ import com.gzz.retail.domain.member.model.MemberEntity;
  */
 public class MemberFactory {
     //
-    public MemberEntity createMember(MemberVo userDTO) {
+    public MemberEntity createMember() {
         //
         return new MemberEntity();
     }

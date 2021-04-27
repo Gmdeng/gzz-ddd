@@ -26,4 +26,3 @@ public class EventPublisher implements ApplicationContextAware {
         EventPublisher.applicationContext = applicationContext;
     }
 }
-

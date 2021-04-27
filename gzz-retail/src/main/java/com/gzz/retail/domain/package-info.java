@@ -10,6 +10,7 @@ package com.gzz.retail.domain;
  * 领域服务（Domain Services）：一些行为无法归类到实体对象或值对象，本质是一些操作，而非事物。
  * 聚合/ 聚合根（Aggregates,Aggregate Roots）：聚合是指一组具有内聚关系的相关对象的集合，每个聚合都有一个ROOT和Boundary
  * <p>
+ *     Domain Primitive
  * <p>
  * 类型 	      英文 	         描述
  * 值对象 	      value object 	 无唯一标识的简单对象

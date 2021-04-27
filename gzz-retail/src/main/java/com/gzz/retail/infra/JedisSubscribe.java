@@ -50,6 +50,7 @@ public class JedisSubscribe {
             }, topic);
         }).start();
     }
+
     /**
      * 匹配频道模式-订阅消息
      * @param topic
@@ -70,6 +71,7 @@ public class JedisSubscribe {
             }, topic);
         }).start();
     }
+
     /**
      * 发布消息
      * @param topic 管道
@@ -79,6 +81,7 @@ public class JedisSubscribe {
         // 单机版使用 jedisPool.getResource().psubscribe
         cluster.publish(topic,message);
     }
+
     public static void main(String[] args) throws InterruptedException {
         sub(topicLog);
         pSub(topicLog);

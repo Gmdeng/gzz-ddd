@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @MybatisTest
+// 这个注解的意义是指定了默认数据源
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class TestMemberRepo {
     @Test

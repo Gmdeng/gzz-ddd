@@ -8,8 +8,6 @@ import lombok.Setter;
  * 会员地址
  */
 @Data
-@Setter
-@Getter
 public class MemberAddress {
     private Long id;
     // 会员编号

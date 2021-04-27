@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
+// import org.apache.ibatis.type.EnumOrdinalTypeHandler;
+
 public class EnumSetTypeHandler<E extends Enum<E>> extends BaseTypeHandler<Set<E>> {
     private final Class<E> type;
     private final E[] enums;

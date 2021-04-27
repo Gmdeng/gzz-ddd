@@ -71,7 +71,7 @@ public class ValidationUtils {
         ValidationResult result = new ValidationResult();
         Set<ConstraintViolation<T>> set = validator.validateProperty(obj, propertyName, Default.class);
         if (set != null && set.size() != 0) {
-            result.setHasError(true);
+            result.isHasError();
             Map<String, String> errorMsg = new HashMap<String, String>();
             for (ConstraintViolation<T> cv : set) {
                 errorMsg.put(propertyName, cv.getMessage());

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -146,7 +147,7 @@ public class GlobalExceptionAdvice {
     public HttpResult exceptionHandler(NativeWebRequest request, BindException ex) {
         log.error("数据处理异常BindException: " + ex.getMessage());
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> errMap = new HashMap<>();
         if (ex.getBindingResult() != null) {
             List<ObjectError> allErrors = ex.getBindingResult().getAllErrors();
 //            allErrors.stream().filter(Objects::nonNull).forEach(err -> {
@@ -162,12 +163,28 @@ public class GlobalExceptionAdvice {
 //                System.out.println("ErrMsg = " + err.getDefaultMessage());
 //                //log.error("--请求参数："+(((FieldError) ((FieldError) allErrors.get(0))).getField().toString() ), "===========>", objectError.getDefaultMessage());
 //            });
-           map= allErrors.stream().filter(Objects::nonNull).map(err->{
+            errMap = allErrors.stream().filter(Objects::nonNull).map(err->{
                 return (FieldError) err;
-            }).collect(Collectors.toMap(FieldError::getField, FieldError::getRejectedValue));
+            }).collect(Collectors.toMap(FieldError::getField, v->{
+                // FieldError::getDefaultMessage;
+                if("typeMismatch".equalsIgnoreCase(v.getCode())) return "数据类型不匹配";
+                return  v.getDefaultMessage();
+            }));
         }
 
-        return HttpResult.fail(ResultCode.PARAM_ERROR).data(JSON.toJSON(map));
+        return HttpResult.fail(ResultCode.PARAM_ERROR).data(JSON.toJSON(errMap));
+    }
+
+    /**
+     * 处理空指针的异常
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = NullPointerException.class)
+    public HttpResult exceptionHandler(HttpServletRequest request, NullPointerException ex){
+        log.error("发生空指针异常！原因是:",ex);
+        return HttpResult.fail("空指针异常");
     }
 
     /**

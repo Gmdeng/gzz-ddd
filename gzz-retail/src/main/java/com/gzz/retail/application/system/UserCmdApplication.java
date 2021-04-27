@@ -1,13 +1,11 @@
 package com.gzz.retail.application.system;
 
 import com.gzz.core.exception.BizzException;
-import com.gzz.core.util.StringUtil;
 import com.gzz.core.validation.ValidationUtils;
 import com.gzz.retail.application.ICommand;
 import com.gzz.retail.application.system.command.UserDeleteCmd;
-import com.gzz.retail.application.system.command.UserInsertCmd;
+import com.gzz.retail.application.system.command.UserSaveCmd;
 import com.gzz.retail.application.system.command.UserModifyPasswdCmd;
-import com.gzz.retail.application.system.command.UserUpdateCmd;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +26,7 @@ public class UserCmdApplication {
      * 新增
      * @param cmd
      */
-    public void insertCmd(UserInsertCmd cmd){
+    public void insertCmd(UserSaveCmd cmd){
 
     }
 
@@ -36,7 +34,7 @@ public class UserCmdApplication {
      * 修改
      * @param cmd
      */
-    public void updateCmd(UserUpdateCmd cmd){
+    public void updateCmd(UserSaveCmd cmd){
 
     }
 

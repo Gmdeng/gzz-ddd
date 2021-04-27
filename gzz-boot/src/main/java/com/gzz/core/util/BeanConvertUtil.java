@@ -47,7 +47,7 @@ public class BeanConvertUtil {
      * List<Order> orders;
      * convertList(Order.class, OrderVo.class, orders, (s, t) -> {
      * // 设置其他属性
-     * t.setGoods(goo);
+     * t.setGoods(goods);
      * // 特殊属性转化
      * t.setOrderTimeString(s.getOrderTime().toString());
      * });

@@ -7,8 +7,6 @@ import lombok.Setter;
 import java.util.Date;
 
 @Data
-@Setter
-@Getter
 public class MemberEntity {
     private Long id;
     private String memberNo;
