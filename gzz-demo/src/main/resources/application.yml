@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: demo
+  #数据源
+  datasource:
+    #配置master库驱动和连接池
+    master:
+      type: com.alibaba.druid.pool.DruidDataSource # 使用druid连接池
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gzz_db?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+      username: root
+      password: passwd
+    druid:             #2.连接池配置
+      initial-size: 2  #初始化连接池的连接数量 大小
+      min-idle: 2      #初始化连接池的连接数量最小
+      max-active: 5    #初始化连接池的连接数量最大
+      max-wait: 100    #配置获取连接等待超时的时间
+      #log-abandoned: true #连接被泄露时是否打印
+      pool-prepared-statements: true
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.demo.dao.handlers
+

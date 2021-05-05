@@ -25,12 +25,13 @@ import org.springframework.context.annotation.Import;
 @Configuration
 public class AutoConfig implements DisposableBean {
     /**
-     * 短信
+     * 短信发送处理
      *
      * @param smsProcessor
      * @return
      */
     @Bean
+    @ConditionalOnProperty(prefix = "gzz.sms", name = "type")
     @ConditionalOnMissingBean(SmsTemplate.class)
     public SmsTemplate smsTemplate(SmsProcessor smsProcessor) {
         return new SmsTemplate(smsProcessor);

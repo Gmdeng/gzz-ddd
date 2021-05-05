@@ -1,18 +1,18 @@
 package com.gzz.retail.facade.api.admin.system;
 
 import com.alibaba.fastjson.JSON;
+import com.gzz.boot.aop.log.VisitLog;
 import com.gzz.core.response.HttpResult;
+import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.core.validation.ValidationResult;
-import com.gzz.core.validation.ValidationUtils;
 import com.gzz.retail.application.system.ModuleCmdApplication;
 import com.gzz.retail.application.system.ModuleQueryApplication;
 import com.gzz.retail.application.system.command.ModuleSaveCmd;
+import com.gzz.retail.application.system.dto.ModuleDto;
+import com.gzz.retail.application.system.queries.ModuleQuery;
 import com.gzz.retail.facade.api.admin.system.param.ModuleParam;
 import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
-import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
-import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -30,27 +30,36 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/admin/system/module")
 public class ModuleApi {
-    @Autowired
-    private IZModuleMapper izModuleMapper;
+
     @Autowired
     private ModuleCmdApplication moduleCmdApp;
     @Autowired
     private ModuleQueryApplication moduleQueryApp;
 
     /**
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/getDetail")
+    public HttpResult getDetail(Long id){
+        ModuleDto dto = moduleQueryApp.getModuleById(id);
+        return HttpResult.success(dto);
+    }
+    /**
      * 新增数据
      *
      * @return
      */
     @PostMapping("/saveData")
-    public HttpResult saveData(@Validated ModuleParam param) {
+    public HttpResult saveData(@Validated ModuleSaveCmd cmd) {
 //        ValidationResult err = ValidationUtils.validate(param);
 //        if (err.isHasError()) {
 //            return HttpResult.fail().data(err.getErrors());
 //        }
-        ModuleSaveCmd cmd = BeanConvertUtil.convertOne(ModuleParam.class, ModuleSaveCmd.class, param);
+
         moduleCmdApp.saveCmd(cmd);
-        return HttpResult.success(JSON.toJSONString(param));
+        return HttpResult.success();
     }
 
     /**
@@ -62,11 +71,13 @@ public class ModuleApi {
     public HttpResult modifyData(@Validated ModuleParam param){
         return HttpResult.success(JSON.toJSONString(param));
     }
+
     /**
      * 审核数据
      *
      * @return
      */
+    @PostMapping("/authData")
     public HttpResult authData() {
         return HttpResult.success();
     }
@@ -77,14 +88,19 @@ public class ModuleApi {
      * @return
      */
     @GetMapping("/getList")
-    public HttpResult getList() {
+    public HttpResult getList(HttpServletRequest request) {
         ParamMap params = new ParamMap();
-        List<ZModulePo> dataList = izModuleMapper.findList(params);
-        List<ModuleVo> lists = BeanConvertUtil.convertList(ZModulePo.class, ModuleVo.class, dataList, (s, t) -> {
-        });
-        ModuleVo zeroNode = new ModuleVo();
-        zeroNode.setId(0L);
-        return HttpResult.success(toTreeNode(zeroNode, lists));
+        ModuleQuery query = new ModuleQuery();
+        Pager pager = new Pager(20);
+        query.setPager(pager);
+        List<ModuleDto> dataList = moduleQueryApp.getModuleByPage(query);
+//        List<ZModulePo> dataList = izModuleMapper.findList(params);
+//        List<ModuleVo> lists = BeanConvertUtil.convertList(ZModulePo.class, ModuleVo.class, dataList, (s, t) -> {
+//        });
+//        ModuleVo zeroNode = new ModuleVo();
+//        zeroNode.setId(0L);
+//        return HttpResult.success(toTreeNode(zeroNode, lists));
+        return HttpResult.success().put("dataList", dataList).put("pager", pager);
     }
 
     /**
@@ -92,6 +108,7 @@ public class ModuleApi {
      *
      * @return
      */
+    @VisitLog
     @GetMapping("/getTreeSelects")
     public HttpResult getTreeSelects() {
         return HttpResult.success(moduleQueryApp.getTreeSelect());

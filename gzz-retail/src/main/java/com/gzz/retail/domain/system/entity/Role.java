@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(fluent = true)
-public class RoleDo {
+public class Role {
     /**
      * ID id
      */

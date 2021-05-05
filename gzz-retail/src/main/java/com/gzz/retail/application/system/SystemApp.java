@@ -2,7 +2,7 @@ package com.gzz.retail.application.system;
 
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.domain.system.repo.SystemRepo;
-import com.gzz.retail.domain.system.entity.ModuleDo;
+import com.gzz.retail.domain.system.entity.Module;
 import com.gzz.retail.infra.defines.types.OperateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class SystemApp {
         operateTypes.add(OperateType.ADD);
         operateTypes.add(OperateType.AUDIT);
         operateTypes.add(OperateType.CANCEL);
-        ModuleDo module = new ModuleDo();
+        Module module = new Module();
         module.setName(moduleName);
         module.setIcon("https://wwww.g-zz.com");
         module.setCode("SUPER-ROOT");
@@ -33,14 +33,14 @@ public class SystemApp {
         systemRepo.saveModule(module);
     }
 
-    public ModuleDo getModule(Long moduleId) {
+    public Module getModule(Long moduleId) {
         return systemRepo.getModuleById(moduleId);
     }
 
     /**
      * @return
      */
-    public List<ModuleDo> getModuleList(ParamMap param) {
+    public List<Module> getModuleList(ParamMap param) {
 
         return systemRepo.getModuleList(param);
     }

@@ -1,4 +1,4 @@
-package com.gzz.retail.infra;
+package com.gzz.retail.infra.started;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -12,10 +12,15 @@ import javax.annotation.Resource;
  */
 
 @Slf4j
-public class ApplicationRunner implements CommandLineRunner {
+public class TCommandLineRunner implements CommandLineRunner {
     @Resource
     private ApplicationContext applicationContext;
 
+    /**
+     * 用于指示bean包含在SpringApplication中时应运行的接口。
+     * 可以在同一应用程序上下文中定义多个commandlinerunner bean，并且可以使用有序接口或@order注释对其进行排序。
+     * 如果需要访问applicationArguments而不是原始字符串数组，请考虑使用applicationrunner。
+     * */
     @Override
     public void run(String... strings) {
         Environment environment = applicationContext.getEnvironment();

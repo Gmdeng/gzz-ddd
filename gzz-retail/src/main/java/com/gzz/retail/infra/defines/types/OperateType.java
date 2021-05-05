@@ -7,6 +7,7 @@ import java.util.stream.Stream;
  * 操作类型
  */
 public enum OperateType {
+
     VIEW(1, "查看"),
     ADD(2, "增加"),
     MODIFY(4, "修改"),
@@ -16,10 +17,8 @@ public enum OperateType {
     PASS(64, "通过"),
     REJECT(128, "拒绝");
 
-
     private int key;
     private String name;
-
 
     OperateType(int key, String name) {
         this.key = key;

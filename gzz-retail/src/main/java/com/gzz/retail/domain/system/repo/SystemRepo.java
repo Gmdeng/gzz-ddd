@@ -1,7 +1,7 @@
 package com.gzz.retail.domain.system.repo;
 
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.domain.system.entity.ModuleDo;
+import com.gzz.retail.domain.system.entity.Module;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
@@ -29,7 +29,7 @@ public class SystemRepo {
      *
      * @param m
      */
-    public void saveModule(ModuleDo m) {
+    public void saveModule(Module m) {
         //ZModule zModule = BeanUtil.deepCopy(m, ZModule.class);
 
         ZModulePo zModule = new ZModulePo();
@@ -50,9 +50,9 @@ public class SystemRepo {
      * @param moduleId
      * @return
      */
-    public ModuleDo getModuleById(Long moduleId) {
+    public Module getModuleById(Long moduleId) {
         ZModulePo zModule = moduleMapper.getById(moduleId);
-        ModuleDo m = new ModuleDo();
+        Module m = new Module();
         BeanUtils.copyProperties(zModule, m);
         zModule.setUrl("wss://g-zz.com");
         moduleMapper.update(zModule);
@@ -62,7 +62,7 @@ public class SystemRepo {
     /**
      * @return
      */
-    public List<ModuleDo> getModuleList(ParamMap param) {
+    public List<Module> getModuleList(ParamMap param) {
         return moduleMapper.findList(param);
     }
 }

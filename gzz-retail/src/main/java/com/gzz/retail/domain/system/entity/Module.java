@@ -3,8 +3,9 @@ package com.gzz.retail.domain.system.entity;
 import com.gzz.retail.domain.system.primitive.ModuleId;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
@@ -12,8 +13,9 @@ import java.util.Set;
  * 系统模块
  */
 @Data
-@Accessors
-public class ModuleDo {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Module {
     /**
      * ModuleId
      */
@@ -21,7 +23,7 @@ public class ModuleDo {
     /**
      * 父模块ID parentId
      */
-    private ModuleDo parent;
+    private Module parent;
     /**
      * 类型 type
      */
@@ -55,25 +57,19 @@ public class ModuleDo {
      */
     private CommStatus status;
 
-
-    public ModuleDo(){}
-    public ModuleDo(ModuleId id){
-        this.moduleId = id;
+    public Module(ModuleId moduleId){
+        this.moduleId = moduleId;
     }
-
-    public void save(){
-
-    }
-
-    public void delete(){
-
-    }
-
-    // 批准（approve）
-    public void accept() {
+    /**
+     * 审核 批准 赞成（approve）
+     */
+    public void approve() {
         this.status = CommStatus.AUDIT;
     }
-    // 拒绝
+
+    /**
+     * 审核 批准 不赞成（disapprove）
+     */
     public void reject() {
         this.status = CommStatus.DELETE;
     }

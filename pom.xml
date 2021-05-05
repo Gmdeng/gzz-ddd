@@ -12,6 +12,7 @@
     <modules>
         <module>gzz-boot</module>
         <module>gzz-retail</module>
+        <module>gzz-demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

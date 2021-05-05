@@ -26,7 +26,7 @@ public class SmsAutoConfiguration {
      * @return
      */
     //判断属性是否等于true
-    @ConditionalOnProperty(prefix = "gzz.sms", name = "type", havingValue = "aliyun")
+    @ConditionalOnProperty(prefix = "gzz.sms", name = "type", havingValue = "aliyun" )
     @Bean
     @Primary
     public AliyunSmsProcessor aliyunSmsProcessor() {

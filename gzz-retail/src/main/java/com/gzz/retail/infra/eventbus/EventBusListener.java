@@ -1,5 +1,6 @@
-package com.gzz.retail.infra;
+package com.gzz.retail.infra.eventbus;
 
+import com.google.common.eventbus.EventBus;
 import org.apache.shiro.event.Subscribe;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import javax.annotation.PreDestroy;
 
 /**
  * 事件总线监听
- *
+ * 事件监听器，可以监听多个事件。处理方法添加 @Subscribe 注解即可。
  */
 @Component
 public class EventBusListener {
@@ -24,6 +25,14 @@ public class EventBusListener {
     }
 
     /**
+     * 监听 HelloEvent 类型及其父类型（Object）的事件
+     */
+    @Subscribe
+    public void processEvent(DemoEvent event){
+        System.out.println("process hello event, name:" + event.getEventNo());
+    }
+    /**
+     * 监听 HelloEvent 类型及其父类型（Object）的事件
      * 转发
      */
     @Subscribe
@@ -37,6 +46,10 @@ public class EventBusListener {
      */
     @PreDestroy
     public void destroy(){
-
+        EventBus eventBus = new EventBus();
+        // 注册监听
+        eventBus.register(new EventBusListener());
+        // 发布事件
+        eventBus.post(new DemoEvent());
     }
 }

@@ -10,6 +10,7 @@ import com.gzz.core.util.AopUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -39,6 +40,10 @@ public class VisitLogAspect {
     private Set<Integer> globalWarnCode = new HashSet<>();
     private ConcurrentMap<String, CopyOnWriteArraySet<Integer>> methodWarnCode = new ConcurrentHashMap<>();
     private Map<String, Collection<Integer>> partErrorCode = new HashMap<>();
+
+    @Pointcut("execution(public * com.yuwen.spring.demo.controller.*.*(..))")
+    public void VisitLogAspect() {
+    }
 
     /**
      * 方法切口

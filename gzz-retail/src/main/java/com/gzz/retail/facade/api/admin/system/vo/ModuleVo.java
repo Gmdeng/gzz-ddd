@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Accessors
 public class ModuleVo {
     /**
      * ID id

@@ -40,7 +40,7 @@ public class AccountEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void changeItemSales(AccountChangeEvent event) {
         log.info("");
-        log.info("changeItemSales" + event.getOrigin() + " | " + event.getTarget());
+        log.info("changeItemSales [{}]| [{}] ",  event.getOrigin() , event.getTarget());
     }
 
     /**
@@ -49,7 +49,7 @@ public class AccountEventListener {
      */
     @EventListener
     public void changeSkuSellCount(AccountUpdateEvent event) {
-        log.info("changeSkuSellCount" + event.getOrigin() + " | " + event.getTarget() + " | " + event.getEventVersion() + " | " + event.getOccurredOn());
+        log.info("changeSkuSellCount[{}]| [{}]| [{}]| [{}]", event.getOrigin(), event.getTarget(), event.getEventVersion(), event.getOccurredOn());
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
             @Override
             public void afterCommit() {

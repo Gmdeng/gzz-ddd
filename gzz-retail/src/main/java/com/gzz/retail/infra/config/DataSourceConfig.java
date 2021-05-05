@@ -23,19 +23,29 @@ import java.util.Map;
 @AutoConfigureAfter(DruidConfig.class)
 @EnableAutoConfiguration  // 启用事务
 public class DataSourceConfig {
+
+    /**
+     * 主数据源
+     * @return
+     */
     @Primary
     @Bean(name = "masterDataSource") // 声明其为Bean实例
-    // 读取相关的属性配置
-    @ConfigurationProperties(prefix = "spring.datasource.db-master")
+    @ConfigurationProperties(prefix = "spring.datasource.db-master")// 读取相关的属性配置
     public DruidDataSource masterDataSource() {
         DruidDataSource ds = new DruidDataSource();
+        ds.setUseLocalSessionState(true);
         return ds;
     }
 
-    @Bean(name = "slave1DataSource")// 声明其为Bean实例
+    /**
+     * 从数据源1
+     * @return
+     */
+    @Bean(name = "slave1DS")// 声明其为Bean实例
     @ConfigurationProperties(prefix = "spring.datasource.db-slave") // 读取相关的属性配置
     public DruidDataSource slave1DataSource() {
         DruidDataSource ds = DruidDataSourceBuilder.create().build();
+        ds.setUseLocalSessionState(true);
         /*
         ds.setMaxActive(5);
         ds.setMaxWait(100l);
@@ -46,8 +56,11 @@ public class DataSourceConfig {
         ds.setMaxPoolPreparedStatementPerConnectionSize(20);*/
         return ds;
     }
-
-    @Bean(name = "slave2DataSource") // 声明其为Bean实例
+    /**
+     * 从数据源2
+     * @return
+     */
+    @Bean(name = "slave2DS") // 声明其为Bean实例
     @ConfigurationProperties(prefix = "spring.datasource.db-slave") // 读取相关的属性配置
     public DruidDataSource slave2DataSource() {
         DruidDataSource ds = DruidDataSourceBuilder.create().build();
@@ -57,28 +70,34 @@ public class DataSourceConfig {
     /**
      * 动态数据源
      *
-     * @param masterDataSource
-     * @param slave1DataSource
-     * @param slave2DataSource
+     * @param masterDS 主数据源
+     * @param slave1DS 从数据源1
+     * @param slave2DS 从数据源2
      * @return
      */
     @Bean(name = "dynamicDataSource")
     @ConditionalOnMissingBean(DataSourceRouting.class)
-    public DataSourceRouting dynamicDataSource(@Qualifier("masterDataSource") DruidDataSource masterDataSource,
-                                               @Qualifier("slave1DataSource") DruidDataSource slave1DataSource,
-                                               @Qualifier("slave2DataSource") DruidDataSource slave2DataSource) {
-        System.out.println(" getUrl DS: " + slave2DataSource.getUrl());
-        System.out.println(" getMaxWait DS: " + slave2DataSource.getMaxWait());
-        System.out.println(" getMaxActive DS: " + slave2DataSource.getMaxActive());
-        System.out.println(" getPassword DS: " + slave2DataSource.getPassword());
+    public DataSourceRouting dynamicDataSource(@Qualifier("masterDataSource") DruidDataSource masterDS,
+                                               @Qualifier("slave1DS") DruidDataSource slave1DS,
+                                               @Qualifier("slave2DS") DruidDataSource slave2DS) {
+        System.out.println(" slave1DataSource======================================" );
+        System.out.println(" getUrl DS:          " + slave1DS.getUrl());
+        System.out.println(" getMaxWait DS:      " + slave1DS.getMaxWait());
+        System.out.println(" getMaxActive DS:    " + slave1DS.getMaxActive());
+        System.out.println(" getPassword DS:     " + slave1DS.getPassword());
+        System.out.println(" slave2DataSource======================================" );
+        System.out.println(" getUrl DS:          " + slave2DS.getUrl());
+        System.out.println(" getMaxWait DS:      " + slave2DS.getMaxWait());
+        System.out.println(" getMaxActive DS:    " + slave2DS.getMaxActive());
+        System.out.println(" getPassword DS:     " + slave2DS.getPassword());
         DataSourceRouting dataSourceRouting = new DataSourceRouting();
         //设置默认数据源
-        dataSourceRouting.setDefaultTargetDataSource(masterDataSource);
+        dataSourceRouting.setDefaultTargetDataSource(masterDS);
         //配置多数据源
         Map<Object, Object> targetDataSource = new HashMap<>(3);
-        targetDataSource.put(DataSourceType.MASTER, masterDataSource);
-        targetDataSource.put(DataSourceType.SLAVE1, slave1DataSource);
-        targetDataSource.put(DataSourceType.SLAVE2, slave2DataSource);
+        targetDataSource.put(DataSourceType.MASTER, masterDS);
+        targetDataSource.put(DataSourceType.SLAVE1, slave1DS);
+        targetDataSource.put(DataSourceType.SLAVE2, slave2DS);
 
         dataSourceRouting.setTargetDataSources(targetDataSource);
         return dataSourceRouting;

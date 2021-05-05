@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: gzz-ddd
+  #数据源
+  datasource:
+    # 配置数据源类型 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    ### Druid数据源1 主数据库
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+    username: root
+    password: passwd
+    druid:  #2.连接池配置
+      # 初始连接数
+      initial-size: 5
+      # 最小连接池数量
+      min-idle: 10
+      # 最大连接池数量
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      max-evictable-idle-time-millis: 900000
+      # 配置检测连接是否有效 SELECT 1 FROM DUAL
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /druid/*
+        # 控制台管理用户名和密码
+        login-username:
+        login-password:
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: tru
+gzz:
+#  #短信接口配置
+#  sms:
+#    type: aliyun
+#    clusterName: hello-elasticsearch
+#    password: pwdqazxsw123edc
+  visitlog:
+    enable: true   # 开启访问记录日志
+  resubmit:
+    enable: true   # 开启重复提交限制
+  visitrate:
+    enable: true   # 开启接口访问限制
+mybatis:
+  # config-location: classpath:mybatis.xml
+  configuration:
+    # 终极结论：
+    #1.将mybatis一级缓存级别设置为statement可以事实上达到禁用一级缓存的效果；
+    #2.启用mybatis一级缓存，将级别设置为session【或不做任何设置，mybaits默认就是这个级别】
+    cache-enabled: true         # 默认值为true, 表示开启
+    local-cache-scope: session  #一级缓存指定为statement级别, session/statement
+    map-underscore-to-camel-case: true #自动开启驼峰规则映射
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

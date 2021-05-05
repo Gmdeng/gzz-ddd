@@ -1,6 +1,6 @@
 package com.gzz.retail.domain.system;
 
-import com.gzz.retail.domain.system.entity.ModuleDo;
+import com.gzz.retail.domain.system.entity.Module;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModuleFactory {
 
-    public ModuleDo buildModule(){
-        return new ModuleDo();
+    public Module buildModule(){
+        return new Module();
     }
 
-    public ModuleDo buildModule(Long moduleId){
-        return new ModuleDo();
+    public Module buildModule(Long moduleId){
+        return new Module();
     }
 }

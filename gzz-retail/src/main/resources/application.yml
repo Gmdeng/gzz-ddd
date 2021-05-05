@@ -26,13 +26,21 @@ spring:
     ### Druid数据源1 主数据库
     db-master:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&failOverReadOnly=false
       username: root
       password: passwd
     ### Druid数据源2 从数据库
     db-slave:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&failOverReadOnly=false
+      username: root
+      password: passwd
+    #从数据源
+    cluster:
+      # 从数据源开关/默认关闭
+      enabled: false
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&characterEncoding=utf-8
       username: root
       password: passwd
   redis:
@@ -67,4 +75,11 @@ logging:
 mybatis:
   # config-location: classpath:mybatis.xml
   configuration:
+    # 终极结论：
+    #1.将mybatis一级缓存级别设置为statement可以事实上达到禁用一级缓存的效果；
+    #2.启用mybatis一级缓存，将级别设置为session【或不做任何设置，mybaits默认就是这个级别】
+    cache-enabled: true         # 默认值为true, 表示开启
+    local-cache-scope: session  #一级缓存指定为statement级别, session/statement
+    map-underscore-to-camel-case: true #自动开启驼峰规则映射
+    call-setters-on-nulls: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

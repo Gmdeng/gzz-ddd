@@ -36,6 +36,9 @@ public class DemoAction {
      * @param name
      * @return
      */
+    // @PutMapping("/{id:\\d+}")
+    // @DeleteMapping("/{id:\\d+}")
+    // @GetMapping("/{id:\\d+}")
     @RequestMapping("/testSystemApp")
     public Object testSystemApp(String name) {
         System.out.println("请求M: " + name);

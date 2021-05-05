@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 加载属性文件 -->
+    <properties resource="config.properties">
+        <!--properties中还可以配置一些属性名和属性值 -->
+        <!-- <property name="jdbc.driver" value=""/> -->
+    </properties>
+
+    <!-- 全局配置参数，需要时再设置 -->
+    <settings>
+        <setting name="callSettersOnNulls" value="true" />
+        <!-- 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存。 -->
+        <!-- 这个配置使全局的映射器启用或禁用缓存。系统默认值是true，设置只是为了展示出来 -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。     系统默认值是true，设置只是为了展示出来 -->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="aggressiveLazyLoading" value="true" />
+        <!-- 允许或不允许多种结果集从一个单独的语句中返回（需要适合的驱动）。     系统默认值是true，设置只是为了展示出来 -->
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <!--使用列标签代替列名。不同的驱动在这方便表现不同。参考驱动文档或充分测试两种方    法来决定所使用的驱动。 系统默认值是true，设置只是为了展示出来 -->
+        <setting name="useColumnLabel" value="true" />
+        <!--允许 JDBC 支持生成的键。需要适合的驱动。如果设置为 true,则这个设置强制生成的键被使用，尽管一些驱动拒绝兼容但仍然有效（比如  Derby）。 系统默认值是false，设置只是为了展示出来 -->
+        <setting name="useGeneratedKeys" value="false" />
+        <setting name="autoMappingBehavior" value="PARTIAL" />
+        <!--配置默认的执行器。SIMPLE 执行器没有什么特别之处。REUSE     执行器重用预处理语句。BATCH 执行器重用语句和批量更新     系统默认值是SIMPLE，设置只是为了展示出来 -->
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <!-- 开启驼峰匹配 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <setting name="localCacheScope" value="SESSION" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+        <!-- 打印查询语句 -->
+        <!-- SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING，可以根据自己的需要进行配置 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <typeAliases>
+        <!-- 别名定义 -->
+        <!-- 针对单个别名定义 type：类型的路径 alias：别名，类名不能写错
+         别名可以随便起，但最好规范-->
+<!--        <typeAlias type="bean.Apply" alias="apply" />-->
+        <!-- 批量别名定义 指定包名，mybatis自动扫描包中的po类，自动定义别名，别名就是类名（首字母大写或小写都可以） -->
+        <package name="com.gzz.retail.infra.persistence.pojo" />
+    </typeAliases>
+
+    <!-- 和spring整合后 environments配置将废除 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理，事务控制由mybatis -->
+            <transactionManager type="JDBC" />
+            <!-- 数据库连接池，由mybatis管理 -->
+            <dataSource type="POOLED">
+                <!--配置连接数据库的4个基本信息-->
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!-- 加载映射文件 -->
+    <mappers>
+        <!--通过resource方法一次加载一个映射文件 -->
+        <!--注意这里的路径和xml文件
+        <mapper resource="mappers/apply.xml" />
+         -->
+
+        <!-- package用于指定dao接口所在的包，当指定完成之后就不需要在写mapper以及resource或者class了-->
+        <!-- 批量加载mapper 指定mapper接口的包名，mybatis自动扫描包下边所有mapper接口进行加载 -->
+        <!-- 遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在一个目录 -->
+        <!-- 中上边规范的前提是：使用的是mapper代理方法-->
+        <package name="com.gzz.retail.infra.persistence.mapper" />
+
+    </mappers>
+
+</configuration>

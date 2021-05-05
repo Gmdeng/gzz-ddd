@@ -8,7 +8,7 @@ import com.gzz.retail.infra.defines.CommStatus;
 /**
  * 系
  */
-public class UserDo {
+public class User {
     /**
      * ID id
      */

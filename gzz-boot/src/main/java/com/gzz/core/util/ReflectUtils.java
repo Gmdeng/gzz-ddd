@@ -1,6 +1,7 @@
 package com.gzz.core.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 /**
  * 反射进行操作的一个工具类
@@ -67,6 +68,9 @@ public class ReflectUtils {
     public static void setFieldValue(Object clazz, String fieldName,
                                      Object fieldValue) {
         Field field = ReflectUtils.getField(clazz, fieldName);
+//        if (!Modifier.isPublic(method.getModifiers())) {   //设置非共有方法权限
+//            method.setAccessible(true);
+//        }
         if (field != null) {
             boolean fAccess = false;
             try {
