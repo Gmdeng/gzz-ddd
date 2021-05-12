@@ -72,7 +72,7 @@ public interface IZModuleMapper {
             "values(",
             "#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, ",
             "#{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},",
-            "#{operate, jdbcType=TINYINT, typeHandler = com.gzz.retail.infra.persistence.handler.OperateSetTypeHandler}, ",
+            "#{operate, jdbcType=TINYINT}, ",
             "#{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{idx,jdbcType=TINYINT},",
             "#{status,jdbcType=TINYINT}, #{updateOn,jdbcType=TIMESTAMP}, ",
             "#{updateBy,jdbcType=VARCHAR}, #{createOn,jdbcType=TIMESTAMP}, ",

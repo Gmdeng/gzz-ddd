@@ -5,13 +5,15 @@ import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.domain.system.entity.Module;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 模
+ * 模块
  */
 @Component
 public class ModuleRepo {
+    @Autowired
     private IZModuleMapper moduleMapper;
 
     /**
@@ -28,12 +30,17 @@ public class ModuleRepo {
      * 保存数据
      */
     public void save(Module module){
-        ZModulePo zModule = BeanConvertUtil.convertOne(Module.class, ZModulePo.class, module, (src, dest)->{
-            dest.setId(src.getModuleId().getId());
+        ZModulePo zModule = BeanConvertUtil.convertOne(module, ZModulePo.class,  (src, dest)->{
+            if(src.getModuleId()!=null)
+                dest.setId(src.getModuleId().getId());
             dest.setParentId(src.getParent().getModuleId().getId());
+            dest.setOperate(0);
+            src.getOperates().forEach(operateType -> {
+                dest.setOperate(Integer.sum(dest.getOperate(), operateType.getKey()));
+            });
         });
         int num =0;
-        zModule.setOperate(7);
+
         if(zModule.getId()== null) {
             num = moduleMapper.insert(zModule);
         }else{

@@ -5,8 +5,10 @@ import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.assembler.ModelAssembler;
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
 import com.gzz.retail.application.system.dto.ModuleDto;
+import com.gzz.retail.application.system.dto.ModuleFormDto;
 import com.gzz.retail.application.system.queries.ModuleQuery;
 import com.gzz.retail.application.system.queries.UserQuery;
+import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
@@ -29,9 +31,38 @@ public class ModuleQueryApplication {
     @Autowired
     private IZModuleMapper moduleMapper;
 
-    public ModuleDto getModuleById(Long moduleId){
+    /**
+     *
+     * @param moduleId
+     * @return
+     */
+    public ModuleFormDto getModuleFormById(Long moduleId){
         ZModulePo zModule = moduleMapper.getById(moduleId);
-        ModuleDto moduleDto = BeanConvertUtil.convertOne(ZModulePo.class, ModuleDto.class, zModule);
+        ModuleFormDto moduleDto = BeanConvertUtil.convertOne( zModule, ModuleFormDto.class, (src, dest)->{
+            Set<Integer> opers = Arrays.stream(OperateType.values()).filter(it->{
+                return ((src.getOperate() & it.getKey()) == it.getKey());
+            }).map(m->{
+                return m.getKey();
+            }).collect(Collectors.toSet());
+            dest.setOperate(opers);
+        });
+        return moduleDto;
+    }
+
+    /**
+     *
+     * @param moduleId
+     * @return
+     */
+    public ModuleDto getModuleDetailById(Long moduleId){
+        ZModulePo zModule = moduleMapper.getById(moduleId);
+        ModuleDto moduleDto = BeanConvertUtil.convertOne(zModule, ModuleDto.class,  (src, dest)->{
+            Set<OperateType> opers = Arrays.stream(OperateType.values()).filter(it->{
+                return ((src.getOperate() & it.getKey()) == it.getKey());
+            }).collect(Collectors.toSet());
+            dest.setOperate(opers);
+            dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
+        });
         return moduleDto;
     }
 
@@ -44,9 +75,10 @@ public class ModuleQueryApplication {
          List<ZModulePo> dataList = moduleMapper.findListByPage(query.toParam(), query.getPager());
          List<ModuleDto> list = BeanConvertUtil.convertList(ZModulePo.class, ModuleDto.class, dataList, (src,dest) ->{
             Set<OperateType> opers = Arrays.stream(OperateType.values()).filter(it->{
-                return ((src.getOperate() & it.value()) == it.value());
+                return ((src.getOperate() & it.getKey()) == it.getKey());
             }).collect(Collectors.toSet());
             dest.setOperate(opers);
+            dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
          });
          return list;
     }

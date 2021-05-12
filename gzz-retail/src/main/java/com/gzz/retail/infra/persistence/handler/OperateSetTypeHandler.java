@@ -24,7 +24,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
     public void setParameter(PreparedStatement ps, int i, Set<OperateType> parameter, JdbcType jdbcType) throws SQLException {
         int value = 0;
         for (OperateType operateType : parameter) {
-            value += operateType.value();
+            value += operateType.getKey();
         }
         ps.setInt(i, value);
     }
@@ -34,7 +34,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = rs.getInt(columnName);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if ((value & operateType.value()) == operateType.value()) {
+            if ((value & operateType.getKey()) == operateType.getKey()) {
                 sets.add(operateType);
             }
         }
@@ -46,7 +46,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = rs.getInt(columnIndex);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if ((value & operateType.value()) == operateType.value()) {
+            if ((value & operateType.getKey()) == operateType.getKey()) {
                 sets.add(operateType);
             }
         }
@@ -58,7 +58,7 @@ public class OperateSetTypeHandler implements TypeHandler<Set<OperateType>> {
         int value = cs.getInt(columnIndex);
         Set<OperateType> sets = new HashSet<>();
         for (OperateType operateType : OperateType.values()) {
-            if ((value & operateType.value()) == operateType.value()) {
+            if ((value & operateType.getKey()) == operateType.getKey()) {
                 sets.add(operateType);
             }
         }

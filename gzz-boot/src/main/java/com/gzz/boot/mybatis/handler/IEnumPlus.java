@@ -10,7 +10,6 @@ import java.lang.reflect.Field;
  */
 public interface IEnumPlus {
     String DEFAULT_VALUE_NAME = "key";
-
     String DEFAULT_LABEL_NAME = "label";
 
     default Integer getKey() {

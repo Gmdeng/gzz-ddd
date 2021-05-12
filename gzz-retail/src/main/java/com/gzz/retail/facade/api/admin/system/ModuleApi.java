@@ -8,8 +8,10 @@ import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.system.ModuleCmdApplication;
 import com.gzz.retail.application.system.ModuleQueryApplication;
+import com.gzz.retail.application.system.command.ModuleAuditCmd;
 import com.gzz.retail.application.system.command.ModuleSaveCmd;
 import com.gzz.retail.application.system.dto.ModuleDto;
+import com.gzz.retail.application.system.dto.ModuleFormDto;
 import com.gzz.retail.application.system.queries.ModuleQuery;
 import com.gzz.retail.facade.api.admin.system.param.ModuleParam;
 import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,39 +40,40 @@ public class ModuleApi {
     private ModuleQueryApplication moduleQueryApp;
 
     /**
-     *
+     * 获取表单数据
+     * @param id
+     * @return
+     */
+    @GetMapping("/getFormData")
+    public HttpResult getFormData(Long id){
+        ModuleFormDto dto = moduleQueryApp.getModuleFormById(id);
+        return HttpResult.success(dto);
+    }
+
+    /**
+     * 获取明细数据
      * @param id
      * @return
      */
     @GetMapping("/getDetail")
-    public HttpResult getDetail(Long id){
-        ModuleDto dto = moduleQueryApp.getModuleById(id);
+    public HttpResult getDetail(@Valid  Long id){
+        ModuleDto dto = moduleQueryApp.getModuleDetailById(id);
         return HttpResult.success(dto);
     }
     /**
-     * 新增数据
+     * 保存数据
      *
      * @return
      */
     @PostMapping("/saveData")
     public HttpResult saveData(@Validated ModuleSaveCmd cmd) {
-//        ValidationResult err = ValidationUtils.validate(param);
-//        if (err.isHasError()) {
-//            return HttpResult.fail().data(err.getErrors());
-//        }
+        //ValidationResult err = ValidationUtils.validate(param);
+        //if (err.isHasError()) {
+        //  return HttpResult.fail().data(err.getErrors());
+        //}
 
         moduleCmdApp.saveCmd(cmd);
         return HttpResult.success();
-    }
-
-    /**
-     * 修改数据
-     * @param param
-     * @return
-     */
-    @PostMapping("/modifyData")
-    public HttpResult modifyData(@Validated ModuleParam param){
-        return HttpResult.success(JSON.toJSONString(param));
     }
 
     /**
@@ -78,7 +82,8 @@ public class ModuleApi {
      * @return
      */
     @PostMapping("/authData")
-    public HttpResult authData() {
+    public HttpResult authData(ModuleAuditCmd cmd) {
+        moduleCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }
 

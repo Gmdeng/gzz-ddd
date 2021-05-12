@@ -1,12 +1,18 @@
 package com.gzz.retail.infra.defines.types;
 
+import com.alibaba.fastjson.annotation.JSONType;
+import com.gzz.boot.mybatis.handler.IEnumPlus;
+import com.gzz.core.enumtype.EnumDeserializer;
+import com.gzz.core.enumtype.EnumSerializer;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
  * 操作类型
  */
-public enum OperateType {
+
+public enum OperateType implements IEnumPlus {
 
     VIEW(1, "查看"),
     ADD(2, "增加"),
@@ -17,23 +23,15 @@ public enum OperateType {
     PASS(64, "通过"),
     REJECT(128, "拒绝");
 
-    private int key;
-    private String name;
+    String label;
+    Integer key;
 
-    OperateType(int key, String name) {
+    OperateType(int key, String label) {
         this.key = key;
-        this.name = name;
+        this.label = label;
     }
 
     public static Optional<OperateType> valueOf(int value) {
         return Stream.of(values()).filter(x -> x.key == value).findFirst();
-    }
-
-    public int value() {
-        return this.key;
-    }
-
-    public String label() {
-        return this.name;
     }
 }
