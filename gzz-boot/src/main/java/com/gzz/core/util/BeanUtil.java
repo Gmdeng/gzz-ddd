@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- *
+ *  对象复制工具通过反射
+ *  （速度比度慢，建议用BeanConvertUtil）
  */
 public class BeanUtil {
     /**

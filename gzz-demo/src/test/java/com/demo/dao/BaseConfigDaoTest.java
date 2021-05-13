@@ -8,7 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.demo.ds.BaseConfigDao;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author lyx
@@ -28,4 +34,15 @@ public class BaseConfigDaoTest extends BaseMapperTest<BaseConfigDao> {
         Assert.assertTrue(baseConfigList.size() > 0);
     }
 
+    @Test
+    public void TestPredicate(){
+        //Predicate.isEqual()
+        List<String> names = Arrays.asList("Adam", "Alexander", "John", "Tom");
+        List<String> result = names.stream()
+                .filter(name -> name.startsWith("A"))
+                .collect(Collectors.toList());
+
+        assertEquals(2, result.size());
+        // assertThat(result, contains("Adam","Alexander"));
+    }
 }

@@ -11,7 +11,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * 对象转换
+ * VO, DTO, PO对象转换工具类
+ * 两个对象中相同名称相同类型属性的值自动复制。
+ * 同时支持个别属性自定义SET值。
+ *
  */
 @Slf4j
 public class BeanConvertUtil {
@@ -77,7 +80,7 @@ public class BeanConvertUtil {
     }
 
     /**
-     *
+     * 定义复制的方法 功能性的接口
      * @param target
      * @param consumer
      * @param copier
@@ -123,7 +126,18 @@ public class BeanConvertUtil {
     }
 
     // 单个对象
+
+    /**
+     *
+     * @param source 源对象
+     * @param target 目标对象类型
+     * @param <S> 源对象类型
+     * @param <T> 目标对象类型
+     * @param consumer 自定义个性处理
+     * @return
+     */
     public static <S, T> T convertOne(S source, Class<T> target, BiConsumer<S, T> consumer) {
+        Objects.requireNonNull(source, "源对象是一个空值，不能进行复制");
         BeanCopier copier = buildCopier(source.getClass(), target);
         return copyOne(source, target, consumer, copier);
     }
@@ -131,24 +145,23 @@ public class BeanConvertUtil {
     /**
      * 复制并创建一个对象
      *
-     * @param source
-     * @param target
-     * @param <S>
-     * @param <T>
+     * @param source 源对象
+     * @param target 目标对象类型
+     * @param <S> 源对象类型
+     * @param <T> 目标对象类型
      * @return
      */
     public static <S, T> T convertOne(S source, Class<T> target) {
-        BeanCopier copier = buildCopier(source.getClass(), target);
-        return copyOne(source, target,  null, copier);
+        return convertOne(source, target,  null);
     }
 
     /**
      * 覆盖对象相对应的值
      *
-     * @param source
-     * @param target
-     * @param <S>
-     * @param <T>
+     * @param source 源对象
+     * @param target 目标对象
+     * @param <S> 源对象类型
+     * @param <T> 目标对象类型
      * @return
      */
     public static <S, T> T copyOver(S source, T target) {
@@ -171,11 +184,11 @@ public class BeanConvertUtil {
      * t.setOrderTimeString(s.getOrderTime().toString());
      * });
      *
-     * @param sources
+     * @param sources 源列表
      * @param target
      * @param consumer
-     * @param <S>
-     * @param <T>
+     * @param <S> 源列表对象类型
+     * @param <T> 目标列表对象类型
      * @return
      */
     public static <S, T> List<T> convertList(List<S> sources, Class<T> target,  BiConsumer<S, T> consumer) {
@@ -194,11 +207,12 @@ public class BeanConvertUtil {
      * 列表对象拷贝
      * @param sources 源列表
      * @param target 源列表对象Class
-     * @param <T> 目标列表对象类型
      * @param <S> 源列表对象类型
+     * @param <T> 目标列表对象类型
+
      * @return 目标列表
      */
-    public static <T, S> List<T> convertList(List<S> sources, Class<T> target) {
+    public static <S, T> List<T> convertList(List<S> sources, Class<T> target) {
         if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty())
             throw new IllegalArgumentException();
         BeanCopier copier = buildCopier(sources.get(0).getClass(), target);
