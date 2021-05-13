@@ -73,7 +73,7 @@ public class ModuleQueryApplication {
      */
     public List<ModuleDto> getModuleByPage(ModuleQuery query){
          List<ZModulePo> dataList = moduleMapper.findListByPage(query.toParam(), query.getPager());
-         List<ModuleDto> list = BeanConvertUtil.convertList(ZModulePo.class, ModuleDto.class, dataList, (src,dest) ->{
+         List<ModuleDto> list = BeanConvertUtil.convertList( dataList, ModuleDto.class, (src,dest) ->{
             Set<OperateType> opers = Arrays.stream(OperateType.values()).filter(it->{
                 return ((src.getOperate() & it.getKey()) == it.getKey());
             }).collect(Collectors.toSet());

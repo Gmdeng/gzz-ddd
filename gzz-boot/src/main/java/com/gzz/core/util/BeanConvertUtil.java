@@ -90,6 +90,27 @@ public class BeanConvertUtil {
     }
 
     /**
+     * 单个对象属性拷贝
+     * @param source 源对象
+     * @param clazz 目标对象Class
+     * @param copier copier
+     * @param <T> 目标对象类型
+     * @param <S> 源对象类型
+     * @return 目标对象
+     */
+    private static <T, S> T copyProperties(S source, Class<T> clazz, BeanCopier copier){
+        if (null == copier)
+            copier = buildCopier(source.getClass(), clazz);
+        T t = null;
+        try {
+            t = clazz.newInstance();
+            copier.copy(source, t, null);
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+    /**
      * 是在Java8中，Stream流式处理集合功能相当强大，但是其中的distinct()却不提供针对对象属性字段进行去重的操作，不得不说略显可惜，遂有了这一小段代码，
      * 这段代码通过Stream的filter()方法进行对针对某一个属性的过滤
      * @param keyExtractor
@@ -150,17 +171,20 @@ public class BeanConvertUtil {
      * t.setOrderTimeString(s.getOrderTime().toString());
      * });
      *
-     * @param source
+     * @param sources
      * @param target
-     * @param lists
      * @param consumer
      * @param <S>
      * @param <T>
      * @return
      */
-    public static <S, T> List<T> convertList(Class<S> source, Class<T> target, List<S> lists, BiConsumer<S, T> consumer) {
-        BeanCopier copier = BeanCopier.create(source, target, false);
-        return lists.stream()
+    public static <S, T> List<T> convertList(List<S> sources, Class<T> target,  BiConsumer<S, T> consumer) {
+        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty())
+            throw new IllegalArgumentException();
+        BeanCopier copier = buildCopier(sources.get(0).getClass(), target);
+        return  Optional.of(sources)
+                .orElse(new ArrayList<>())
+                .stream()
                 .map(copyMapper(target, consumer, copier))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
@@ -169,42 +193,21 @@ public class BeanConvertUtil {
     /**
      * 列表对象拷贝
      * @param sources 源列表
-     * @param clazz 源列表对象Class
+     * @param target 源列表对象Class
      * @param <T> 目标列表对象类型
-     * @param <M> 源列表对象类型
+     * @param <S> 源列表对象类型
      * @return 目标列表
      */
-    public static <T, M> List<T> copyList(List<M> sources, Class<T> clazz) {
-        if (Objects.isNull(sources) || Objects.isNull(clazz) || sources.isEmpty())
+    public static <T, S> List<T> convertList(List<S> sources, Class<T> target) {
+        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty())
             throw new IllegalArgumentException();
-        BeanCopier copier = BeanCopier.create(sources.get(0).getClass(), clazz, false);
+        BeanCopier copier = buildCopier(sources.get(0).getClass(), target);
         return Optional.of(sources)
                 .orElse(new ArrayList<>())
-                .stream().map(m -> copyProperties(m, clazz, copier))
+                .stream().map(m -> copyProperties(m, target, copier))
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 单个对象属性拷贝
-     * @param source 源对象
-     * @param clazz 目标对象Class
-     * @param copier copier
-     * @param <T> 目标对象类型
-     * @param <M> 源对象类型
-     * @return 目标对象
-     */
-    private static <T, M> T copyProperties(M source, Class<T> clazz, BeanCopier copier){
-        if (null == copier){
-            copier = BeanCopier.create(source.getClass(), clazz, false);
-        }
-        T t = null;
-        try {
-            t = clazz.newInstance();
-            copier.copy(source, t, null);
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return t;
-    }
+
 
 }

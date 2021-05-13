@@ -99,11 +99,7 @@ public class ModuleApi {
         Pager pager = new Pager(20);
         query.setPager(pager);
         List<ModuleDto> dataList = moduleQueryApp.getModuleByPage(query);
-//        List<ZModulePo> dataList = izModuleMapper.findList(params);
-//        List<ModuleVo> lists = BeanConvertUtil.convertList(ZModulePo.class, ModuleVo.class, dataList, (s, t) -> {
-//        });
-//        ModuleVo zeroNode = new ModuleVo();
-//        zeroNode.setId(0L);
+
 //        return HttpResult.success(toTreeNode(zeroNode, lists));
         return HttpResult.success().put("dataList", dataList).put("pager", pager);
     }
