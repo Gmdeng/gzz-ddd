@@ -1,6 +1,6 @@
 package com.gzz.boot;
 
-import com.gzz.boot.aop.exception.ExceptionAspect;
+import com.gzz.boot.aop.exception.VisitExceptionAspect;
 import com.gzz.boot.aop.log.VisitLogAspect;
 import com.gzz.boot.aop.resubmit.ResubmitLimitAspect;
 import com.gzz.boot.aop.visitrate.VisitRateLimitAspect;
@@ -24,6 +24,11 @@ import org.springframework.context.annotation.Import;
 @Import({SmsAutoConfiguration.class, PaymentConfiguration.class})
 @Configuration
 public class AutoConfig implements DisposableBean {
+
+    @Bean
+    public GlobalExceptionAdvice globalExceptionAdvice(){
+        return new GlobalExceptionAdvice();
+    }
     /**
      * 短信发送处理
      *
@@ -79,9 +84,10 @@ public class AutoConfig implements DisposableBean {
      * @return
      */
     @Bean
-    @ConditionalOnMissingBean(ExceptionAspect.class)
-    public ExceptionAspect exceptionAspect() {
-        return new ExceptionAspect();
+    @ConditionalOnProperty(name = "gzz.visitexception.enable", havingValue = "true")
+    @ConditionalOnMissingBean(VisitExceptionAspect.class)
+    public VisitExceptionAspect exceptionAspect() {
+        return new VisitExceptionAspect();
     }
 
     /**

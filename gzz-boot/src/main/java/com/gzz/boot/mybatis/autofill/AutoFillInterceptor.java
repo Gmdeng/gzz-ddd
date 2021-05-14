@@ -8,10 +8,12 @@ import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
+import org.springframework.util.StopWatch;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -23,35 +25,42 @@ public class AutoFillInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
-        // 新增修改时
-        if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
-            Object parameter = invocation.getArgs()[1];
-            Field[] fields = parameter.getClass().getDeclaredFields();
-            for (Field f : fields) {
-                AutoFillTime fillTime = f.getAnnotation(AutoFillTime.class);
-                AutoFillUser fillUser = f.getAnnotation(AutoFillUser.class);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        try {
+            MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
+            SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
+            // 新增修改时
+            if (SqlCommandType.INSERT.equals(sqlCommandType) || SqlCommandType.UPDATE.equals(sqlCommandType)) {
+                Object parameter = invocation.getArgs()[1];
+                Field[] fields = parameter.getClass().getDeclaredFields();
                 Date d = null;
-                if (fillTime != null) {
-                    if (StringUtil.isEmpty(fillTime.value())) {
-                        d = new Date();
-                    } else {
-                        try {
-                            SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
-                            d = sdf.parse(fillTime.value());
-                        } catch (Exception e) {
-                            log.warn("无效的日期默认值");
+                for (Field f : fields) {
+                    AutoFillTime fillTime = f.getAnnotation(AutoFillTime.class);
+                    AutoFillUser fillUser = f.getAnnotation(AutoFillUser.class);
+                    if (Objects.nonNull(fillTime)) {
+                        if (StringUtil.isEmpty(fillTime.value())) {
                             d = new Date();
+                        } else {
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
+                                d = sdf.parse(fillTime.value());
+                            } catch (Exception e) {
+                                log.warn("无效的日期默认值");
+                                d = new Date();
+                            }
                         }
+                        SetFieldValue(f, new Date(), parameter);
                     }
-                    SetFieldValue(f, new Date(), parameter);
-                }
-                if (fillUser != null) {
-                    String userCode = StringUtil.isEmpty(fillUser.value()) ? currentUser() : fillUser.value();
-                    SetFieldValue(f, userCode, parameter);
+                    if (fillUser != null) {
+                        String userCode = StringUtil.isEmpty(fillUser.value()) ? currentUser() : fillUser.value();
+                        SetFieldValue(f, userCode, parameter);
+                    }
                 }
             }
+        }finally {
+            stopWatch.stop();
+            log.info("执行时间为:"+stopWatch.getLastTaskTimeMillis()+" ms");
         }
         //
         return invocation.proceed();

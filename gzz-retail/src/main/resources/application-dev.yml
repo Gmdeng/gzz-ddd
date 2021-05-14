@@ -4,12 +4,14 @@ gzz:
     type: aliyun
     clusterName: hello-elasticsearch
     password: pwdqazxsw123edc
-  visitlog:
-    enable: true   # 开启访问记录日志
   resubmit:
     enable: true   # 开启重复提交限制
+  visitlog:
+    enable: true   # 开启访问记录日志
   visitrate:
     enable: true   # 开启接口访问限制
+  visitexception:
+    enable: true   # 开启访问异常记录
   # 支付
   payment:
     # 微信支付

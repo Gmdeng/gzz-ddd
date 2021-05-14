@@ -1,14 +1,17 @@
 package com.gzz.retail.domain.system.entity;
 
 import com.gzz.retail.infra.defines.CommStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
  * 系统角色
  */
 @Data
-@Accessors(fluent = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
     /**
      * ID id

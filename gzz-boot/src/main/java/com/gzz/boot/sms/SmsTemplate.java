@@ -1,6 +1,7 @@
 package com.gzz.boot.sms;
 
 /**
+ *  邮件发送
  *
  */
 public class SmsTemplate {

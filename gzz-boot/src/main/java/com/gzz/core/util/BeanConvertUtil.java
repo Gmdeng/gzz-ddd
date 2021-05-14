@@ -41,7 +41,7 @@ public class BeanConvertUtil {
      */
     private static BeanCopier buildCopier(Class<?> sourceClass, Class<?> targetClass){
         BeanCopier copier;
-        String key = buildBeanKey(sourceClass.getClass().toString(), targetClass.getClass().toString());
+        String key = buildBeanKey(sourceClass.getName(), targetClass.getName());
         if(BEAN_COPIER_CACHE.containsKey(key)){
             copier = BEAN_COPIER_CACHE.get(key);
         }else{
@@ -73,7 +73,9 @@ public class BeanConvertUtil {
             }
             return t;
         } catch (Exception e) {
+
             log.error("创建/复制对象异常：{}", e.getMessage());
+            e.printStackTrace();
             // TTodo 请自行处理异常逻辑，这边简单返回null
             return null;
         }

@@ -35,17 +35,46 @@ import java.util.Properties;
  *              <property name="password" value="123456"/>
  *          </plugin>
  *
+ *拦截的接口类型，支持
+ *    Executor.class
+ *          MyBatis执行器，是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护
+ *          拦截执行器的方法
+ *          (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)等方法, 还有其他接口的一些方法
+ *    ParameterHandler.class
+ *          负责对用户传递的参数转换成JDBC Statement 所需要的参数
+ *          拦截参数的处理
+ *          (getParameterObject, setParameters)
+ *    StatementHandler.class
+ *          封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合
+ *          拦截Sql语法构建的处理
+ *          (prepare, parameterize, batch, update, query)
+ *    ResultSetHandler.class
+ *          负责将JDBC返回的ResultSet结果集对象转换成List类型的集合；
+ *          拦截结果集的处理
+ *          (handleResultSets, handleOutputParameters)
  * 拦截器顺序
  * 1 不同拦截器顺序：
  *      Executor -> ParameterHandler -> StatementHandler -> ResultSetHandler
  *
  * 2 对于同一个类型的拦截器的不同对象拦截顺序：
  *      在 mybatis 核心配置文件根据配置的位置，拦截顺序是 从上往下
+ *
+ *
+ * ****************************************
+ * Executor
+ * (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
+ *   ParameterHandler
+ * (getParameterObject, setParameters)
+ *   ResultSetHandler
+ * (handleResultSets, handleOutputParameters)
+ *   StatementHandler
+ * (prepare, parameterize, batch, update, query)
  */
 @Intercepts({
+
         @Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class}),
         @Signature(method = "query", type = StatementHandler.class, args = {Statement.class, ResultHandler.class}),
-        // @Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        //@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
         @Signature(method = "setParameter", type = ParameterHandler.class, args = {PreparedStatement.class}),
         @Signature(method = "handleResultSets", type = ResultSetHandler.class, args = {Statement.class}),
         @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class, Integer.class})
@@ -84,6 +113,7 @@ public class DemoInterceptor implements Interceptor {
 
         /* 因为我拦截的就是Executor，所以我可以强转为 Executor，默认情况下，这个Executor 是个 SimpleExecutor */
         Executor executor = (Executor)invocation.getTarget();
+
 
         /*
          * Executor 的 update 方法里面有一个参数 MappedStatement，它是包含了 sql 语句的，所以我获取这个对象
@@ -126,6 +156,10 @@ public class DemoInterceptor implements Interceptor {
 //        //PreparedStatementHandler或CallableStatementHandler，在RoutingStatementHandler里面所有StatementHandler接口方法的实现都是调用的delegate对应的方法。
 //        //我们在PageInterceptor类上已经用@Signature标记了该Interceptor只拦截StatementHandler接口的prepare方法，又因为Mybatis只有在建立RoutingStatementHandler的时候
 //        //是通过Interceptor的plugin方法进行包裹的，所以我们这里拦截到的目标对象肯定是RoutingStatementHandler对象。
+
+
+        // PreparedStatementHandler handler = (PreparedStatementHandler)ReflectUtil.getFieldValue(statement, "delegate");
+
 //        RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
 //        //通过反射获取到当前RoutingStatementHandler对象的delegate属性
 //        StatementHandler delegate = (StatementHandler) ReflectUtils.getFieldValue(handler, "delegate");
@@ -144,7 +178,7 @@ public class DemoInterceptor implements Interceptor {
     /**
      * 这个方法也很好理解
      * 作用就只有一个：那就是Mybatis在创建拦截器代理时候会判断一次，当前这个类 MyInterceptor 到底需不需要生成一个代理进行拦截，
-     * 如果需要拦截，就生成一个代理对象，这个代理就是一个 {@link Plugin}，它实现了jdk的动态代理接口 {@link InvocationHandler}，
+     * 如果需要拦截，就生成一个代理对象，这个代理就是一个 {@link PluginDemo}，它实现了jdk的动态代理接口 {@link InvocationHandler}，
      * 如果不需要代理，则直接返回目标对象本身
      *
      * Mybatis为什么会判断一次是否需要代理呢？
@@ -172,7 +206,7 @@ public class DemoInterceptor implements Interceptor {
          * 那就是使用下面这句代码吧  哈哈
          * mybatis 早就考虑了这里的复杂度，所以提供这个静态方法来实现上面的逻辑
          */
-        return Plugin.wrap(target, this);
+        return PluginDemo.wrap(target, this);
     }
 
     /**

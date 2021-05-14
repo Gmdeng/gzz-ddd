@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  *                   比如直接调用 Executor 的 update 方法进行更新数据库
  *
  */
-class Plugin implements InvocationHandler {
+class PluginDemo implements InvocationHandler {
 
     public static Object wrap(Object target, Interceptor interceptor) {
         // 省略

@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * API访问异常统一处理
+ *
+ *
  * AOP 统一异常
  * AOP相关概念：Aspect、Advice、Join point、Pointcut、Weaving、Target等。
  * 相关注解：@Aspect、@Pointcut、@Before、@Around、@After、@AfterReturning、@AfterThrowing
@@ -36,7 +39,7 @@ import java.util.Map;
  */
 @Slf4j
 @Aspect
-public class ExceptionAspect {
+public class VisitExceptionAspect {
     private List<IExceptionProcess> DEFAULT_EXCEPTION_PROCESS = new ArrayList<>();
     private List<IExceptionProcess> exceptionProcess;
 

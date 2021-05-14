@@ -28,6 +28,7 @@
         <setting name="defaultExecutorType" value="SIMPLE" />
         <!-- 开启驼峰匹配 -->
         <setting name="mapUnderscoreToCamelCase" value="true" />
+        <!-- 有多个SqlSession或者分布式的环境下，数据库写操作会引起脏数据，建议设定缓存级别为Statement -->
         <setting name="localCacheScope" value="SESSION" />
         <setting name="jdbcTypeForNull" value="NULL" />
         <!-- 打印查询语句 -->
@@ -35,16 +36,27 @@
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
 
+    <!-- 类型命名 别名定义 -->
     <typeAliases>
-        <!-- 别名定义 -->
-        <!-- 针对单个别名定义 type：类型的路径 alias：别名，类名不能写错
-         别名可以随便起，但最好规范-->
-<!--        <typeAlias type="bean.Apply" alias="apply" />-->
+        <!-- 针对单个别名定义 type：类型的路径 alias：别名，类名不能写错 别名可以随便起，但最好规范-->
+        <!--<typeAlias type="bean.Apply" alias="apply" />-->
         <!-- 批量别名定义 指定包名，mybatis自动扫描包中的po类，自动定义别名，别名就是类名（首字母大写或小写都可以） -->
         <package name="com.gzz.retail.infra.persistence.pojo" />
     </typeAliases>
 
-    <!-- 和spring整合后 environments配置将废除 -->
+    <!-- 类型处理器-->
+    <typeHandlers>
+
+    </typeHandlers>
+
+    <!--现拦截器的功能，使用到了动态代理，可以指定在某些操作时执行一些拦截操作-->
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.gzz.boot.mybatis.autofill.AutoFillInterceptor">-->
+<!--            <property name="someProperty" value="100"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->`
+
+    <!--  环境,和spring整合后 environments配置将废除 -->
     <environments default="development">
         <environment id="development">
             <!-- 使用jdbc事务管理，事务控制由mybatis -->
@@ -58,10 +70,25 @@
                 <property name="password" value="${jdbc.password}" />
             </dataSource>
         </environment>
+<!--        POOLED:每次被请求时简单打开和关闭连接-->
+<!--        POOLED:JDBC 连接对象的数据源连接池的实现，用来避免创建新的连接实例时必要的初始连接和认证时间。-->
+<!--        poolMaximumActiveConnections –  在任意时间存在的活动（也就是正在使用）连接的数量。默认值：10-->
+<!--        poolMaximumIdleConnections –  任意时间存在的空闲连接数。-->
+<!--        oolMaximumCheckoutTime –  在被强制返回之前，池中连接被检查的时间。默认值：20000 毫秒（也就是 20 秒）-->
+<!--        poolTimeToWait  –  这是给连接池一个打印日志状态机会的低层次设置，还有重新尝试获得连接，这些情况下往往需要很长时间（为了避免连接池没有配置时静默失败）。 默认值：20000 毫秒（也就是 20 秒）-->
+<!--        poolPingQuery –  发送到数据的侦测查询，用来验证连接是否正常工作，并且准备接受请求。默认是“NO PING QUERY SET”，这会引起许多数据库驱动连接由一个错误信 息而导致失败。-->
+<!--        poolPingEnabled  –  这是开启或禁用侦测查询。如果开启，你必须用一个合法的SQL语句（最好是很快速的）设置 poolPingQuery 属性。默认值：false。-->
+<!--        poolPingConnectionsNotUsedFor  –  这是用来配置 poolPingQuery 多次时间被用一次。这可以被设置匹配标准的数据库连接超时时间，来避免不必要的侦测。默认值：0 （也就是所有连接每一时刻都被侦测-但仅仅当 poolPingEnabled 为 true 时适用）。-->
+<!--        JNDI –  这个数据源的实现是为了使用如 Spring 或应用服务器这类的容器，容器可以集中或在外部配置数据源，然后放置一个 JNDI 上下文的引用。-->
+<!--        initial_context  –  这个属性用来从初始上下文中寻找环境（也就是initialContext.lookup（init ial——context））。这是个可选属性，如果被忽略，那么data_source 属性将 会直接以 init ialContext 为背景再次寻找。-->
+<!--        data_source  –  这是引用数据源实例位置的上下文的路径。它会以由 init ial_context查询返回的环境为背景来查找，如果 init ial_context 没有返回结果时，直接以初始上下 文为环境来查找。-->
+
+
+
     </environments>
 
 
-    <!-- 加载映射文件 -->
+    <!-- 映射器 加载映射文件 -->
     <mappers>
         <!--通过resource方法一次加载一个映射文件 -->
         <!--注意这里的路径和xml文件

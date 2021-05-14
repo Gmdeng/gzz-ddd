@@ -36,6 +36,8 @@ public class MybatisTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         //3.使用工厂生产一个sqlSession对象
 //        SqlSession  sqlSession = sqlSessionFactory.openSession();
+        // 自动提交事务
+//        sqlSession =sqlSessionFactory.openSession(true);
         //4.使用创建Dao接口的代理对象
         //userDao = sqlSession.getMapper(UserDao.class);
 

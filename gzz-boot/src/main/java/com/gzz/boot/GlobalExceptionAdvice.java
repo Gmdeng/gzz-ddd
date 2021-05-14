@@ -1,7 +1,6 @@
-package com.gzz.retail.infra;
+package com.gzz.boot;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.gzz.core.exception.BizzException;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.response.ResultCode;
@@ -9,7 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.tomcat.util.http.ResponseUtil;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.TypeMismatchDataAccessException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -188,6 +188,33 @@ public class GlobalExceptionAdvice {
     }
 
     /**
+     * Insert或Update数据时违反了完整性，约束
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    public HttpResult exceptionHandler(HttpServletRequest request, DataIntegrityViolationException ex){
+        log.error("Insert或Update数据时异常　{}", ex.getMessage());
+        return HttpResult.fail(ex.getCause().getMessage());
+    }
+
+    /**
+     * Java类型和数据类型不匹配
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = TypeMismatchDataAccessException.class)
+    public HttpResult exceptionHandler(HttpServletRequest request, TypeMismatchDataAccessException ex){
+        log.error("Java类型和数据类型不匹配　{}", ex.getCause().getMessage());
+        return HttpResult.fail(ex.getCause().getMessage());
+    }
+
+
+    /**
      * 全局异常捕捉处理
      *
      * @param ex
@@ -195,7 +222,8 @@ public class GlobalExceptionAdvice {
      */
     @ExceptionHandler(value = Exception.class)
     public HttpResult exceptionHandler(NativeWebRequest request, Exception ex) {
-        log.error("数据处理异常Exception: " + ex.getMessage());
+        // ex.printStackTrace();
+        log.error("Global数据处理异常Exception: " + ex.getMessage());
         if (ex instanceof NullPointerException) {
             log.error("数据处理异常Exception:空指针 ");
         }
