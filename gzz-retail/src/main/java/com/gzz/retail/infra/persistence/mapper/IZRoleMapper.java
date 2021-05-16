@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.ZRoleSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.ZRole;
+import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import com.gzz.retail.infra.persistence.pojo.ZRoleAuthority;
 import org.apache.ibatis.annotations.*;
 
@@ -27,18 +27,18 @@ public interface IZRoleMapper {
             @Result(property = "createOn", column = "create_on"),
             @Result(property = "createBy", column = "create_by"),
     })
-    ZRole getById(Long id);
+    ZRolePo getById(Long id);
 
     // 列表
     @SelectProvider(type = ZRoleSqlProvider.class, method = "findList")
-    List<ZRole> findLists(@Param("param") ParamMap param);
+    List<ZRolePo> findLists(@Param("param") ParamMap param);
 
     <T> List<T> findList(@Param("param") ParamMap param);
 
 
     // 分页列表
     @SelectProvider(type = ZRoleSqlProvider.class, method = "findListByPage")
-    List<ZRole> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+    List<ZRolePo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
@@ -49,10 +49,10 @@ public interface IZRoleMapper {
             "values(",
             "#{id}, #{name}, #{code}, #{idx}, #{status}, #{updateOn}, #{updateBy}, #{createOn}, #{createBy}",
             ")"})
-    int insert(ZRole zRole);
+    int insert(ZRolePo zRole);
 
     @InsertProvider(type = ZRoleSqlProvider.class, method = "insertSelective")
-    int insertSelective(ZRole zRole);
+    int insertSelective(ZRolePo zRole);
 
     // 权限列表
     @Select("select * from z_role_authority where role_id = #{roleId}")
@@ -77,5 +77,5 @@ public interface IZRoleMapper {
     //		"name=#{name}, code=#{code}, idx=#{idx}, status=#{status}, update_on=#{updateOn}, update_by=#{updateBy}, create_on=#{createOn}, create_by=#{createBy}"
     //		," where id = #{id}"})
     @UpdateProvider(type = ZRoleSqlProvider.class, method = "update")
-    int update(ZRole zRole);
+    int update(ZRolePo zRole);
 }

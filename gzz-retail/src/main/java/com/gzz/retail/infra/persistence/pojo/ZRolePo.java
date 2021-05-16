@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 @Accessors
-public class ZRole implements Serializable {
+public class ZRolePo implements Serializable {
     /**
      * ID id
      */
@@ -35,6 +35,11 @@ public class ZRole implements Serializable {
      * 状态 status
      */
     private int status;
+
+    /**
+     * 描述 desc
+     */
+    private String desc;
     /**
      * 更新时间 updateOn
      */

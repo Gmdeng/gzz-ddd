@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.ZUserSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.ZRole;
+import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import com.gzz.retail.infra.persistence.pojo.ZUser;
 import com.gzz.retail.infra.persistence.pojo.ZUserRoles;
 import org.apache.ibatis.annotations.*;
@@ -73,7 +73,7 @@ public interface IZUserMapper {
 
     // 角色列表
     @Select("select r.* from z_role r, z_user_roles a where r.id = a.role_id where a.user_id=#{userId}")
-    List<ZRole> findRoleLists(Long userId);
+    List<ZRolePo> findRoleLists(Long userId);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id

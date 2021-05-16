@@ -1,23 +1,15 @@
-package com.gzz.retail.domain.system.entity;
+package com.gzz.retail.application.system.command;
 
 import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.infra.defines.CommStatus;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-/**
- * 系统角色
- */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Role {
+public class RoleSaveCmd {
     /**
      * ID id
      */
-    private RoleId roleId;
+    private Long id;
     /**
      * 名称 name
      */
@@ -30,8 +22,9 @@ public class Role {
      * 排序 idx
      */
     private int idx;
+
     /**
-     * 状态 status
+     * 描述
      */
-    private CommStatus status;
+    private String desc;
 }

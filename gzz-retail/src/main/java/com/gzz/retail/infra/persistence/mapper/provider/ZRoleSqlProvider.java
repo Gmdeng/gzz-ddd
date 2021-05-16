@@ -2,7 +2,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.ZRole;
+import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import com.gzz.retail.infra.persistence.pojo.ZRoleAuthority;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class ZRoleSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(ZRole zRole) {
+    public String insertSelective(ZRolePo zRole) {
         return new SQL() {
             {
                 INSERT_INTO("z_role");
@@ -66,7 +66,7 @@ public class ZRoleSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(ZRole zRole) {
+    public String update(ZRolePo zRole) {
         return new SQL() {
             {
                 UPDATE("z_role");

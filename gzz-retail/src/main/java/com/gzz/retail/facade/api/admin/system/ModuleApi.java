@@ -1,19 +1,17 @@
 package com.gzz.retail.facade.api.admin.system;
 
-import com.alibaba.fastjson.JSON;
 import com.gzz.boot.aop.log.VisitLog;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.system.ModuleCmdApplication;
 import com.gzz.retail.application.system.ModuleQueryApplication;
 import com.gzz.retail.application.system.command.ModuleAuditCmd;
+import com.gzz.retail.application.system.command.ModuleDeleteCmd;
 import com.gzz.retail.application.system.command.ModuleSaveCmd;
 import com.gzz.retail.application.system.dto.ModuleDto;
 import com.gzz.retail.application.system.dto.ModuleFormDto;
 import com.gzz.retail.application.system.queries.ModuleQuery;
-import com.gzz.retail.facade.api.admin.system.param.ModuleParam;
 import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -87,6 +85,16 @@ public class ModuleApi {
         return HttpResult.success();
     }
 
+    /**
+     * 册除数据
+     * @param cmd
+     * @return
+     */
+    @GetMapping("/deleteData")
+    public HttpResult deleteData(ModuleDeleteCmd cmd){
+        moduleCmdApp.deleteCmd(cmd);
+        return HttpResult.success();
+    }
     /**
      * 数据列表
      *

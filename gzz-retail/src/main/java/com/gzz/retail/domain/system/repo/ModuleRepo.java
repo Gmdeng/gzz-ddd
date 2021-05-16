@@ -14,23 +14,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModuleRepo {
     @Autowired
-    private IZModuleMapper moduleMapper;
+    private IZModuleMapper mapper;
 
     /**
      * 审核
-     * @param module
+     * @param entity
      */
-    public void audit(Module module){
-        ZModulePo m = moduleMapper.getById(module.getModuleId().getId());
-        m.setStatus(module.getStatus().getKey());
-        moduleMapper.update(m);
+    public void audit(Module entity){
+        ZModulePo m = mapper.getById(entity.getModuleId().getId());
+        m.setStatus(entity.getStatus().getKey());
+        mapper.update(m);
     }
 
     /**
      * 保存数据
      */
-    public void save(Module module){
-        ZModulePo zModule = BeanConvertUtil.convertOne(module, ZModulePo.class,  (src, dest)->{
+    public void save(Module entity){
+        ZModulePo po = BeanConvertUtil.convertOne(entity, ZModulePo.class,  (src, dest)->{
             if(src.getModuleId()!=null)
                 dest.setId(src.getModuleId().getId());
             dest.setParentId(src.getParent().getModuleId().getId());
@@ -41,10 +41,10 @@ public class ModuleRepo {
         });
         int num =0;
 
-        if(zModule.getId()== null) {
-            num = moduleMapper.insert(zModule);
+        if(po.getId()== null) {
+            num = mapper.insert(po);
         }else{
-            num = moduleMapper.update(zModule);
+            num = mapper.update(po);
         }
         if(num ==0)
             throw new BizzException("保存数据异常");
@@ -52,9 +52,9 @@ public class ModuleRepo {
 
     /**
      * 删除对象
-     * @param module
+     * @param entity
      */
-    public void delete(Module module){
-        moduleMapper.delete(module.getModuleId().getId());
+    public void delete(Module entity){
+        mapper.delete(entity.getModuleId().getId());
     }
 }
