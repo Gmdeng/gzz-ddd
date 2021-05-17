@@ -56,13 +56,20 @@ public class AutoConfig implements DisposableBean {
 
     /**
      * 重复提交AOP拦截
+     * matchifmissing 该属性为true时，配置文件中缺少对应的value或name的对应的属性值，也会注入成功
+     * 配置属性a:        
+     *      1:不配置a        matchifmissing=false 不满足      matchifmissing=true 满足 
+     *      2:配置a=false    matchifmissing=false 不满足      matchifmissing=true 不满足 
+     *      3:配置a=true     matchifmissing=false 满足        matchifmissing=true 满足
+     *
      *
      * @return
      */
     @Bean
-    @ConditionalOnProperty(name = "gzz.resubmit.enable", havingValue = "true")
+    @ConditionalOnProperty(name = "gzz.resubmit.enable", matchIfMissing = false, havingValue = "true")
     @ConditionalOnMissingBean(ResubmitLimitAspect.class) //是否已实例添加到容器中
     public ResubmitLimitAspect resubmitLimitAspect() {
+        System.out.println(" 重复提交AOP拦截。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。########################### ");
         return new ResubmitLimitAspect();
     }
 

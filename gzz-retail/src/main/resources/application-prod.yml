@@ -1,15 +1,4 @@
 gzz:
-  #短信接口配置
-  sms:
-    type: aliyun
-    clusterName: hello-elasticsearch
-    password: pwdqazxsw123edc
-  visitlog:
-    enable: true   # 开启访问记录日志
-  resubmit:
-    enable: true   # 开启重复提交限制
-  visitrate:
-    enable: true   # 开启接口访问限制
   # 支付
   payment:
     # 微信支付
@@ -29,15 +18,3 @@ gzz:
       private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCttCUGyrjc8CfEC6T/GRBbVZINjPnCJFonIPMHrJHvLOyTs2zLflh94+mYDnPa9VZTnVuW5lhQAtPWEGwloclBG+HkZIzpAFrKHKj7UhYBMPKZtKp8myYwviTDKOY9Kq33uu+X//NihD29Ctm8xumBWL0kE5a0LbJ5lxvpPYffdoW5wVFimFia93U9rIW707J1dldHsiPVtiS/k/KuPiBygmiYFdQhASUzLwjnYy2bW4KRjmCCzICf171IX93WQTMqj/Vv/HzfjvkymwRucYdoc/1uSSfWFa71XaeJjxt+SADxqaBVDJGosCLpvij8sEHVld4r5+HLbiv6JRLuVwv9AgMBAAECggEAOhUUlHLQ4b/D7D/gihQ9beztC27qTMqPAqp32UcQ/SLOcIz8ggbbXC0LfPbIMpz6orbpW0nmmcp4Pwn6v5KbkxPZst8UZwzhTtfKgU7vYLKXTGIm58eRO5c4/7D7W9Sbm0x8tRy2q2iApGeuavswNToQ9LFAITtuhE3M3W7fsg6IOF9GXybTcECyXFrJ8Ha71kp8znlQjADECXQSMmZHdvLhx8FIcfdkKysSsg9Hc66iyqtiCirvp5JVG1wth7PKYQfKuCIVzY+Gy85CT2B3kr3j6d3j8P6Zzsqj2PMOUQJ0rS259TTz5A8JKGfsuFQFEN38aHgS4gHfQ6s0q7scAQKBgQDjUSmJYSijtreJtwdYSfHI/FPSesSgHYWUMbY1bCXJKMWJORrsWCYv00XwvNGzCDw+Z/eSFga5EFXUAQrDoNToy2FLsZ++VBOQVO+0/75srYcUM7Xn3psvabeamfEVs71GT5iIij7skcxyA/PGq205BggNfT7KsfpoGgsgbhwnfQKBgQDDnydkNnVygG/VIYMb+i43K4n8P+ydYZZQjrS9TKZrXeWcZvVLsrVFS+t0rLrQxt9cKlup44VL+20b+3RObcL+W+LNicij6flibNrsxS8uCcMU7CTzTIRxIxDdEV4nY097QCqpzoHuuJrH6vD931R+lCB61l+wHBViAjsS02iegQKBgQDNVya/W837PXXEaFqxLXLFTPJnQtFVlfVxrgpbbcsgUL1IPRaOAv7T2vTmB5siL8FD2mTwSQdfq1rsvNg9aY6KkBXe66BSrN5TVfaHOTKKN6K65A9hWlwy0zuw43i9UvUai5JNXRyEVRwqrllK0NZEWadyj/3l2ipKWaRNcknqfQKBgGX1V+SldcV+J8ugMeOtG9VpffvZnYvRxzSpjI51mu+u+vPvvb38oPpDPa+ML7qNTPGOqkP78AfQPegtwUr3boCAh8+1FrxIQNEKB3kMtTB7qhAHnKKqqQUGz81JNhe1bUHCCfqDRbmUwieczoqjkjh/IAamIS17FbIFk6CWS5sBAoGBAJu39WPhfd9HVCPV0To5Wy7dX1QZd5gstZKRMBftzuaowwBxkXZ7x4nYnGaHrERqvw9ZigtRUIbyfTp99WLXy9P6T25jAglFjOfwUuCrw6cOGT4PPsi20lr7BdrkTyw/IFNz4768FT8KtwfDANHLI79L9hjUzXNYtab0Hi2C+pES
       # API公钥
       public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqA9t4HbiJ7PCUDAob5dUBk93+fNFBkbrJl7+Ss0a+pTzx6xKDrBxZcxR5JpxjeGIUJ34G7h2qKRAGgqt1Mn6swoi1gWOUkRUQ33lnMjpOq2OZjAlCmIf0kr12dFfm8oRRkO6GDCbvoPkdXioC9redmaQb/499Y1mWaPQfY8iUV2WHeeV9iCycBs0y9PhK5NdzZ14rkZFkdHNS4hezp6rkJri3QF4cIOCBQG+iC35GXivQrKQXCC5WezkHq/2tej9CPxaqxaSqdvb/N9J/eheGHl+J+ZvGtwkqvr3CGOLLZ3S7epi1q9dP20UClQPb51sIpA5szyzdVX+UWqL740iawIDAQAB
-#Logback配置示
-#logging:
-#  level:
-#    root: info  # root日志以WARN级别输出
-#  pattern:   # 日志格式
-#    file: "%d %C - %msg%n"   #格式化，只能输出日期和内容
-#    console: "%d %C - %msg%n"   #格式化，只能输出日期和内容
-#  path: c:\opt\logs          #配置日志输出位置
-#  #file:
-#  #  max-size: 100M # 设置日志文件大小
-#  #  max-history: 10
-#  #config: # 日志配置文件路径，如 classpath:logback-spring.xml

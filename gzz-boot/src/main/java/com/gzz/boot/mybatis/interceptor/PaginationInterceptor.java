@@ -57,9 +57,7 @@ public class PaginationInterceptor implements Interceptor {
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         // 获取方法名称
         String msId = mappedStatement.getId();
-
         Configuration configuration = mappedStatement.getConfiguration();
-
         // 拦截以.ByPager结尾的请求。分页功能的统一实现
         if (msId.matches(".*ByPage$")) {
             // 获取原SQL语句
@@ -69,13 +67,11 @@ public class PaginationInterceptor implements Interceptor {
             // 获取进行数据库操作管理参数的handler , 获取请求时的参数MAP
             // ParameterHandler parameterHandler = (ParameterHandler) metaStatementHandler.getValue("delegate.parameterHandler");
             // Object param = parameterHandler.getParameterObject();
+            // 获取方法的参数
             Object params = boundSql.getParameterObject();
-            log.info("params {}", params);
-            // 获取参数MATEOBJECT
-
+            // log.info("params {}", params);
+            // 获取分页参数
             Pager pager = GetPager(params);
-
-
             // 获取当前连接对象
             Connection connection = (Connection) inv.getArgs()[0];
 

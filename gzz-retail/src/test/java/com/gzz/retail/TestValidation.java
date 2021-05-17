@@ -23,7 +23,7 @@ public class TestValidation {
         boolean isError = result.isHasError();
         System.out.println("isError: " + isError);
         System.out.println(map);
-        System.out.println(Optional.ofNullable(map).orElse(HashMap::new));
+        // System.out.println(Optional.ofNullable(map).orElse());
     }
 
 }

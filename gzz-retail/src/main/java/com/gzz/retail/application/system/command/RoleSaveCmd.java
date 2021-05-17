@@ -4,6 +4,8 @@ import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 public class RoleSaveCmd {
     /**
@@ -27,4 +29,9 @@ public class RoleSaveCmd {
      * 描述
      */
     private String desc;
+
+    /**
+     *
+     */
+    private Set<String> Permissions;
 }

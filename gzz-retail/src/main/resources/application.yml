@@ -16,7 +16,7 @@ spring:
     time-zone: GMT+8
     #serialization:
     #  write-dates-as-timestamps: false
-  http:            #上传文件大小限制
+  http:  #上传文件大小限制
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
@@ -32,33 +32,8 @@ spring:
     #      max-active: 20
     #      #配置获取连接等待超时的时间
     #      max-wait: 60000
-    ### Druid数据源1 主数据库
-    db-master:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&failOverReadOnly=false
-      username: root
-      password: passwd
-    ### Druid数据源2 从数据库
-    db-slave:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&failOverReadOnly=false
-      username: root
-      password: passwd
-    #从数据源
-    cluster:
-      # 从数据源开关/默认关闭
-      enabled: false
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/gzz_retail?useUnicode=true&characterEncoding=utf-8
-      username: root
-      password: passwd
+
   redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    #password: passwd
-    # 连接超时时间（毫秒）
-    timeout: 10000
     # 连接池配置，springboot2.0中直接使用jedis或者lettuce配置连接池
     # Jedis ：直连模式，在多个线程间共享一个 Jedis 实例时是线程不安全的，
     #        如果想要在多线程环境下使用 Jedis，需要使用连接池，每个线程都去拿自己的 Jedis 实例，当连接数量增多时，物理连接成本较高。
@@ -80,6 +55,19 @@ logging:
   level:
     root: info  # root日志以WARN级别输出, 这里设置，logback-spring.xml中配置无效
   config: classpath:logback-spring.xml # 日志配置文件路径
+
+#Logback配置示
+#logging:
+#  level:
+#    root: info  # root日志以WARN级别输出
+#  pattern:   # 日志格式
+#    file: "%d %C - %msg%n"   #格式化，只能输出日期和内容
+#    console: "%d %C - %msg%n"   #格式化，只能输出日期和内容
+#  path: c:\opt\logs          #配置日志输出位置
+#  #file:
+#  #  max-size: 100M # 设置日志文件大小
+#  #  max-history: 10
+#  #config: # 日志配置文件路径，如 classpath:logback-spring.xml
 #
 mybatis:
   # config-location: classpath:mybatis.xml
@@ -92,3 +80,17 @@ mybatis:
     map-underscore-to-camel-case: true #自动开启驼峰规则映射
     call-setters-on-nulls: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#
+gzz:
+  sms:  #短信接口配置
+    type: aliyun
+    clusterName: hello-elasticsearch
+    password: pwdqazxsw123edc
+  resubmit:
+    enable: false   # 开启重复提交限制
+  visitlog:
+    enable: true   # 开启访问记录日志
+  visitrate:
+    enable: true   # 开启接口访问限制
+  visitexception:
+    enable: true   # 开启访问异常记录
