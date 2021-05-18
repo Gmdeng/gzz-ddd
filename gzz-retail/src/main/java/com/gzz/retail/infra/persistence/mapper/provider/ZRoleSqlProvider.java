@@ -1,122 +1,98 @@
 package com.gzz.retail.infra.persistence.mapper.provider;
 
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.ArrayList;
+
+import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
+import com.gzz.retail.infra.persistence.pojo.ZRolePo;
+import org.apache.ibatis.jdbc.SQL;
+import org.apache.ibatis.annotations.Param;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.ZRolePo;
-import com.gzz.retail.infra.persistence.pojo.ZRoleAuthority;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.jdbc.SQL;
+import com.gzz.core.util.StringUtil;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Description: 主要用途：根据复杂的业务需求来动态生成SQL.
- * @Date 2020-10-10 10:55:08
+ * @Date 2021-05-18 10:52:36
  */
 public class ZRoleSqlProvider {
 
-    // 选择性新增SQL
-    public String insertSelective(ZRolePo zRole) {
-        return new SQL() {
+    // 选择性新增SQL insertSelective
+    public String dynamicInsert(ZRolePo zRole) {
+        return new SQL(){
             {
-                INSERT_INTO("z_role");
-                if (zRole.getId() != null) {
-                    VALUES("id", "#{id}");
-                }
-                if (zRole.getName() != null) {
-                    VALUES("name", "#{name}");
-                }
-                if (zRole.getCode() != null) {
-                    VALUES("code", "#{code}");
-                }
-
-                // if (zRole.getStatus() != null) {VALUES("status", "#{status}");}
-                if (zRole.getUpdateOn() != null) {
-                    VALUES("update_on", "#{updateOn}");
-                }
-                if (zRole.getUpdateBy() != null) {
-                    VALUES("update_by", "#{updateBy}");
-                }
-                if (zRole.getCreateOn() != null) {
-                    VALUES("create_on", "#{createOn}");
-                }
-                if (zRole.getCreateBy() != null) {
-                    VALUES("create_by", "#{createBy}");
-                }
-                VALUES("idx", "#{idx}");
+                INSERT_INTO("Z_ROLE");
+                if (!StringUtil.isNull(zRole.getId())) {VALUES("id", "#{id, jdbcType=BIGINT}");}
+                if (!StringUtil.isNull(zRole.getName())) {VALUES("name", "#{name, jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getCode())) {VALUES("code", "#{code, jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getIdx())) {VALUES("idx", "#{idx, jdbcType=TINYINT}");}
+                if (!StringUtil.isNull(zRole.getStatus())) {VALUES("status", "#{status, jdbcType=TINYINT}");}
+                if (!StringUtil.isNull(zRole.getUpdateOn())) {VALUES("update_on", "#{updateOn, jdbcType=TIMESTAMP}");}
+                if (!StringUtil.isNull(zRole.getUpdateBy())) {VALUES("update_by", "#{updateBy, jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getCreateOn())) {VALUES("create_on", "#{createOn, jdbcType=TIMESTAMP}");}
+                if (!StringUtil.isNull(zRole.getCreateBy())) {VALUES("create_by", "#{createBy, jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getNotes())) {VALUES("notes", "#{notes, jdbcType=VARCHAR}");}
             }
         }.toString();
     }
 
-
-    // 批量插入权限
-    public String insertBatchAuthority(Map<String, List<ZRoleAuthority>> map) {
-        List<ZRoleAuthority> list = (List<ZRoleAuthority>) map.get("list");
-        MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].roleId}, #'{'list[{0}].moduleId}, #'{'list[{0}].hasPower})");
+    // 批量插入
+    public String batchInsert(@Param("dataList") List<ZRolePo> dataList) {
+        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].id}, #'{'dataList[{0}].name}, #'{'dataList[{0}].code}, #'{'dataList[{0}].idx}, #'{'dataList[{0}].status}, #'{'dataList[{0}].updateOn}, #'{'dataList[{0}].updateBy}, #'{'dataList[{0}].createOn}, #'{'dataList[{0}].createBy}, #'{'dataList[{0}].notes})");
         List<String> rows = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            rows.add(mf.format(new Object[]{i}));
+        for (int i = 0; i < dataList.size(); i++) {
+            rows.add(mf.format(new Object[] { i }));
         }
-        return "INSERT INTO z_role_authority (id, role_id, module_id, has_power) VALUES "
+        return "INSERT INTO Z_ROLE (id, name, code, idx, status, update_on, update_by, create_on, create_by, notes) VALUES "
                 + String.join(", ", rows);
-
     }
-
     // 选择性更新SQL
-    public String update(ZRolePo zRole) {
+    public String dynamicUpdate(ZRolePo zRole) {
         return new SQL() {
             {
-                UPDATE("z_role");
-                if (zRole.getName() != null) {
-                    SET("name=#{name}");
-                }
-                if (zRole.getCode() != null) {
-                    SET("code=#{code}");
-                }
-                SET("idx=#{idx}");
-                // if (zRole.getStatus() != null) {SET("status=#{status}");}
-                if (zRole.getUpdateOn() != null) {
-                    SET("update_on=#{updateOn}");
-                }
-                if (zRole.getUpdateBy() != null) {
-                    SET("update_by=#{updateBy}");
-                }
-                if (zRole.getCreateOn() != null) {
-                    SET("create_on=#{createOn}");
-                }
-                if (zRole.getCreateBy() != null) {
-                    SET("create_by=#{createBy}");
-                }
+                UPDATE("Z_ROLE");
+                if (!StringUtil.isNull(zRole.getName())) {SET("name=#{name,jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getCode())) {SET("code=#{code,jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getIdx())) {SET("idx=#{idx,jdbcType=TINYINT}");}
+                if (!StringUtil.isNull(zRole.getStatus())) {SET("status=#{status,jdbcType=TINYINT}");}
+                if (!StringUtil.isNull(zRole.getUpdateOn())) {SET("update_on=#{updateOn,jdbcType=TIMESTAMP}");}
+                if (!StringUtil.isNull(zRole.getUpdateBy())) {SET("update_by=#{updateBy,jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getCreateOn())) {SET("create_on=#{createOn,jdbcType=TIMESTAMP}");}
+                if (!StringUtil.isNull(zRole.getCreateBy())) {SET("create_by=#{createBy,jdbcType=VARCHAR}");}
+                if (!StringUtil.isNull(zRole.getNotes())) {SET("notes=#{notes,jdbcType=VARCHAR}");}
                 WHERE("id=#{id}");
             }
         }.toString();
     }
 
     // 列表分页查询
-    public String findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager) {
-        return new SQL() {
-            {
-                SELECT("*");
-                FROM("z_role");
-                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
-            }
-        }.toString();
+    public String findListByPage(@Param("param")ParamMap param, @Param("pager") Pager pager) {
+        return findList(param);
     }
 
     // 列表查询
-    public String findList(@Param("param") ParamMap param) {
+    public String findList(@Param("param")ParamMap param) {
         return new SQL() {
             {
                 SELECT("*");
-                FROM("z_role");
-                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
-
+                FROM("Z_ROLE");
+                if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name like CONCAT('%',#{param.name},'%')");
+                if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name = #{param.name}");
             }
         }.toString();
     }
 
-
+    // 批量插入许可
+    // @Param("dataList") 必须两个地方要一样
+    public String batchInsertPermission(@Param("dataList") List<ZRolePermissionPo> dataList) {
+        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].roleId}, #'{'dataList[{0}].moduleId}, #'{'dataList[{0}].hasPower})");
+        List<String> rows = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            rows.add(mf.format(new Object[] { i }));
+        }
+        return "INSERT INTO Z_ROLE_PERMISSION (role_id, module_id, has_power) VALUES "
+                + String.join(", ", rows);
+    }
 }

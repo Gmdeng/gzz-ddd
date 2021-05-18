@@ -2,12 +2,11 @@ package com.gzz.retail.application.system;
 
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.retail.application.assembler.ModelAssembler;
+import com.gzz.retail.application.assembler.TreeSelectAssembler;
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
 import com.gzz.retail.application.system.dto.ModuleDto;
 import com.gzz.retail.application.system.dto.ModuleFormDto;
 import com.gzz.retail.application.system.queries.ModuleQuery;
-import com.gzz.retail.application.system.queries.UserQuery;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
@@ -17,13 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- *
+ * 模块Query
  */
 @Slf4j
 @Service
@@ -32,7 +30,7 @@ public class ModuleQueryApplication {
     private IZModuleMapper moduleMapper;
 
     /**
-     *
+     * 获取表单数据
      * @param moduleId
      * @return
      */
@@ -50,7 +48,7 @@ public class ModuleQueryApplication {
     }
 
     /**
-     *
+     * 获取详细
      * @param moduleId
      * @return
      */
@@ -67,7 +65,7 @@ public class ModuleQueryApplication {
     }
 
     /**
-     *
+     * 获取分页面
      * @param query
      * @return
      */
@@ -84,13 +82,13 @@ public class ModuleQueryApplication {
     }
 
     /**
-     *
+     * 树形目录选项
      * @return
      */
     public TreeSelectDto getTreeSelect(){
         List<ZModulePo> poList = moduleMapper.findLists(new ParamMap());
         TreeSelectDto dto = new TreeSelectDto("根目录", 0L);
-        ModelAssembler.toTreeSelectNode(poList, dto);
+        TreeSelectAssembler.toTreeSelectNode(poList, dto);
 //        return ModelAssembler.toTreeSelect(poList, dto);
         return dto;
     }

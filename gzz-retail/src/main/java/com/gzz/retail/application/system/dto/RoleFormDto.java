@@ -1,17 +1,19 @@
-package com.gzz.retail.application.system.command;
+package com.gzz.retail.application.system.dto;
 
+import com.gzz.retail.application.assembler.dto.PermissionNodeDto;
+import com.gzz.retail.domain.system.entity.Permission;
 import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
-public class RoleSaveCmd {
+public class RoleFormDto {
     /**
      * ID id
      */
-    private Long id;
+    private RoleId roleId;
     /**
      * 名称 name
      */
@@ -26,12 +28,12 @@ public class RoleSaveCmd {
     private int idx;
 
     /**
-     * 描述
+     * 排序 idx
      */
-    private String desc;
+    private String notes;
 
     /**
-     * 权限
+     * 许可
      */
-    private Set<Integer> Permissions;
+    private List<PermissionNodeDto> permissions;
 }

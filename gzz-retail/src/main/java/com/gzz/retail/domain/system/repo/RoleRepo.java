@@ -6,9 +6,12 @@ import com.gzz.retail.domain.system.entity.Role;
 import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
+import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class RoleRepo {
@@ -54,6 +57,10 @@ public class RoleRepo {
         }
         if(num ==0)
             throw new BizzException("保存数据异常");
+        List<ZRolePermissionPo> permList = BeanConvertUtil.convertList(entity.getPermissions(), ZRolePermissionPo.class, (src, dest)->{
+
+        });
+        mapper.batchInsertPermission(permList);
     }
 
     /**

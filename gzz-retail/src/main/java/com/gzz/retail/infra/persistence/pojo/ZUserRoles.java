@@ -10,7 +10,6 @@ import lombok.experimental.Accessors;
  * @CrateOn 2020-10-10 10:56:15
  */
 @Data
-@Accessors
 public class ZUserRoles {
     /**
      * ID id

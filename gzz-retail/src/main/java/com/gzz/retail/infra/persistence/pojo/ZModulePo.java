@@ -18,7 +18,6 @@ import java.util.Set;
  * @CrateOn 2021-2-26 11:45:48
  */
 @Data
-@Accessors
 public class ZModulePo implements Serializable {
     /**
      * ID id

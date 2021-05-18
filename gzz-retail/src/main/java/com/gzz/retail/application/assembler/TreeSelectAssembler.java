@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * 对象 装配器
  */
-public class ModelAssembler {
+public class TreeSelectAssembler {
     // 递归为目录树
     public static List<TreeSelectDto> toTreeSelect(List<ZModulePo> source, TreeSelectDto dto){
         return source.stream().filter(it -> dto.getValue().compareTo(it.getParentId()) == 0)

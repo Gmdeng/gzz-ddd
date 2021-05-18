@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * 系统角色
  */
@@ -30,8 +32,18 @@ public class Role {
      * 排序 idx
      */
     private int idx;
+
+    /**
+     * 排序 idx
+     */
+    private String notes;
     /**
      * 状态 status
      */
     private CommStatus status;
+
+    /**
+     * 许可
+     */
+    private List<Permission> permissions;
 }
