@@ -21,7 +21,6 @@ import java.util.List;
 public class RoleQueryApplication {
     @Autowired
     private IZRoleMapper roleMapper;
-    @Autowired
 
     /**
      * 获取表单数据
@@ -71,7 +70,7 @@ public class RoleQueryApplication {
 //                return ((src.getOperate() & it.getKey()) == it.getKey());
 //            }).collect(Collectors.toSet());
 //            dest.setOperate(opers);
-            dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
+            // dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
         });
         return list;
     }
