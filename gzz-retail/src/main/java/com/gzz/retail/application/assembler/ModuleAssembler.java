@@ -1,15 +1,28 @@
 package com.gzz.retail.application.assembler;
 
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
+import com.gzz.retail.application.system.dto.ModuleDto;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 对象 装配器
+ * 模块相关的 装配器
  */
-public class TreeSelectAssembler {
+public class ModuleAssembler {
+    // 递归为目录树
+    public static void toModuleNode(List<ModuleDto> source, ModuleDto parent){
+        source.forEach(it->{
+            if(parent.getId().compareTo(it.getParentId()) == 0 ){
+                toModuleNode(source, it);  // 递归
+                // if(parent.getChildren() == null) parent.setChildren(new ArrayList<>());
+                parent.getChildren().add(it);
+            }
+        });
+    }
+
     // 递归为目录树
     public static List<TreeSelectDto> toTreeSelect(List<ZModulePo> source, TreeSelectDto dto){
         return source.stream().filter(it -> dto.getValue().compareTo(it.getParentId()) == 0)
@@ -34,6 +47,5 @@ public class TreeSelectAssembler {
                 toTreeSelectNode(source, treeNode);
             }
         }
-
     }
 }

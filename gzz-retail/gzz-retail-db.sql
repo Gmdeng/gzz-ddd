@@ -712,20 +712,27 @@ CREATE TABLE `z_module` (
   `create_on` timestamp NOT NULL COMMENT '创建时间',
   `create_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
 
 /*Data for the table `z_module` */
 
 insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`url`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`) values 
-(22,0,NULL,'783500d33c9e4d6bb6e959336e84fa7f','SUPER-ROOT',20,'https://wwww.g-zz.com','wss://g-zz.com',0,0,'2020-10-29 17:40:40','AutoModifyer','2020-10-15 00:59:50','ricky'),
-(23,0,NULL,'8acbb47b2bc24020b9f06d6d0dbc6738','SUPER-ROOT',25,'https://wwww.g-zz.com','wss://g-zz.com',0,0,'2020-10-30 10:21:45','AutoModifyer','2020-10-15 01:02:40','ricky');
+(29,28,'M','待支付订单','ORDERS_UNPAY',63,'','',0,0,'2021-05-21 14:36:16','AutoModifyer','2021-05-21 14:36:16','AutoModifyer'),
+(30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
+(28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'','',0,0,'2021-05-21 14:35:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
+(27,24,'M','分类管理','GOODS_CALOG',63,'','',0,0,'2021-05-21 11:35:48','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
+(26,22,'M','用户管理','SYSTEM_USER',63,'','',0,0,'2021-05-21 11:33:25','AutoModifyer','2021-05-21 11:33:25','AutoModifyer'),
+(24,0,'M','商品管理','GOODS_MANAGEMENT',32,'','',0,0,'2021-05-21 11:34:10','AutoModifyer','2021-05-14 17:55:37','AutoModifyer'),
+(25,22,'M','角色管理','SYSTEM_ROLE',63,'','',0,0,'2021-05-21 11:32:46','AutoModifyer','2021-05-21 11:29:42','AutoModifyer'),
+(22,0,'M','系统管理','SYSTEM_MANAGEMENT',52,'https://wwww.g-zz.com','wss://g-zz.com',2,0,'2021-05-21 11:34:34','AutoModifyer','2020-10-15 00:59:50','ricky'),
+(23,22,'M','模块管理','SYSTEM_MODULE',63,'https://wwww.g-zz.com','wss://g-zz.com',0,0,'2020-10-30 10:21:45','AutoModifyer','2020-10-15 01:02:40','ricky');
 
 /*Table structure for table `z_role` */
 
 DROP TABLE IF EXISTS `z_role`;
 
 CREATE TABLE `z_role` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
   `code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '编码（唯一的，java类名）',
   `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
@@ -734,24 +741,41 @@ CREATE TABLE `z_role` (
   `update_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '更新人',
   `create_on` timestamp NOT NULL COMMENT '创建时间',
   `create_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+  `notes` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色';
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色';
 
 /*Data for the table `z_role` */
 
-/*Table structure for table `z_role_authority` */
+insert  into `z_role`(`id`,`name`,`code`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`,`notes`) values 
+(10,'83965263','CODE',3,0,'2021-05-18 15:49:11','Tester','2021-05-18 15:49:11','Tester','XaeMXECjkLEUnuqlNFae'),
+(9,'77151142','CODE',3,0,'2021-05-18 15:36:03','Tester','2021-05-18 15:36:03','Tester','QwKJbfplBvkkIXuQkDMJ');
 
-DROP TABLE IF EXISTS `z_role_authority`;
+/*Table structure for table `z_role_permission` */
 
-CREATE TABLE `z_role_authority` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
+DROP TABLE IF EXISTS `z_role_permission`;
+
+CREATE TABLE `z_role_permission` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `module_id` bigint(20) NOT NULL COMMENT '模块ID',
   `has_power` tinyint(4) NOT NULL COMMENT '拥有权限',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限';
 
-/*Data for the table `z_role_authority` */
+/*Data for the table `z_role_permission` */
+
+insert  into `z_role_permission`(`id`,`role_id`,`module_id`,`has_power`) values 
+(6,9,0,76),
+(7,9,1,53),
+(8,9,2,34),
+(9,9,3,83),
+(10,9,4,72),
+(11,10,0,45),
+(12,10,1,97),
+(13,10,2,24),
+(14,10,3,29),
+(15,10,4,89);
 
 /*Table structure for table `z_user` */
 

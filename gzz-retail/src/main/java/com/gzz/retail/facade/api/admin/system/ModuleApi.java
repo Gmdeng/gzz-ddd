@@ -2,8 +2,6 @@ package com.gzz.retail.facade.api.admin.system;
 
 import com.gzz.boot.aop.log.VisitLog;
 import com.gzz.core.response.HttpResult;
-import com.gzz.core.toolkit.Pager;
-import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.application.system.ModuleCmdApplication;
 import com.gzz.retail.application.system.ModuleQueryApplication;
 import com.gzz.retail.application.system.command.ModuleAuditCmd;
@@ -37,6 +35,17 @@ public class ModuleApi {
     @Autowired
     private ModuleQueryApplication moduleQueryApp;
 
+    /**
+     * 获取信息
+     * @param code
+     * @return
+     */
+    @GetMapping("/getModulesByCode")
+    public HttpResult getModulesByCode(String code){
+        ModuleQuery query = new ModuleQuery();
+        List<ModuleDto> dataList =   moduleQueryApp.getModuleList(query);
+        return HttpResult.success().data(dataList);
+    }
     /**
      * 获取表单数据
      * @param id
@@ -102,14 +111,12 @@ public class ModuleApi {
      */
     @GetMapping("/getList")
     public HttpResult getList(HttpServletRequest request) {
-        ParamMap params = new ParamMap();
+        // ParamMap params = new ParamMap();
         ModuleQuery query = new ModuleQuery();
-        Pager pager = new Pager(20);
-        query.setPager(pager);
-        List<ModuleDto> dataList = moduleQueryApp.getModuleByPage(query);
+        List<ModuleDto> dataList = moduleQueryApp.getModuleTreeList(query);
 
-//        return HttpResult.success(toTreeNode(zeroNode, lists));
-        return HttpResult.success().put("dataList", dataList).put("pager", pager);
+        // return HttpResult.success(toTreeNode(zeroNode, lists));
+        return HttpResult.success().put("dataList", dataList);
     }
 
     /**

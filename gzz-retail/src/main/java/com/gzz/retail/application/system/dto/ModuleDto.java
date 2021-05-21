@@ -8,7 +8,9 @@ import com.gzz.retail.infra.defines.types.OperateType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -67,8 +69,8 @@ public class ModuleDto {
     /**
      * 更新时间 updateOn
      */
-
     private Date updateOn;
+
     /**
      * 更新人 updateBy
      */
@@ -84,4 +86,9 @@ public class ModuleDto {
      * 创建人 createBy
      */
     private String createBy;
+
+    /**
+     * 子项
+     */
+    private List<ModuleDto> children;
 }

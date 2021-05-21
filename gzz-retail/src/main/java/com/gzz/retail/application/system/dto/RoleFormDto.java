@@ -36,4 +36,8 @@ public class RoleFormDto {
      * 许可
      */
     private List<PermissionNodeDto> permissions;
+//    /**
+//     * 许可
+//     */
+//    private List<Permission> permissions;
 }

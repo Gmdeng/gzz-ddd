@@ -10,4 +10,5 @@ import lombok.Data;
 public class ModuleQuery extends BaseQuery {
     private String moduleName;
     private String parentId;
+    private String code;
 }
