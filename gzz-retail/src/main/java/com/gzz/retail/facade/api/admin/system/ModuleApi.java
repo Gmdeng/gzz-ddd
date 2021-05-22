@@ -29,24 +29,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/admin/system/module")
 public class ModuleApi {
-
     @Autowired
     private ModuleCmdApplication moduleCmdApp;
     @Autowired
     private ModuleQueryApplication moduleQueryApp;
 
-    /**
-     * 获取信息
-     * @param code
-     * @return
-     */
-    @GetMapping("/getModulesByCode")
-    public HttpResult getModulesByCode(String code){
-        ModuleQuery query = new ModuleQuery();
-        List<ModuleDto> dataList =   moduleQueryApp.getModuleList(query);
-        return HttpResult.success().data(dataList);
-    }
-    /**
+
+    /**if
      * 获取表单数据
      * @param id
      * @return
