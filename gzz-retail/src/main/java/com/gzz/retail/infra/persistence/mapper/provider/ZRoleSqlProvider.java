@@ -79,7 +79,7 @@ public class ZRoleSqlProvider {
                 SELECT("*");
                 FROM("Z_ROLE");
                 if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name like CONCAT('%',#{param.name},'%')");
-                if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name = #{param.name}");
+                if(StringUtil.isNotEmpty(param.get("code"))) WHERE("name = #{param.code}");
             }
         }.toString();
     }

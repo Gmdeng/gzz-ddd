@@ -2,15 +2,16 @@ package com.gzz.retail.facade.api.admin.system;
 
 import com.gzz.boot.aop.log.VisitLog;
 import com.gzz.core.response.HttpResult;
-import com.gzz.retail.application.system.ModuleCmdApplication;
-import com.gzz.retail.application.system.ModuleQueryApplication;
-import com.gzz.retail.application.system.command.ModuleAuditCmd;
-import com.gzz.retail.application.system.command.ModuleDeleteCmd;
-import com.gzz.retail.application.system.command.ModuleSaveCmd;
-import com.gzz.retail.application.system.dto.ModuleDto;
-import com.gzz.retail.application.system.dto.ModuleFormDto;
-import com.gzz.retail.application.system.queries.ModuleQuery;
+import com.gzz.retail.application.cqrs.system.ModuleCmdApplication;
+import com.gzz.retail.application.cqrs.system.ModuleQueryApplication;
+import com.gzz.retail.application.cqrs.system.command.ModuleAuditCmd;
+import com.gzz.retail.application.cqrs.system.command.ModuleDeleteCmd;
+import com.gzz.retail.application.cqrs.system.command.ModuleSaveCmd;
+import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
+import com.gzz.retail.application.cqrs.system.dto.ModuleFormDto;
+import com.gzz.retail.application.cqrs.system.queries.ModuleQuery;
 import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
+import com.gzz.retail.infra.defines.types.OperateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -34,6 +37,19 @@ public class ModuleApi {
     @Autowired
     private ModuleQueryApplication moduleQueryApp;
 
+
+    /**
+     * 获取表单数据
+     * @return
+     */
+    @GetMapping("/getAllActions")
+    public HttpResult getAllActions(){
+        Map<Integer, String> operates = new HashMap<>();
+        for (OperateType type :OperateType.values()){
+            operates.put(type.getKey(), type.getLabel());
+        }
+       return HttpResult.success().data(operates);
+    }
 
     /**if
      * 获取表单数据

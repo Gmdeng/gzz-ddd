@@ -7,7 +7,7 @@ import com.gzz.boot.payment.wxpay.WxPayRequest;
 import com.gzz.boot.sms.SmsTemplate;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.IdGenerator;
-import com.gzz.retail.application.system.SystemApp;
+import com.gzz.retail.application.cqrs.system.SystemApp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

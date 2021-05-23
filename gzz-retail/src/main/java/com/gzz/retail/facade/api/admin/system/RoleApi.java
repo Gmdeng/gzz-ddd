@@ -3,17 +3,16 @@ package com.gzz.retail.facade.api.admin.system;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.application.system.ModuleCmdApplication;
-import com.gzz.retail.application.system.ModuleQueryApplication;
-import com.gzz.retail.application.system.RoleCmdApplication;
-import com.gzz.retail.application.system.RoleQueryApplication;
-import com.gzz.retail.application.system.command.*;
-import com.gzz.retail.application.system.dto.ModuleDto;
-import com.gzz.retail.application.system.dto.ModuleFormDto;
-import com.gzz.retail.application.system.dto.RoleDto;
-import com.gzz.retail.application.system.dto.RoleFormDto;
-import com.gzz.retail.application.system.queries.ModuleQuery;
-import com.gzz.retail.application.system.queries.RoleQuery;
+import com.gzz.retail.application.assembler.ModuleAssembler;
+import com.gzz.retail.application.cqrs.system.RoleCmdApplication;
+import com.gzz.retail.application.cqrs.system.RoleQueryApplication;
+import com.gzz.retail.application.cqrs.system.command.*;
+import com.gzz.retail.application.cqrs.system.dto.RoleDto;
+import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
+import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
+import com.gzz.retail.application.assembler.dto.MenuNode;
+import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
+import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +34,22 @@ public class RoleApi {
     private RoleCmdApplication roleCmdApp;
     @Autowired
     private RoleQueryApplication roleQueryApp;
+    @Autowired
+    private IZModuleMapper moduleMapper;
+
+
+    /**
+     * 获取所有动作
+     * @return
+     */
+    @GetMapping("/getAllMenus")
+    public HttpResult getAllActions(){
+        List<ZModulePo> list = moduleMapper.findList(new ParamMap());
+        MenuNode rootNode = new MenuNode();
+        rootNode.setId(0L);
+        List<MenuNode> menuNodeList = ModuleAssembler.toTreeMenus(list, rootNode);
+        return HttpResult.success().data(menuNodeList);
+    }
 
     /**
      * 获取表单数据

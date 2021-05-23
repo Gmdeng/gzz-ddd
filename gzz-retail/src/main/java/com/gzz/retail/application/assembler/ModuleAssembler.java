@@ -1,10 +1,13 @@
 package com.gzz.retail.application.assembler;
 
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
-import com.gzz.retail.application.system.dto.ModuleDto;
+import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
+import com.gzz.retail.application.assembler.dto.ActionOption;
+import com.gzz.retail.application.assembler.dto.MenuNode;
+import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,5 +50,28 @@ public class ModuleAssembler {
                 toTreeSelectNode(source, treeNode);
             }
         }
+    }
+
+    /**
+     * 递归为目录树
+     * @param source
+     * @param node
+     * @return
+     */
+    public static List<MenuNode> toTreeMenus(List<ZModulePo> source, MenuNode node){
+        return source.stream()
+                .filter(it-> node.getId().compareTo(it.getParentId())==0)
+                .map(item ->{
+                    MenuNode n = new MenuNode(item.getId(), item.getName());
+                    List<ActionOption> optionList = Arrays.stream(OperateType.values()).filter(it->{
+                        return ((item.getOperate() & it.getKey()) == it.getKey());
+                    }).map(m->{
+                        return new ActionOption(m.getKey(), m.getLabel());
+                    }).collect(Collectors.toList());
+                    n.setActions(optionList);
+                    //
+                    n.setChildren(toTreeMenus(source, n));
+                    return n;
+                }).collect(Collectors.toList());
     }
 }

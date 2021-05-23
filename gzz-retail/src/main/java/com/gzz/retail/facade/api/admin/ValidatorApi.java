@@ -18,7 +18,7 @@ import java.util.Optional;
  * 验证
  */
 @RestController
-@RequestMapping("/validator")
+@RequestMapping("/admin/validator")
 public class ValidatorApi {
     @Autowired
     private IZModuleMapper moduleMapper;
