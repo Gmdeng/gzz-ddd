@@ -5,13 +5,19 @@ import com.gzz.retail.application.cqrs.system.dto.RoleDto;
 import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
 import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
 import com.gzz.retail.infra.defines.CommStatus;
+import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
+import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -29,15 +35,19 @@ public class RoleQueryApplication {
      */
     public RoleFormDto getRoleFormById(Long roleId){
         ZRolePo zRole = roleMapper.getById(roleId);
-        RoleFormDto dto = BeanConvertUtil.convertOne(zRole, RoleFormDto.class, (src, dest)->{
-//            Set<Integer> opers = Arrays.stream(OperateType.values()).filter(it->{
-//                return ((src.getOperate() & it.getKey()) == it.getKey());
-//            }).map(m->{
-//                return m.getKey();
-//            }).collect(Collectors.toSet());
-//            dest.setOperate(opers);
+        RoleFormDto dto = BeanConvertUtil.convertOne(zRole, RoleFormDto.class);
+        List<ZRolePermissionPo> permissions = roleMapper.findPermissions(roleId);
+        HashMap<Long, Set<Integer>> permissionsMap = new HashMap<>();
+        permissions.forEach(item->{
+            Set<Integer> opers = Arrays.stream(OperateType.values()).filter(it->{
+                return ((item.getHasPower() & it.getKey()) == it.getKey());
+            }).map(m->{
+                return m.getKey();
+            }).collect(Collectors.toSet());
+            permissionsMap.put(item.getId(), opers);
         });
 
+        dto.setPermissions(permissionsMap);
         return dto;
     }
 

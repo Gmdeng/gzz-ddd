@@ -1,10 +1,13 @@
 package com.gzz.retail.application.cqrs.system.dto;
 
+import com.gzz.retail.application.assembler.PermissionAssembler;
 import com.gzz.retail.application.assembler.dto.PermissionNodeDto;
 import com.gzz.retail.domain.system.primitive.RoleId;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 public class RoleFormDto {
@@ -33,9 +36,6 @@ public class RoleFormDto {
     /**
      * 许可
      */
-    private List<PermissionNodeDto> permissions;
-//    /**
-//     * 许可
-//     */
-//    private List<Permission> permissions;
+    private Map<Long, Set<Integer>> permissions;
+
 }

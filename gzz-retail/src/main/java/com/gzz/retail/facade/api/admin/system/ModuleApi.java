@@ -51,7 +51,7 @@ public class ModuleApi {
        return HttpResult.success().data(operates);
     }
 
-    /**if
+    /**
      * 获取表单数据
      * @param id
      * @return
@@ -90,7 +90,6 @@ public class ModuleApi {
 
     /**
      * 审核数据
-     *
      * @return
      */
     @PostMapping("/authData")
@@ -109,9 +108,9 @@ public class ModuleApi {
         moduleCmdApp.deleteCmd(cmd);
         return HttpResult.success();
     }
+
     /**
      * 数据列表
-     *
      * @return
      */
     @GetMapping("/getList")

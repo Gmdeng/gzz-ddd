@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ActionOption {
     private Integer value;
-    private String lable;
+    private String label;
 }

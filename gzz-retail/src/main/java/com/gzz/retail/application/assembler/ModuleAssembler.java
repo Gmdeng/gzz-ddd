@@ -7,6 +7,7 @@ import com.gzz.retail.application.assembler.dto.MenuNode;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,7 +69,10 @@ public class ModuleAssembler {
                     }).map(m->{
                         return new ActionOption(m.getKey(), m.getLabel());
                     }).collect(Collectors.toList());
-                    n.setActions(optionList);
+//                    List<String> actions = new ArrayList<>();
+//                    actions.add("Add");
+//                    actions.add("Edit");
+                    n.setNotes(optionList);
                     //
                     n.setChildren(toTreeMenus(source, n));
                     return n;

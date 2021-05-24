@@ -3,6 +3,7 @@ package com.gzz.retail.application.assembler.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ public class MenuNode {
     private Long id;
     private String name;
     private List<MenuNode> children;
-    private List<ActionOption> actions;
+    private List<ActionOption> notes;
     public MenuNode(Long id, String name){
         this.id =id;
         this.name = name;
