@@ -10,8 +10,11 @@ import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class RoleRepo {
@@ -43,6 +46,7 @@ public class RoleRepo {
     /**
      * 保存数据
      */
+    @Transactional
     public void save(Role entity){
         ZRolePo po = BeanConvertUtil.convertOne(entity, ZRolePo.class,  (src, dest)->{
             if(src!=null)
@@ -57,10 +61,14 @@ public class RoleRepo {
         }
         if(num ==0)
             throw new BizzException("保存数据异常");
-        List<ZRolePermissionPo> permList = BeanConvertUtil.convertList(entity.getPermissions(), ZRolePermissionPo.class, (src, dest)->{
+        //
+        if(Objects.nonNull(entity.getPermissions())) {
+            List<ZRolePermissionPo> permList = BeanConvertUtil.convertList(entity.getPermissions(), ZRolePermissionPo.class, (src, dest) -> {
 
-        });
-        mapper.batchInsertPermission(permList);
+            });
+            mapper.batchInsertPermission(permList);
+        }
+
     }
 
     /**

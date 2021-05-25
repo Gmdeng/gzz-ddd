@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Import;
 public class AutoConfig implements DisposableBean {
 
     @Bean
+    @ConditionalOnProperty(name = "gzz.global-exception.enable", havingValue = "true")
     public GlobalExceptionAdvice globalExceptionAdvice(){
         return new GlobalExceptionAdvice();
     }

@@ -2,6 +2,9 @@ package com.gzz.retail.application.cqrs.system.command;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -13,10 +16,12 @@ public class RoleSaveCmd {
     /**
      * 名称 name
      */
+    @NotEmpty(message = "名称不能为空")
     private String name;
     /**
      * 编码（唯一的，java类名） code
      */
+    @NotEmpty(message = "编码不能为空")
     private String code;
     /**
      * 排序 idx
@@ -31,5 +36,6 @@ public class RoleSaveCmd {
     /**
      * 权限
      */
-    private Set<Integer> Permissions;
+    @NotEmpty(message = "权限不能为空")
+    private Map<Long, List<Integer>> permissions;
 }
