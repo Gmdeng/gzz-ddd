@@ -31,11 +31,13 @@ public class RoleSaveCmd {
     /**
      * 描述
      */
-    private String desc;
+    private String notes;
 
     /**
      * 权限
      */
-    @NotEmpty(message = "权限不能为空")
-    private Map<Long, List<Integer>> permissions;
+    //@NotEmpty(message = "权限不能为空permissions")
+    private String perms[];
+
+    private List<Pertion>  hasPerms;
 }

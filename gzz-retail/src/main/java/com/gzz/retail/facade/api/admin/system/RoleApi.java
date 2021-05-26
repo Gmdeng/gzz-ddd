@@ -13,12 +13,10 @@ import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
 import com.gzz.retail.application.assembler.dto.MenuNode;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -27,6 +25,7 @@ import java.util.List;
 /**
  * 系统角色管理
  */
+@Slf4j
 @RestController
 @RequestMapping("/admin/system/role")
 public class RoleApi {
@@ -77,9 +76,11 @@ public class RoleApi {
      *
      * @return
      */
+    @Validated
     @PostMapping("/saveData")
-    public HttpResult saveData(@Validated RoleSaveCmd cmd) {
-        roleCmdApp.saveCmd(cmd);
+    public HttpResult saveData(@RequestBody RoleSaveCmd cmd) {
+        log.info("接收到参数： {}",cmd.toString());
+        // roleCmdApp.saveCmd(cmd);
         return HttpResult.success();
     }
 
@@ -90,6 +91,7 @@ public class RoleApi {
      */
     @PostMapping("/authData")
     public HttpResult authData(RoleAuditCmd cmd) {
+
         roleCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }

@@ -1,5 +1,8 @@
 package com.gzz.retail.infra.adapter;
 
+/**
+ * 远程调用接口
+ */
 public class RemoteServiceAdapter {
 //    @Autowired
 //    private RemoteServiceTranslator translator;
