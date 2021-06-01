@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TestJdk8Stream {
+    
     @Test
     public void testFunctionIdentity() {
         // "20190001","小明"

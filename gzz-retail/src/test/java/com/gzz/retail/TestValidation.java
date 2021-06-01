@@ -26,4 +26,15 @@ public class TestValidation {
         // System.out.println(Optional.ofNullable(map).orElse());
     }
 
+    @Test
+    public void testNumber(){
+        int OP_READ = 1 << 0, OP_WRTE = 1 << 2, OP_CONNECT = 1 << 3, OP_ACCEPT = 1 << 4;
+        //
+        System.out.println("OP_READ = "  + OP_READ);
+        System.out.println("OP_WRTE = "  + OP_WRTE);
+        System.out.println("OP_CONNECT = "  + OP_CONNECT);
+        System.out.println("OP_ACCEPT = "  + OP_ACCEPT);
+
+    }
+
 }
