@@ -14,10 +14,7 @@ import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
 import com.gzz.retail.infra.defines.types.OperateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -92,19 +89,24 @@ public class ModuleApi {
      * 审核数据
      * @return
      */
-    @PostMapping("/authData")
-    public HttpResult authData(ModuleAuditCmd cmd) {
+    @PatchMapping("/authData")
+    public HttpResult authData(@Valid Long moduleId) {
+        ModuleAuditCmd cmd = new ModuleAuditCmd();
+        cmd.setModuleId(moduleId);
+        cmd.setStatus(1);
         moduleCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }
 
     /**
      * 册除数据
-     * @param cmd
+     * @param moduleId
      * @return
      */
-    @GetMapping("/deleteData")
-    public HttpResult deleteData(ModuleDeleteCmd cmd){
+    @DeleteMapping("/deleteData")
+    public HttpResult deleteData(@Valid Long moduleId){
+        ModuleDeleteCmd cmd = new ModuleDeleteCmd();
+        cmd.setModuleId(moduleId);
         moduleCmdApp.deleteCmd(cmd);
         return HttpResult.success();
     }

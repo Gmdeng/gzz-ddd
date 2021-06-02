@@ -95,4 +95,4 @@ gzz:
   visitexception:
     enable: false   # 开启访问异常记录
   global-exception:
-    enable: false  # 开启全局异常记录
+    enable: true   # 开启全局异常记录
