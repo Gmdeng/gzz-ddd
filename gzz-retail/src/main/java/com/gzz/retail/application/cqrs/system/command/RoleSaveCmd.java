@@ -39,5 +39,7 @@ public class RoleSaveCmd {
     //@NotEmpty(message = "权限不能为空permissions")
     private String perms[];
 
+    private Pertion  pertion;
+
     private List<Pertion>  hasPerms;
 }

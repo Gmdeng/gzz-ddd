@@ -4,6 +4,7 @@ import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.application.assembler.ModuleAssembler;
+import com.gzz.retail.application.assembler.dto.ActionOption;
 import com.gzz.retail.application.cqrs.system.RoleCmdApplication;
 import com.gzz.retail.application.cqrs.system.RoleQueryApplication;
 import com.gzz.retail.application.cqrs.system.command.*;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 系统角色管理
@@ -85,6 +87,58 @@ public class RoleApi {
     }
 
     /**
+     * 提交数组
+     * @param ids
+     * @return
+     */
+    @PostMapping("/postAarry")
+    public HttpResult postAarry(String[] ids){
+        return HttpResult.success("提交数组").data(ids);
+    }
+
+    /**
+     * 提交数组(List)
+     * @param ids
+     * @return
+     */
+    @PostMapping("/postList")
+    public HttpResult postList(@RequestBody Set<String> ids){
+        return HttpResult.success("提交数组(List)").data(ids);
+    }
+
+
+    /**
+     * 提交对象列表
+     * @param ids
+     * @return
+     */
+    @PostMapping("/postBeanList")
+    public HttpResult postBeanList(List<ActionOption> ids){
+        return HttpResult.success("提交对象列表").data(ids);
+    }
+
+    /**
+     * 1对1
+     *  一个对象包含一个子对象
+     * @param cmd
+     * @return
+     */
+    @PostMapping("/postBeanOne")
+    public HttpResult postBeanOne(RoleSaveCmd cmd){
+        return HttpResult.success("一个对象包含一个子对象").data(cmd);
+    }
+
+    /**
+     * 1对多
+     *  一个对象包含一个子对象
+     * @param cmd
+     * @return
+     */
+    @PutMapping("/postBeanMore")
+    public HttpResult postBeanMore(RoleSaveCmd cmd){
+        return HttpResult.success("一个对象包含多个子对象").data(cmd);
+    }
+    /**
      * 审核数据
      *
      * @return
@@ -95,6 +149,7 @@ public class RoleApi {
         roleCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }
+
 
     /**
      * 册除数据
