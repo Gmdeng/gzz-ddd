@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,6 +79,12 @@ public class GlobalExceptionAdvice {
         String collect = ex.getConstraintViolations().stream().filter(Objects::nonNull)
                 .map(cv -> cv == null ? "null" : cv.getPropertyPath() + ": " + cv.getMessage())
                 .collect(Collectors.joining(", "));
+
+        List<String> defaultMsg = ex.getConstraintViolations()
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
+
 //        RestResultWrapper<String> restResultWrapper = new RestResultWrapper();
 //        logger.info("请求参数异常",collect);
 //        restResultWrapper.setCode(HttpStatus.BAD_REQUEST.value());
@@ -146,6 +153,11 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = BindException.class)
     public HttpResult exceptionHandler(NativeWebRequest request, BindException ex) {
         log.error("数据处理异常BindException: " + ex.getMessage());
+
+//        List<String> defaultMsg = ex.getBindingResult().getAllErrors()
+//                .stream()
+//                .map(ObjectError::getDefaultMessage)
+//                .collect(Collectors.toList());
 
         Map<String, Object> errMap = new HashMap<>();
         if (ex.getBindingResult() != null) {

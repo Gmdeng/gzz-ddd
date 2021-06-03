@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActionOption {
+public class ActionOption  {
     private Integer value;
     private String label;
 }
