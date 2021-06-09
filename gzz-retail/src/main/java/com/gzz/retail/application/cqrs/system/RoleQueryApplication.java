@@ -44,7 +44,7 @@ public class RoleQueryApplication {
             }).map(m->{
                 return m.getKey();
             }).collect(Collectors.toSet());
-            permissionsMap.put(item.getId(), opers);
+            permissionsMap.put(item.getModuleId(), opers);
         });
 
         dto.setPermissions(permissionsMap);
@@ -73,7 +73,7 @@ public class RoleQueryApplication {
      * @param query
      * @return
      */
-    public List<RoleDto> getRoleByPage(RoleQuery query){
+    public List<RoleDto> getRolesByPage(RoleQuery query){
         List<ZRolePo> dataList = roleMapper.findListByPage(query.toParam(), query.getPager());
         List<RoleDto> list = BeanConvertUtil.convertList( dataList, RoleDto.class, (src, dest) ->{
 //            Set<OperateType> opers = Arrays.stream(OperateType.values()).filter(it->{

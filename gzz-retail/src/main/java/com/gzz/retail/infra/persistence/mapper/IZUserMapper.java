@@ -5,7 +5,7 @@ import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.ZUserSqlProvider;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
-import com.gzz.retail.infra.persistence.pojo.ZUser;
+import com.gzz.retail.infra.persistence.pojo.ZUserPo;
 import com.gzz.retail.infra.persistence.pojo.ZUserRoles;
 import org.apache.ibatis.annotations.*;
 
@@ -17,7 +17,7 @@ public interface IZUserMapper {
     /*================================查找===========================================*/
     // 根据主键id
     @Select({"select * form z_user  where id = #{id}"})
-    @Results(value = {
+    @Results(id="zUserMap", value = {
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "passwd", column = "passwd"),
@@ -32,18 +32,23 @@ public interface IZUserMapper {
             @Result(property = "createOn", column = "create_on"),
             @Result(property = "createBy", column = "create_by"),
     })
-    ZUser getById(Long id);
+    ZUserPo getById(Long id);
 
     // 列表
+    @ResultMap("zUserMap")
     @SelectProvider(type = ZUserSqlProvider.class, method = "findList")
-    List<ZUser> findLists(@Param("param") ParamMap param);
-
+    List<ZUserPo> findLists(@Param("param") ParamMap param);
+    @ResultMap("zUserMap")
+    @SelectProvider(type = ZUserSqlProvider.class, method = "findList")
     <T> List<T> findList(@Param("param") ParamMap param);
 
     // 分页列表
+    @ResultMap("zUserMap")
     @SelectProvider(type = ZUserSqlProvider.class, method = "findListByPage")
-    List<ZUser> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+    List<ZUserPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
+    @ResultMap("zUserMap")
+    @SelectProvider(type = ZUserSqlProvider.class, method = "findListByPage")
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     /*================================查找===========================================*/
@@ -53,10 +58,10 @@ public interface IZUserMapper {
             "values(",
             "#{id}, #{userId}, #{passwd}, #{salt}, #{petName}, #{mobile}, #{allowIpaddr}, #{notes}, #{status}, #{updateOn}, #{updateBy}, #{createOn}, #{createBy}",
             ")"})
-    int insert(ZUser zUser);
+    int insert(ZUserPo zUser);
 
     @InsertProvider(type = ZUserSqlProvider.class, method = "insertSelective")
-    int insertSelective(ZUser zUser);
+    int insertSelective(ZUserPo zUser);
 
     // 删除
     @Delete("delete from z_user where id = #{id}")
@@ -64,12 +69,12 @@ public interface IZUserMapper {
 
     // 修改
     @UpdateProvider(type = ZUserSqlProvider.class, method = "update")
-    int update(ZUser zUser);
+    int update(ZUserPo zUser);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
     @InsertProvider(type = ZUserSqlProvider.class, method = "insertBatch")
-    int insertBatch(@Param("list") List<ZUser> zUserList);
+    int insertBatch(@Param("list") List<ZUserPo> zUserList);
 
     // 角色列表
     @Select("select r.* from z_role r, z_user_roles a where r.id = a.role_id where a.user_id=#{userId}")

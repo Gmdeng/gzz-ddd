@@ -3,6 +3,8 @@ package com.gzz.retail.infra.persistence.pojo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * 用户角色 实体类
  *
@@ -10,7 +12,7 @@ import lombok.experimental.Accessors;
  * @CrateOn 2020-10-10 10:56:15
  */
 @Data
-public class ZUserRoles {
+public class ZUserRoles implements Serializable {
     /**
      * ID id
      */

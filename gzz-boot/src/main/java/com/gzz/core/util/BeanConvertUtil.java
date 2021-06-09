@@ -194,8 +194,11 @@ public class BeanConvertUtil {
      * @return
      */
     public static <S, T> List<T> convertList(List<S> sources, Class<T> target,  BiConsumer<S, T> consumer) {
-        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty())
-            throw new IllegalArgumentException("转换参数为null无法转换");
+        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty()){
+            return new ArrayList<>();
+            //throw new IllegalArgumentException("转换参数为null无法转换");
+        }
+
         BeanCopier copier = buildCopier(sources.get(0).getClass(), target);
         return  Optional.of(sources)
                 .orElse(new ArrayList<>())

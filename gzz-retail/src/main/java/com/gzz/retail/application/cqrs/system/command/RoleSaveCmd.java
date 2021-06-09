@@ -2,10 +2,11 @@ package com.gzz.retail.application.cqrs.system.command;
 
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Data
 public class RoleSaveCmd {
@@ -31,15 +32,14 @@ public class RoleSaveCmd {
     /**
      * 描述
      */
+    @NotEmpty(message = "编码不能为空")
     private String notes;
 
     /**
      * 权限
      */
-    //@NotEmpty(message = "权限不能为空permissions")
-    private String perms[];
-
-    private Pertion  pertion;
-
-    private List<Pertion>  hasPerms;
+    @Valid // 嵌套验证必须用@Valid
+    @NotNull(message = "权限不能为空")
+    @Size(min = 1, message = "至少要有一个模块权限")
+    private List<Privilege> privileges;
 }

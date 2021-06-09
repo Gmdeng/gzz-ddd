@@ -5,12 +5,14 @@ import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.domain.system.entity.Role;
 import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.infra.defines.CommStatus;
+import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.ObjectError;
 
 import java.util.List;
 import java.util.Objects;
@@ -62,13 +64,15 @@ public class RoleRepo {
         if(num ==0)
             throw new BizzException("保存数据异常");
         //
+        mapper.clearPermissions(po.getId());
         if(Objects.nonNull(entity.getPermissions())) {
             List<ZRolePermissionPo> permList = BeanConvertUtil.convertList(entity.getPermissions(), ZRolePermissionPo.class, (src, dest) -> {
-
+                dest.setRoleId(po.getId());
+                int power = src.getHasOperate().stream().mapToInt(OperateType::getKey).sum();
+                dest.setHasPower(power);
             });
             mapper.batchInsertPermission(permList);
         }
-
     }
 
     /**

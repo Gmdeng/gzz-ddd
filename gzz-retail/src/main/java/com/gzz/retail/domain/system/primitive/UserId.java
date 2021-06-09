@@ -6,8 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserId {
     private Long id;
+    public UserId(Long userId){
+        if(userId == null)
+            throw new IllegalArgumentException("非法参数");
+        this.id = userId;
+    }
 }

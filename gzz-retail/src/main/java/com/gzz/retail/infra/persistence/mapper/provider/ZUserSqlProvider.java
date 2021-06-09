@@ -2,8 +2,9 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.ZUser;
+import com.gzz.retail.infra.persistence.pojo.ZUserPo;
 import com.gzz.retail.infra.persistence.pojo.ZUserRoles;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class ZUserSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(ZUser zUser) {
+    public String insertSelective(ZUserPo zUser) {
         return new SQL() {
             {
                 INSERT_INTO("z_user");
@@ -65,8 +66,8 @@ public class ZUserSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<ZUser>> map) {
-        List<ZUser> list = (List<ZUser>) map.get("list");
+    public String insertBatch(Map<String, List<ZUserPo>> map) {
+        List<ZUserPo> list = (List<ZUserPo>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].userId}, #'{'list[{0}].passwd}, #'{'list[{0}].salt}, #'{'list[{0}].petName}, #'{'list[{0}].mobile}, #'{'list[{0}].allowIpaddr}, #'{'list[{0}].notes}, #'{'list[{0}].status}, #'{'list[{0}].updateOn}, #'{'list[{0}].updateBy}, #'{'list[{0}].createOn}, #'{'list[{0}].createBy})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -91,7 +92,7 @@ public class ZUserSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(ZUser zUser) {
+    public String update(ZUserPo zUser) {
         return new SQL() {
             {
                 UPDATE("z_user");
@@ -129,22 +130,19 @@ public class ZUserSqlProvider {
     }
 
     // 列表分页查询
-    public String findListByPage(ParamMap param, Pager pager) {
-        return new SQL() {
-            {
-                SELECT("*");
-                FROM("z_user");
-                if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
-            }
-        }.toString();
+    public String findListByPage(@Param("param")ParamMap param, @Param("pager") Pager pager) {
+        return findList(param);
     }
 
     // 列表查询
-    public String findList(ParamMap param) {
+    public String findList(@Param("param")ParamMap param) {
         return new SQL() {
             {
                 SELECT("*");
                 FROM("z_user");
+                if (param.get("userId") != null) WHERE("user_id =#{param.userId}");
+                if (param.get("mobile") != null) WHERE("mobile =#{param.mobile}");
+                if (param.get("petName") != null) WHERE("pet_name like CONCAT('%',#{param.petName},'%')");
                 if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
 
             }

@@ -12,7 +12,6 @@ import com.gzz.retail.application.cqrs.system.dto.RoleDto;
 import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
 import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
 import com.gzz.retail.application.assembler.dto.MenuNode;
-import com.gzz.retail.facade.api.admin.system.param.Rule;
 import com.gzz.retail.facade.api.admin.system.param.Rules;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 系统角色管理
@@ -80,11 +78,10 @@ public class RoleApi {
      *
      * @return
      */
-    @Validated
     @PostMapping("/saveData")
-    public HttpResult saveData(@RequestBody RoleSaveCmd cmd) {
+    public HttpResult saveData(@Validated RoleSaveCmd cmd) {
         log.info("接收到参数： {}",cmd.toString());
-        // roleCmdApp.saveCmd(cmd);
+        roleCmdApp.saveCmd(cmd);
         return HttpResult.success();
     }
 
@@ -97,7 +94,7 @@ public class RoleApi {
      * Headers : "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;"
      * params: ids=33&ids=DDD
      */
-    @PostMapping("/postAarry")
+    @PatchMapping("/postAarry")
     public HttpResult postAarry(String[] ids){
         return HttpResult.success("提交数组").data(ids);
     }
@@ -110,10 +107,11 @@ public class RoleApi {
      * @remark
      * Headers : "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8;"
      * params: ids=33&ids=DDD
+     *  用到的qs.stringify的arrayFormat: "repeat"
      * 必须加上@RequestParam(value = "ids") 指从参数名
      */
-    @PostMapping("/postList")
-    public HttpResult postList(@RequestParam(value = "ids") List<String> ids){
+    @PatchMapping("/postList")
+    public HttpResult postList(@RequestParam(value = "ids")List<String> ids){
         return HttpResult.success("提交数组(List)").data(ids);
     }
 
@@ -125,7 +123,7 @@ public class RoleApi {
      *
      * @remark
      * Headers : "Content-Type": "application/json;charset=utf-8"
-     * params: 直接POST JSON格式的数据， 不用qs.stringify进行格式化JSON
+     * params: 直接POST JSON格式的数据， 不用qs.stringify进行格式化
      * 必须加上这个@RequestBody注解参数
      */
     @PutMapping("/postBeanList")
@@ -180,7 +178,7 @@ public class RoleApi {
      *       });
      *       格式化URL
      */
-    @PatchMapping("/postRules")
+    @PostMapping("/postRules")
     public HttpResult postRules(Rules rules) {
         return HttpResult.success().data(rules);
     }
@@ -213,16 +211,16 @@ public class RoleApi {
         return HttpResult.success();
     }
     /**
-     * 数据列表
+     * 分页数据列表
      *
      * @return
      */
-    @GetMapping("/getList")
-    public HttpResult getList(HttpServletRequest request) {
+    @GetMapping("/getDataListByPage")
+    public HttpResult getDataListByPage(HttpServletRequest request) {
         ParamMap params = new ParamMap();
         Pager pager = new Pager(20);
         RoleQuery query = new RoleQuery(pager);
-        List<RoleDto> dataList = roleQueryApp.getRoleByPage(query);
+        List<RoleDto> dataList = roleQueryApp.getRolesByPage(query);
 
 //        return HttpResult.success(toTreeNode(zeroNode, lists));
         return HttpResult.success().put("dataList", dataList).put("pager", pager);

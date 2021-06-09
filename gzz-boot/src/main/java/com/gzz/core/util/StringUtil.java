@@ -3,6 +3,7 @@ package com.gzz.core.util;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Formatter;
+import java.util.Objects;
 
 /**
  * 字符串工具类
@@ -111,8 +112,7 @@ public class StringUtil {
      * @return
      */
     public static boolean isNull(Object value) {
-        if (value == null) return true;
-        return false;
+        return Objects.isNull(value);
     }
 
     /**

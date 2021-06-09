@@ -2,12 +2,17 @@ package com.gzz.retail.domain.system.entity;
 
 import com.gzz.boot.aop.exception.CustomException;
 import com.gzz.core.exception.BizzException;
+import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.domain.system.primitive.UserId;
 import com.gzz.retail.infra.defines.CommStatus;
+import lombok.Data;
+
+import java.util.Set;
 
 /**
  * 系
  */
+@Data
 public class User {
     /**
      * ID id
@@ -49,6 +54,10 @@ public class User {
     private CommStatus status;
 
     /**
+     * 会
+     */
+    private Set<RoleId> hasRoles;
+    /**
      * 登录验证
      *
      * @return
@@ -62,4 +71,11 @@ public class User {
         return true;
     }
 
+    /**
+     * 变更密码
+     * @param passwdtext
+     */
+    public void changePassword(String passwdtext) {
+        this.passwd =  passwdtext;
+    }
 }

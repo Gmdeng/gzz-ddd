@@ -1,13 +1,16 @@
 package com.gzz.retail.infra.persistence.pojo;
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
 /**
  * 角色权限 实体类
  * @author Auto-Builder
  * @CrateOn 2021-5-18 11:08:49
  */
 @Data
-public class ZRolePermissionPo  {
+public class ZRolePermissionPo implements Serializable {
 	/**
 	 *  ID id
 	 */

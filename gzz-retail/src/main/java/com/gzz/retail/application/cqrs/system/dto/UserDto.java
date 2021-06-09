@@ -1,70 +1,66 @@
-package com.gzz.retail.infra.persistence.pojo;
+package com.gzz.retail.application.cqrs.system.dto;
 
 import com.gzz.boot.mybatis.autofill.AutoFillTime;
 import com.gzz.boot.mybatis.autofill.AutoFillUser;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 角色 实体类
- *
- * @author Auto-Builder
- * @CrateOn 2020-10-10 10:55:08
- */
 @Data
-public class ZRolePo implements Serializable {
+public class UserDto {
     /**
      * ID id
      */
     private Long id;
     /**
-     * 名称 name
+     * 用户名 userId
      */
-    private String name;
+    private String userId;
     /**
-     * 编码（唯一的，java类名） code
+     * 密码 passwd
      */
-    private String code;
-
+    private String passwd;
     /**
-     * 排序 idx
+     * 密码盐 salt
      */
-    private int idx;
-
+    private String salt;
     /**
+     * 名称 petName
+     */
+    private String petName;
+    /**
+     * 手机号 mobile
+     */
+    private String mobile;
+    /**
+     * 允许登录IP allowIpaddr
+     */
+    private String allowIpaddr;
+    /**
+     * 备注 notes
+     */
+    private String notes;
+    /**int
      * 状态 status
      */
     private int status;
-
-    /**
-     *  备注 notes
-     */
-    private String notes;
-
     /**
      * 更新时间 updateOn
      */
-    @AutoFillTime
     private Date updateOn;
 
     /**
      * 更新人 updateBy
      */
-    @AutoFillUser
     private String updateBy;
 
     /**
      * 创建时间 createOn
      */
-    @AutoFillTime
     private Date createOn;
 
     /**
      * 创建人 createBy
      */
-    @AutoFillUser
     private String createBy;
 }

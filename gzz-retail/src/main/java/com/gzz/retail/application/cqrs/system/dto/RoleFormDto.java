@@ -14,7 +14,7 @@ public class RoleFormDto {
     /**
      * ID id
      */
-    private RoleId roleId;
+    private Long id;
     /**
      * 名称 name
      */

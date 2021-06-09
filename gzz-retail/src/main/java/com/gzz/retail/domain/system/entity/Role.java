@@ -5,7 +5,6 @@ import com.gzz.retail.infra.defines.CommStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
