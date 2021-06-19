@@ -66,7 +66,9 @@ public interface IZRoleMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
     @Insert({"insert into Z_ROLE( name, code, idx, status, update_on, update_by, create_on, create_by, notes) ",
             "values(",
-            " #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idx,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{updateOn,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createOn,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}",
+            " #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{idx,jdbcType=TINYINT},",
+            " #{status,jdbcType=TINYINT}, #{updateOn,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, ",
+            " #{createOn,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}",
             ")" })
     int insert(ZRolePo zRole);
 

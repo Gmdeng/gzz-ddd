@@ -17,7 +17,8 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 验证手机号，空和正确的手机号都能验证通过<br/>
+ *
+ * 验证手机号，空和正确的手机号都能验证通过
  * 正确的手机号由11位数字组成，第一位为1
  */
 @ConstraintComposition(CompositionType.OR)

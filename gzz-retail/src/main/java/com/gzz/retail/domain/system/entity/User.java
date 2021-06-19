@@ -15,14 +15,9 @@ import java.util.Set;
 @Data
 public class User {
     /**
-     * ID id
-     */
-    private UserId userId;
-    /**
      * 用户名 userId
      */
-    private String userName;
-
+    private UserId userId;
     /**
      * 名称 petName
      */
@@ -42,12 +37,19 @@ public class User {
      * 手机号 mobile
      */
     private String mobile;
+    /**
+     * 邮箱 eamil
+     */
+    private String email;
 
     /**
      * 允许登录IP allowIpaddr
      */
     private String allowIpaddr;
-
+    /**
+     * 拒绝登录IP denyIpaddr
+     */
+    private String denyIpaddr;
     /**
      * 状态 status
      */

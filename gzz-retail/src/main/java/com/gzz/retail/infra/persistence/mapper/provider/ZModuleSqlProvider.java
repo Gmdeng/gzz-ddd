@@ -136,6 +136,7 @@ public class ZModuleSqlProvider {
                 FROM("Z_MODULE");
                 if (StringUtil.isNotEmpty(param.get("name"))) WHERE("name like CONCAT('%',#{param.name},'%')");
                 if (StringUtil.isNotEmpty(param.get("code"))) WHERE("code = #{param.code}");
+                if (StringUtil.isNotEmpty(param.get("code"))) WHERE("code = #{param.code}");
                 ORDER_BY("idx desc, parent_id");
             }
         }.toString();

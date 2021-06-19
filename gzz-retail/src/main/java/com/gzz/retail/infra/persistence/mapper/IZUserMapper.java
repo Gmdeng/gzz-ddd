@@ -53,10 +53,14 @@ public interface IZUserMapper {
 
     /*================================查找===========================================*/
     // 增加
-    @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
-    @Insert({"insert into z_user(id, user_id, passwd, salt, pet_name, mobile, allow_ipaddr, notes, status, update_on, update_by, create_on, create_by) ",
+    @Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
+    @Insert({"insert into z_user(id, user_id, passwd, salt, pet_name, mobile, email, allow_ipaddr,deny_ipaddr",
+            " notes, status, update_on, update_by, create_on, create_by) ",
             "values(",
-            "#{id}, #{userId}, #{passwd}, #{salt}, #{petName}, #{mobile}, #{allowIpaddr}, #{notes}, #{status}, #{updateOn}, #{updateBy}, #{createOn}, #{createBy}",
+            "#{id}, #{userId,jdbcType=VARCHAR }, #{passwd,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{petName,jdbcType=VARCHAR},",
+            " #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{allowIpaddr,jdbcType=VARCHAR}, #{denyIpaddr,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, ",
+            " #{status,jdbcType=TINYINT}, #{updateOn,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, ",
+            " #{createOn,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}",
             ")"})
     int insert(ZUserPo zUser);
 

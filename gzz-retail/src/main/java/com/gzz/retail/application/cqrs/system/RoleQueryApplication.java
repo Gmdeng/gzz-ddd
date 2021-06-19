@@ -1,12 +1,16 @@
 package com.gzz.retail.application.cqrs.system;
 
+import com.gzz.core.response.HttpResult;
+import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.cqrs.system.dto.RoleDto;
 import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
 import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
+import com.gzz.retail.domain.system.primitive.RoleName;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
+import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import lombok.extern.slf4j.Slf4j;
@@ -83,5 +87,16 @@ public class RoleQueryApplication {
             // dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
         });
         return list;
+    }
+    /**
+     * 获取所有可用的角色名称
+     * @return
+     */
+    public List<RoleName> getAllRoleNames(){
+        ParamMap param = new ParamMap();
+        param.put("status", "0");
+        List<ZRolePo> list = roleMapper.findList(param);
+        List<RoleName> dataList = BeanConvertUtil.convertList(list, RoleName.class);
+        return dataList;
     }
 }

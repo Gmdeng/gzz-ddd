@@ -3,6 +3,7 @@ package com.gzz.retail.facade.api.admin.system;
 import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
+import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.assembler.ModuleAssembler;
 import com.gzz.retail.application.assembler.dto.ActionOption;
 import com.gzz.retail.application.cqrs.system.RoleCmdApplication;
@@ -12,6 +13,7 @@ import com.gzz.retail.application.cqrs.system.dto.RoleDto;
 import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
 import com.gzz.retail.application.cqrs.system.queries.RoleQuery;
 import com.gzz.retail.application.assembler.dto.MenuNode;
+import com.gzz.retail.domain.system.primitive.RoleName;
 import com.gzz.retail.facade.api.admin.system.param.Rules;
 import com.gzz.retail.infra.persistence.mapper.IZModuleMapper;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
@@ -52,6 +54,14 @@ public class RoleApi {
         return HttpResult.success().data(menuNodeList);
     }
 
+    /**
+     * 获取所有可用的角色名称
+     * @return
+     */
+    @GetMapping("/getAvailableRoleNames")
+    public HttpResult getAvailableRoleName(){
+        return HttpResult.success().data(roleQueryApp.getAllRoleNames());
+    }
     /**
      * 获取表单数据
      * @param id

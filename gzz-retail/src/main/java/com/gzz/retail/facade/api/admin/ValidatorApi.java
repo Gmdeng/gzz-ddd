@@ -63,13 +63,13 @@ public class ValidatorApi {
 
     /**
      * 验证用户的用户名唯一性
-     * @param userId
+     * @param uid
      * @return
      */
     @GetMapping("/CheckUserUniqueUID")
-    public HttpResult CheckUserUniqueUID(String userId){
+    public HttpResult CheckUserUniqueUID(String uid){
         ParamMap paramMap = new ParamMap();
-        paramMap.put("userId", userId);
+        paramMap.put("userId", uid);
         List<ZUserPo> dataList =  userMapper.findList(paramMap);
         Long id =dataList.stream().findFirst().map(ZUserPo::getId).orElse(0L);
         if(id == 0L)

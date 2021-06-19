@@ -721,11 +721,11 @@ insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`
 (30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
 (28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'','',0,0,'2021-05-21 14:35:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
 (27,24,'M','分类管理','GOODS_CALOG',63,'','',0,0,'2021-05-21 11:35:48','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
-(26,22,'M','用户管理','SYSTEM_USER',63,'','',0,0,'2021-05-21 11:33:25','AutoModifyer','2021-05-21 11:33:25','AutoModifyer'),
+(26,22,'M','用户管理','SYSTEM_USER',63,'','/userList',0,0,'2021-06-03 15:32:16','AutoModifyer','2021-05-21 11:33:25','AutoModifyer'),
 (24,0,'M','商品管理','GOODS_MANAGEMENT',32,'','',0,0,'2021-05-21 11:34:10','AutoModifyer','2021-05-14 17:55:37','AutoModifyer'),
-(25,22,'M','角色管理','SYSTEM_ROLE',63,'','',0,0,'2021-05-21 11:32:46','AutoModifyer','2021-05-21 11:29:42','AutoModifyer'),
-(22,0,'M','系统管理','SYSTEM_MANAGEMENT',52,'https://wwww.g-zz.com','wss://g-zz.com',2,0,'2021-05-21 11:34:34','AutoModifyer','2020-10-15 00:59:50','ricky'),
-(23,22,'M','模块管理','SYSTEM_MODULE',63,'https://wwww.g-zz.com','wss://g-zz.com',0,0,'2020-10-30 10:21:45','AutoModifyer','2020-10-15 01:02:40','ricky');
+(25,22,'M','角色管理','SYSTEM_ROLE',63,'','/roleList',0,0,'2021-06-03 15:32:02','AutoModifyer','2021-05-21 11:29:42','AutoModifyer'),
+(22,0,'M','系统管理','SYSTEM_MANAGEMENT',1,'https://wwww.g-zz.com','',2,0,'2021-06-03 15:32:31','AutoModifyer','2020-10-15 00:59:50','ricky'),
+(23,22,'M','模块管理','SYSTEM_MODULE',63,'https://wwww.g-zz.com','/moduleList',0,0,'2021-06-03 15:31:46','AutoModifyer','2020-10-15 01:02:40','ricky');
 
 /*Table structure for table `z_role` */
 
@@ -748,8 +748,8 @@ CREATE TABLE `z_role` (
 /*Data for the table `z_role` */
 
 insert  into `z_role`(`id`,`name`,`code`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`,`notes`) values 
-(10,'83965263','CODE',3,0,'2021-05-18 15:49:11','Tester','2021-05-18 15:49:11','Tester','XaeMXECjkLEUnuqlNFae'),
-(9,'77151142','CODE',3,0,'2021-05-18 15:36:03','Tester','2021-05-18 15:36:03','Tester','QwKJbfplBvkkIXuQkDMJ');
+(10,'管理员','ADMIN',3,0,'2021-06-08 10:44:13','AutoModifyer','2021-06-08 10:44:13','AutoModifyer','管理员'),
+(9,'操作人','OPERTACTOR',3,0,'2021-06-08 11:07:18','AutoModifyer','2021-06-08 11:07:18','AutoModifyer','操作人');
 
 /*Table structure for table `z_role_permission` */
 
@@ -761,21 +761,20 @@ CREATE TABLE `z_role_permission` (
   `module_id` bigint(20) NOT NULL COMMENT '模块ID',
   `has_power` tinyint(4) NOT NULL COMMENT '拥有权限',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限';
 
 /*Data for the table `z_role_permission` */
 
 insert  into `z_role_permission`(`id`,`role_id`,`module_id`,`has_power`) values 
-(6,9,0,76),
-(7,9,1,53),
-(8,9,2,34),
-(9,9,3,83),
-(10,9,4,72),
-(11,10,0,45),
-(12,10,1,97),
-(13,10,2,24),
-(14,10,3,29),
-(15,10,4,89);
+(67,10,22,1),
+(68,10,25,63),
+(69,10,26,63),
+(70,10,27,6),
+(71,10,28,63),
+(72,10,29,63),
+(73,10,30,63),
+(74,9,24,32),
+(75,9,27,63);
 
 /*Table structure for table `z_user` */
 
@@ -788,7 +787,8 @@ CREATE TABLE `z_user` (
   `salt` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码盐',
   `pet_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
   `mobile` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
-  `allow_ipaddr` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '允许登录IP',
+  `allow_ipaddr` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '允许登录IP',
+  `deny_ipaddr` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '拒绝登录IP',
   `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   `status` tinyint(4) NOT NULL COMMENT '状态',
   `update_on` timestamp NOT NULL COMMENT '更新时间',

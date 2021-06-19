@@ -79,14 +79,13 @@ public class ZUserSqlProvider {
     }
 
     // 批量插入角色
-    public String insertBatchRole(Map<String, List<ZUserRoles>> map) {
-        List<ZUserRoles> list = (List<ZUserRoles>) map.get("list");
-        MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].userId}, #'{'list[{0}].passwd}, #'{'list[{0}].salt}, #'{'list[{0}].petName}, #'{'list[{0}].mobile}, #'{'list[{0}].allowIpaddr}, #'{'list[{0}].notes}, #'{'list[{0}].status}, #'{'list[{0}].updateOn}, #'{'list[{0}].updateBy}, #'{'list[{0}].createOn}, #'{'list[{0}].createBy})");
+    public String insertBatchRole(@Param("dataList") List<ZUserRoles> dataList) {
+        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].userId}, #'{'dataList[{0}].roleId},  #'{'dataList[{0}].enable})");
         List<String> rows = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < dataList.size(); i++) {
             rows.add(mf.format(new Object[]{i}));
         }
-        return "INSERT INTO z_user (id, user_id, passwd, salt, pet_name, mobile, allow_ipaddr, notes, status, update_on, update_by, create_on, create_by) VALUES "
+        return "INSERT INTO z_user (user_id, role_id, enable) VALUES "
                 + String.join(", ", rows);
 
     }
@@ -96,34 +95,15 @@ public class ZUserSqlProvider {
         return new SQL() {
             {
                 UPDATE("z_user");
-                if (zUser.getUserId() != null) {
-                    SET("user_id=#{userId}");
-                }
-                if (zUser.getPasswd() != null) {
-                    SET("passwd=#{passwd}");
-                }
-                if (zUser.getSalt() != null) {
-                    SET("salt=#{salt}");
-                }
-                if (zUser.getPetName() != null) {
-                    SET("pet_name=#{petName}");
-                }
-                if (zUser.getMobile() != null) {
-                    SET("mobile=#{mobile}");
-                }
-                if (zUser.getAllowIpaddr() != null) {
-                    SET("allow_ipaddr=#{allowIpaddr}");
-                }
-                if (zUser.getNotes() != null) {
-                    SET("notes=#{notes}");
-                }
-                if (zUser.getUpdateOn() != null) {
-                    SET("update_on=#{updateOn}");
-                }
-                if (zUser.getUpdateBy() != null) {
-                    SET("update_by=#{updateBy}");
-                }
-                SET("status=#{status}");
+                if (zUser.getUserId() != null) {SET("user_id=#{userId, jdbcType=VARCHAR}");}
+                if (zUser.getPasswd() != null) {SET("passwd=#{passwd, jdbcType=VARCHAR}");}
+                if (zUser.getSalt() != null) { SET("salt=#{salt, jdbcType=VARCHAR}");}
+                if (zUser.getPetName() != null) {SET("pet_name=#{petName, jdbcType=VARCHAR}");}
+                if (zUser.getMobile() != null) {SET("mobile=#{mobile, jdbcType=VARCHAR}");}
+                if (zUser.getAllowIpaddr() != null) {SET("allow_ipaddr=#{allowIpaddr, jdbcType=VARCHAR}");}
+                if (zUser.getNotes() != null) { SET("notes=#{notes, jdbcType=VARCHAR}");}
+                if (zUser.getUpdateOn() != null) { SET("update_on=#{updateOn, jdbcType=TIMESTAMP}"); }
+                if (zUser.getUpdateBy() != null) { SET("update_by=#{updateBy, jdbcType=VARCHAR}"); }
                 WHERE("id=#{id}");
             }
         }.toString();
@@ -142,6 +122,7 @@ public class ZUserSqlProvider {
                 FROM("z_user");
                 if (param.get("userId") != null) WHERE("user_id =#{param.userId}");
                 if (param.get("mobile") != null) WHERE("mobile =#{param.mobile}");
+                if (param.get("email") != null) WHERE("email like CONCAT('%',#{param.email},'%')");
                 if (param.get("petName") != null) WHERE("pet_name like CONCAT('%',#{param.petName},'%')");
                 if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
 

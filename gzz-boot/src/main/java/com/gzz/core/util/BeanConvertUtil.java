@@ -82,19 +82,6 @@ public class BeanConvertUtil {
     }
 
     /**
-     * 定义复制的方法 功能性的接口
-     * @param target
-     * @param consumer
-     * @param copier
-     * @param <S>
-     * @param <T>
-     * @return
-     */
-    private static <S, T> Function<S, T> copyMapper(Class<T> target, BiConsumer<S, T> consumer, BeanCopier copier) {
-        return source -> copyOne(source, target, consumer, copier);
-    }
-
-    /**
      * 单个对象属性拷贝
      * @param source 源对象
      * @param clazz 目标对象Class
@@ -115,6 +102,20 @@ public class BeanConvertUtil {
         }
         return t;
     }
+    /**
+     * 定义复制的方法 功能性的接口
+     * @param target
+     * @param consumer
+     * @param copier
+     * @param <S>
+     * @param <T>
+     * @return
+     */
+    private static <S, T> Function<S, T> copyMapper(Class<T> target, BiConsumer<S, T> consumer, BeanCopier copier) {
+        return source -> copyOne(source, target, consumer, copier);
+    }
+
+
     /**
      * 是在Java8中，Stream流式处理集合功能相当强大，但是其中的distinct()却不提供针对对象属性字段进行去重的操作，不得不说略显可惜，遂有了这一小段代码，
      * 这段代码通过Stream的filter()方法进行对针对某一个属性的过滤
@@ -218,15 +219,16 @@ public class BeanConvertUtil {
      * @return 目标列表
      */
     public static <S, T> List<T> convertList(List<S> sources, Class<T> target) {
-        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty())
-            throw new IllegalArgumentException();
+        if (Objects.isNull(sources) || Objects.isNull(target) || sources.isEmpty()){
+            return new ArrayList<>();
+            // throw new IllegalArgumentException();
+        }
         BeanCopier copier = buildCopier(sources.get(0).getClass(), target);
         return Optional.of(sources)
                 .orElse(new ArrayList<>())
-                .stream().map(m -> copyProperties(m, target, copier))
+                .stream()
+                //.map(m -> copyProperties(m, target, copier))
+                .map(copyMapper(target, null, copier))
                 .collect(Collectors.toList());
     }
-
-
-
 }

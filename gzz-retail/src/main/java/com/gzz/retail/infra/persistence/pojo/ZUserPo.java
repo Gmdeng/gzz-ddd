@@ -42,9 +42,18 @@ public class ZUserPo implements Serializable {
      */
     private String mobile;
     /**
+     * 邮箱 eamil
+     */
+    private String email;
+    /**
      * 允许登录IP allowIpaddr
      */
     private String allowIpaddr;
+
+    /**
+     * 拒绝登录IP denyIpaddr
+     */
+    private String denyIpaddr;
     /**
      * 备注 notes
      */

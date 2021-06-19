@@ -39,7 +39,7 @@ public @interface CheckDateTime {
     String format() default "yyyy-MM-dd";
 
     /**
-     * 允许我们为约束指定验证组 - 关键字段（TODO 下一章中会介绍）
+     * 允许我们为约束指定验证组
      *
      * @return 分组
      */
@@ -48,7 +48,7 @@ public @interface CheckDateTime {
     /**
      * payload - 关键字段
      *
-     * @return 暂时不清楚, 知道的欢迎留言交流
+     * @return 暂时不清楚
      */
     Class<? extends Payload>[] payload() default {};
 

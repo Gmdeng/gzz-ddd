@@ -12,6 +12,7 @@ import com.gzz.retail.domain.system.entity.Permission;
 import com.gzz.retail.domain.system.entity.Role;
 import com.gzz.retail.domain.system.entity.User;
 import com.gzz.retail.domain.system.primitive.RoleId;
+import com.gzz.retail.domain.system.primitive.UserId;
 import com.gzz.retail.domain.system.repo.UserRepo;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
@@ -41,7 +42,7 @@ public class UserCmdApplication {
      */
     public void saveCmd(UserSaveCmd cmd){
         User user = BeanConvertUtil.convertOne(cmd, User.class, (src, dest) -> {
-
+            dest.setUserId(new UserId(src.getId(), src.getUserId()));
         });
         userRepo.save(user);
     }

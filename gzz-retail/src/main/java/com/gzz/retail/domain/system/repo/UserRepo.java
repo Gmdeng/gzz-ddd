@@ -2,8 +2,10 @@ package com.gzz.retail.domain.system.repo;
 
 import com.gzz.core.exception.BizzException;
 import com.gzz.core.util.BeanConvertUtil;
+import com.gzz.core.util.StringUtil;
 import com.gzz.retail.domain.system.entity.User;
 import com.gzz.retail.domain.system.primitive.UserId;
+import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
 import com.gzz.retail.infra.persistence.pojo.ZUserPo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,11 @@ public class UserRepo {
      * @param userId
      * @return
      */
-    public User loadRole(UserId userId){
+    public User loadUser(UserId userId){
         ZUserPo po = mapper.getById(userId.getId());
         User user = BeanConvertUtil.convertOne(po, User.class, (src, dest)->{
-            //dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
+            dest.setUserId(new UserId(po.getId(), po.getUserId()));
+            dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
         });
         return user;
     }
@@ -43,12 +46,17 @@ public class UserRepo {
     @Transactional
     public void save(User entity){
         ZUserPo po = BeanConvertUtil.convertOne(entity, ZUserPo.class,  (src, dest)->{
-            if(src!=null)
+            if(src.getUserId()!=null) {
                 dest.setId(src.getUserId().getId());
+                dest.setUserId(src.getUserId().getName());
+            }
         });
         int num =0;
 
         if(po.getId()== null) {
+            po.setPasswd(StringUtil.randomChar(32));
+            po.setSalt(StringUtil.randomCharNum(16));
+            po.setStatus(0);
             num = mapper.insert(po);
         }else{
             num = mapper.update(po);
