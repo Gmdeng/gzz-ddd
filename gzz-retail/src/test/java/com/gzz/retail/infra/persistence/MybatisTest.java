@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 public class MybatisTest {

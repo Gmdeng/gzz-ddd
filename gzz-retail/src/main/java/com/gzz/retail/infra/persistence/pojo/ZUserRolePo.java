@@ -12,21 +12,21 @@ import java.io.Serializable;
  * @CrateOn 2020-10-10 10:56:15
  */
 @Data
-public class ZUserRoles implements Serializable {
+public class ZUserRolePo implements Serializable {
     /**
      * ID id
      */
     private Long id;
     /**
-     * 角色ID roleId
-     */
-    private Long roleId;
-    /**
      * 模块ID userId
      */
     private Long userId;
     /**
-     * 是否启用 enable
+     * 角色ID roleId
      */
-    private Boolean enable;
+    private Long roleId;
+    /**
+     * 角色名称 roleName
+     */
+    private Long roleName;
 }

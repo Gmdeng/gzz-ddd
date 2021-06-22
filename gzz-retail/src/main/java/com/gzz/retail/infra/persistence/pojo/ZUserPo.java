@@ -61,7 +61,7 @@ public class ZUserPo implements Serializable {
     /**int
      * 状态 status
      */
-    private int status;
+    private CommStatus status;
     /**
      * 更新时间 updateOn
      */

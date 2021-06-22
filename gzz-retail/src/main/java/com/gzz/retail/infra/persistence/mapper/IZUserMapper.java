@@ -4,9 +4,8 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.ZUserSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import com.gzz.retail.infra.persistence.pojo.ZUserPo;
-import com.gzz.retail.infra.persistence.pojo.ZUserRoles;
+import com.gzz.retail.infra.persistence.pojo.ZUserRolePo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 public interface IZUserMapper {
     /*================================查找===========================================*/
     // 根据主键id
-    @Select({"select * form z_user  where id = #{id}"})
+    @Select({"select * from z_user  where id = #{id}"})
     @Results(id="zUserMap", value = {
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),
@@ -26,7 +25,7 @@ public interface IZUserMapper {
             @Result(property = "mobile", column = "mobile"),
             @Result(property = "allowIpaddr", column = "allow_ipaddr"),
             @Result(property = "notes", column = "notes"),
-            @Result(property = "status", column = "status"),
+            @Result(property = "status", column = "status", typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler.class),
             @Result(property = "updateOn", column = "update_on"),
             @Result(property = "updateBy", column = "update_by"),
             @Result(property = "createOn", column = "create_on"),
@@ -59,7 +58,7 @@ public interface IZUserMapper {
             "values(",
             " #{userId,jdbcType=VARCHAR }, #{passwd,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{petName,jdbcType=VARCHAR},",
             " #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{allowIpaddr,jdbcType=VARCHAR}, #{denyIpaddr,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, ",
-            " #{status,jdbcType=TINYINT, typeHandler=com}, ",
+            " #{status,jdbcType=TINYINT, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, ",
             " #{updateOn,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, ",
             " #{createOn,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}",
             ")"})
@@ -76,19 +75,21 @@ public interface IZUserMapper {
     @UpdateProvider(type = ZUserSqlProvider.class, method = "update")
     int update(ZUserPo zUser);
 
-    /* 批量增加 */
-    @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
-    @InsertProvider(type = ZUserSqlProvider.class, method = "insertBatch")
-    int insertBatch(@Param("list") List<ZUserPo> zUserList);
+
 
     // 角色列表
-    @Select("select r.* from z_role r, z_user_roles a where r.id = a.role_id where a.user_id=#{userId}")
-    List<ZRolePo> findRoleLists(Long userId);
+    @Select({"select r.name  roleName, r.id roleId, a.user_id userId ",
+            "from z_role r, z_user_roles a where r.id = a.role_id where a.user_id=#{userId}"})
+    List<ZUserRolePo> findRoles(Long userId);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
-    @InsertProvider(type = ZUserSqlProvider.class, method = "insertBatchRole")
-    int insertBatchRole(@Param("list") List<ZUserRoles> zUserRolesList);
+    @InsertProvider(type = ZUserSqlProvider.class, method = "batchInsert")
+    int batchInsert(@Param("list") List<ZUserPo> zUserList);
+    /* 批量增加 */
+    @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
+    @InsertProvider(type = ZUserSqlProvider.class, method = "batchInsertRoles")
+    int batchInsertRoles(@Param("dataList") List<ZUserRolePo> dataList);
 
     // 清除用户角色
     @Delete("delete from z_user_roles where user_id = #{userId}")

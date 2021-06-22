@@ -26,7 +26,7 @@ public class UserRepo {
         ZUserPo po = mapper.getById(userId.getId());
         User user = BeanConvertUtil.convertOne(po, User.class, (src, dest)->{
             dest.setUserId(new UserId(po.getId(), po.getUserId()));
-            dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
+            //dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
         });
         return user;
     }
@@ -36,7 +36,7 @@ public class UserRepo {
      */
     public void audit(User e){
         ZUserPo m = mapper.getById(e.getUserId().getId());
-        m.setStatus(e.getStatus().getKey());
+        //m.setStatus(e.getStatus().getKey());
         mapper.update(m);
     }
 
@@ -56,7 +56,7 @@ public class UserRepo {
         if(po.getId()== null) {
             po.setPasswd(StringUtil.randomChar(32));
             po.setSalt(StringUtil.randomCharNum(16));
-            po.setStatus(0);
+            po.setStatus(CommStatus.ADD);
             num = mapper.insert(po);
         }else{
             num = mapper.update(po);

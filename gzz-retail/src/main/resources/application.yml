@@ -80,6 +80,9 @@ mybatis:
     map-underscore-to-camel-case: true #自动开启驼峰规则映射
     call-setters-on-nulls: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # mapperLocations: classpath:mapper/*.xml
+  # typeAliasesPackage: com.cmc.schedule.model.entity
+  # typeHandlersPackage: com.cmc.schedule.model.handler
 #
 gzz:
   sms:  #短信接口配置

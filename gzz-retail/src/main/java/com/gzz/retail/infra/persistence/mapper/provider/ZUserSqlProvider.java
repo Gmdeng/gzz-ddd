@@ -3,7 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.pojo.ZUserPo;
-import com.gzz.retail.infra.persistence.pojo.ZUserRoles;
+import com.gzz.retail.infra.persistence.pojo.ZUserRolePo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -66,7 +66,7 @@ public class ZUserSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<ZUserPo>> map) {
+    public String batchInsert(Map<String, List<ZUserPo>> map) {
         List<ZUserPo> list = (List<ZUserPo>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].userId}, #'{'list[{0}].passwd}, #'{'list[{0}].salt}, #'{'list[{0}].petName}, #'{'list[{0}].mobile}, #'{'list[{0}].allowIpaddr}, #'{'list[{0}].notes}, #'{'list[{0}].status}, #'{'list[{0}].updateOn}, #'{'list[{0}].updateBy}, #'{'list[{0}].createOn}, #'{'list[{0}].createBy})");
         List<String> rows = new ArrayList<>();
@@ -79,13 +79,13 @@ public class ZUserSqlProvider {
     }
 
     // 批量插入角色
-    public String insertBatchRole(@Param("dataList") List<ZUserRoles> dataList) {
-        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].userId}, #'{'dataList[{0}].roleId},  #'{'dataList[{0}].enable})");
+    public String batchInsertRoles(@Param("dataList") List<ZUserRolePo> dataList) {
+        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].userId}, #'{'dataList[{0}].roleId})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
             rows.add(mf.format(new Object[]{i}));
         }
-        return "INSERT INTO z_user (user_id, role_id, enable) VALUES "
+        return "INSERT INTO z_user (user_id, role_id) VALUES "
                 + String.join(", ", rows);
 
     }
