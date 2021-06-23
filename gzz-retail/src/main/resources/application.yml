@@ -13,7 +13,7 @@ spring:
     add-mappings: false #不建立资源文件映射
   jackson:  #json的全局时间格式
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    time-zone: GMT+8 #Asia/Shanghai
     #serialization:
     #  write-dates-as-timestamps: false
   http:  #上传文件大小限制

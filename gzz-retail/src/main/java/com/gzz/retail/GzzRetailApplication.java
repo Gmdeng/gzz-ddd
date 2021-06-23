@@ -18,6 +18,7 @@ import java.util.TimeZone;
 @ServletComponentScan //(basePackages = "com.gzz.retail.facade.servlet") // 扫描servlet组件所在的包
 public class GzzRetailApplication {
     public static void main(String[] args) {
+        //设定时区
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         SpringApplication.run(GzzRetailApplication.class, args);
     }

@@ -2,6 +2,7 @@ package com.gzz.retail.application.cqrs.system.dto;
 
 import com.gzz.boot.mybatis.autofill.AutoFillTime;
 import com.gzz.boot.mybatis.autofill.AutoFillUser;
+import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -43,7 +44,7 @@ public class UserDto {
     /**int
      * 状态 status
      */
-    private int status;
+    private CommStatus status;
     /**
      * 更新时间 updateOn
      */

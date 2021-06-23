@@ -781,11 +781,12 @@ insert  into `z_role_permission`(`id`,`role_id`,`module_id`,`has_power`) values
 DROP TABLE IF EXISTS `z_user`;
 
 CREATE TABLE `z_user` (
-  `id` int(11) NOT NULL COMMENT 'ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `user_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
   `passwd` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
   `salt` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码盐',
   `pet_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱',
   `mobile` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
   `allow_ipaddr` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '允许登录IP',
   `deny_ipaddr` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '拒绝登录IP',
@@ -796,9 +797,33 @@ CREATE TABLE `z_user` (
   `create_on` timestamp NOT NULL COMMENT '创建时间',
   `create_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户';
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户';
 
 /*Data for the table `z_user` */
+
+insert  into `z_user`(`id`,`user_id`,`passwd`,`salt`,`pet_name`,`email`,`mobile`,`allow_ipaddr`,`deny_ipaddr`,`notes`,`status`,`update_on`,`update_by`,`create_on`,`create_by`) values 
+(1,'23','vsZBxWqcczcpEpikTUAdMxHZhyoAiEnW','I3UwZJuGuDoIoL8m','23',NULL,NULL,'','',NULL,0,'2021-06-21 11:50:40','AutoModifyer','2021-06-21 11:50:40','AutoModifyer'),
+(5,'sdfsdf','bJUuxUhNNSCbxifCewERePjHLNiudgDb','x8SNN7N2HV7MB07a','sdf',NULL,NULL,'asfd','asdfasdf',NULL,0,'2021-06-23 15:37:44','AutoModifyer','2021-06-23 15:37:44','AutoModifyer'),
+(4,'userId','password','salt','petName',NULL,NULL,NULL,NULL,NULL,2,'2021-06-22 14:45:51','testing','2021-06-22 14:45:51','testing'),
+(6,'eqwer','PcjaqraAdXWaqpTNbmleTyBOHOOxFFdD','G3UhzqrQcNqb5p53','sdfa',NULL,NULL,'3323','23',NULL,0,'2021-06-23 15:47:27','AutoModifyer','2021-06-23 15:47:27','AutoModifyer'),
+(7,'332323','jKztiQuLPNlKhTRfzIFMmpMzpMVFuKUd','ioyRvNvwbwyARTQN','232323',NULL,NULL,'2323','2323',NULL,0,'2021-06-23 16:13:12','AutoModifyer','2021-06-23 16:13:12','AutoModifyer'),
+(8,'2312','JOusENQhJPvGPfsjBphkupFznhPZqkfi','ZqOWZY7NVV1yMXl0','12',NULL,NULL,'3323','23',NULL,0,'2021-06-23 16:16:13','AutoModifyer','2021-06-23 16:16:13','AutoModifyer'),
+(9,'3423412','pDUEYXwxXAxDNKeJzaLDmrsjukyAkqMm','VFjQrGdCiZ6uMAsv','323',NULL,NULL,'33','23',NULL,0,'2021-06-23 16:18:39','AutoModifyer','2021-06-23 16:18:39','AutoModifyer'),
+(10,'23452345','DuTLAqzRezmhWDRYGWWtmqOVPLwujQoh','Z2NC7Z0WggjtVNP0','3454',NULL,NULL,'52345','34523',NULL,0,'2021-06-23 16:18:55','AutoModifyer','2021-06-23 16:18:55','AutoModifyer'),
+(11,'2323','zvAZGZPpXVgVcNfPazwhYKTYqDXNqRYf','oJMmOwtNpHQ7RM1g','23',NULL,NULL,'','234',NULL,0,'2021-06-23 16:19:51','AutoModifyer','2021-06-23 16:19:51','AutoModifyer'),
+(12,'65456456','tSfeqMewkKMQofxbXKfEAgBpoxGQEhhp','wcEdq2jkwXBNVSkG','456456',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:03','AutoModifyer','2021-06-23 16:20:03','AutoModifyer'),
+(13,'45645','cuiuyZZbseFwqKEEHsYGbPXAwbWIrnTP','sHlvcEj3PVQK3tsR','4565',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:16','AutoModifyer','2021-06-23 16:20:16','AutoModifyer'),
+(14,'4564562','dayuxmTSDKwOMRligNFHCpWJigdwxIse','4JAldFjXE3hLMwER','454',NULL,NULL,'23','23',NULL,0,'2021-06-23 16:20:31','AutoModifyer','2021-06-23 16:20:31','AutoModifyer'),
+(15,'87867867','RDwPqurpdzULcUDdzjdPHlbqYqbTXkrk','grX86nuuELK7fwbY','678678',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:50','AutoModifyer','2021-06-23 16:20:50','AutoModifyer'),
+(16,'578','EvwfJuEmMQIhDBgkxTzaoecACkDyFATk','kjkIZ1AfBc9RNhrM','785',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:06','AutoModifyer','2021-06-23 16:21:06','AutoModifyer'),
+(17,'6785678','VefXBygHotrQErwCsuDInaZokMSUBWvb','UURwKczBWVWpyMMT','578',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:19','AutoModifyer','2021-06-23 16:21:19','AutoModifyer'),
+(18,'78fghd','bnRFlOlYpwhwEPEjohUMyuVZzaWgEjPE','pbrNHJM46zb7AtIJ','dfgh',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:35','AutoModifyer','2021-06-23 16:21:35','AutoModifyer'),
+(19,'45656','YJQGCAzBjJLPxOSILNwHuAngDPMJaAnb','oBwRPFoSF2OzblV3','546346',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:47','AutoModifyer','2021-06-23 16:21:47','AutoModifyer'),
+(20,'3456','ZvQhkoDmdOtIMQZHkdgYfRsGVQDqfwOs','sgG6NkxEYN721AvR','4565',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:59','AutoModifyer','2021-06-23 16:21:59','AutoModifyer'),
+(21,'456','OTskaKjwQXYQxFLYklBWccNPgabYJjGd','KyWoAhncchZ5F0B6','thhdgh56',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:11','AutoModifyer','2021-06-23 16:22:11','AutoModifyer'),
+(22,'hjfghh','ovZaUnunPOGUESzyfQKuYBsoQfjQEbrx','m4MWdLsHvMdIFNFE','ghj',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:23','AutoModifyer','2021-06-23 16:22:23','AutoModifyer'),
+(23,'ghjfgh','PRKfcpXhROdCpPiZOvveRMZbZOAiWgxH','A7MKWztXirncyeAP','fghghjfgh',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:36','AutoModifyer','2021-06-23 16:22:36','AutoModifyer'),
+(24,'2222222','TPFtXVPjPmdwFuHovfyXxYtFdIAIXWwo','UCqG2mtj8WADSGfB','34563',NULL,NULL,'','',NULL,0,'2021-06-23 16:23:26','AutoModifyer','2021-06-23 16:23:26','AutoModifyer');
 
 /*Table structure for table `z_user_roles` */
 
@@ -808,7 +833,6 @@ CREATE TABLE `z_user_roles` (
   `id` bigint(20) NOT NULL COMMENT 'ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `user_id` bigint(20) NOT NULL COMMENT '模块ID',
-  `enable` bit(1) NOT NULL COMMENT '是否启用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色';
 

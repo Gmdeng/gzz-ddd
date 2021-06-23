@@ -65,10 +65,13 @@ public class UserApi {
      *
      * @return
      */
-    @GetMapping("/getDataListByPage")
+    @PostMapping("/getDataListByPage")
     public HttpResult getDataListByPage(HttpServletRequest request) {
+        String pageSize = request.getParameter("pageSize");
+        String current = request.getParameter("current");
         ParamMap params = new ParamMap();
-        Pager pager = new Pager(20);
+        Pager pager = new Pager(Integer.parseInt(pageSize));
+        pager.setIndexPage(Integer.parseInt(current));
         UserQuery query = new UserQuery(pager);
         List<UserDto> dataList = userQueryApp.getUsersByPage(query);
 
