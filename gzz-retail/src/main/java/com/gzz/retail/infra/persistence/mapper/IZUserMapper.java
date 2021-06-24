@@ -42,17 +42,19 @@ public interface IZUserMapper {
     <T> List<T> findList(@Param("param") ParamMap param);
 
     // 分页列表
+    @Options(useCache=false) //不用缓存。
     @ResultMap("zUserMap")
     @SelectProvider(type = ZUserSqlProvider.class, method = "findListByPage")
     List<ZUserPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
+    @Options(useCache=false) //不用缓存。
     @ResultMap("zUserMap")
     @SelectProvider(type = ZUserSqlProvider.class, method = "findListByPage")
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     /*================================查找===========================================*/
     // 增加
-    @Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
+    @Options(useGeneratedKeys = true, keyProperty = "id", flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id 刷新缓存。
     @Insert({"insert into z_user(user_id, passwd, salt, pet_name, mobile, email, allow_ipaddr,deny_ipaddr,",
             "notes, status, update_on, update_by, create_on, create_by) ",
             "values(",
@@ -75,11 +77,9 @@ public interface IZUserMapper {
     @UpdateProvider(type = ZUserSqlProvider.class, method = "update")
     int update(ZUserPo zUser);
 
-
-
     // 角色列表
     @Select({"select r.name  roleName, r.id roleId, a.user_id userId ",
-            "from z_role r, z_user_roles a where r.id = a.role_id where a.user_id=#{userId}"})
+            " from z_role r, z_user_roles a where r.id = a.role_id and a.user_id=#{userId}"})
     List<ZUserRolePo> findRoles(Long userId);
 
     /* 批量增加 */
@@ -93,5 +93,5 @@ public interface IZUserMapper {
 
     // 清除用户角色
     @Delete("delete from z_user_roles where user_id = #{userId}")
-    int cleanRoles(Long userId);
+    int clearRoles(Long userId);
 }

@@ -30,7 +30,7 @@ public class UserSaveCmd {
      */
     //@Pattern(regexp = "1[1|2|3|4|5|6|7|8|9]\\d{9}", message = "无效的手机号")
     @CheckMobileNo()
-    private String mobileNo;
+    private String mobile;
     /**
      * 邮箱
      */

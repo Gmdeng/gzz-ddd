@@ -54,9 +54,12 @@ public interface IZRoleMapper {
     @SelectProvider(type = ZRoleSqlProvider.class, method = "findList")
     <T> List<T> findList(@Param("param") ParamMap param);
     // 分页列表
+    @Options(useCache=false) //不用缓存。
     @ResultMap("zRoleMap")
     @SelectProvider(type = ZRoleSqlProvider.class, method = "findListByPage")
     List<ZRolePo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+
+    @Options(useCache=false) //不用缓存。
     @ResultMap("zRoleMap")
     @SelectProvider(type = ZRoleSqlProvider.class, method = "findListByPage")
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);

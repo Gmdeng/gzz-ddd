@@ -28,5 +28,5 @@ public class ZUserRolePo implements Serializable {
     /**
      * 角色名称 roleName
      */
-    private Long roleName;
+    private String roleName;
 }

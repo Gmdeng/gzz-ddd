@@ -43,7 +43,7 @@ public class UserApi {
      * @param id
      * @return
      */
-    @GetMapping("/getData")
+    @GetMapping("/getFormData")
     public HttpResult getFormData(Long id){
         UserFormDto dto = userQueryApp.getUserFormById(id);
         return HttpResult.success(dto);
@@ -76,7 +76,7 @@ public class UserApi {
         List<UserDto> dataList = userQueryApp.getUsersByPage(query);
 
 //        return HttpResult.success(toTreeNode(zeroNode, lists));
-        return HttpResult.success().put("dataList", dataList).put("pager", pager);
+        return HttpResult.success().put("dataList", dataList).put("pager", query.getPager());
     }
 
     /**

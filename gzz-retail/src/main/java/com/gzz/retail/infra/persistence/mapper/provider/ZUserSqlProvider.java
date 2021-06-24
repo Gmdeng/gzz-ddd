@@ -85,7 +85,7 @@ public class ZUserSqlProvider {
         for (int i = 0; i < dataList.size(); i++) {
             rows.add(mf.format(new Object[]{i}));
         }
-        return "INSERT INTO z_user (user_id, role_id) VALUES "
+        return "INSERT INTO z_user_roles (user_id, role_id) VALUES "
                 + String.join(", ", rows);
 
     }
@@ -100,6 +100,7 @@ public class ZUserSqlProvider {
                 if (zUser.getSalt() != null) { SET("salt=#{salt, jdbcType=VARCHAR}");}
                 if (zUser.getPetName() != null) {SET("pet_name=#{petName, jdbcType=VARCHAR}");}
                 if (zUser.getMobile() != null) {SET("mobile=#{mobile, jdbcType=VARCHAR}");}
+                if (zUser.getEmail() != null) {SET("email=#{email, jdbcType=VARCHAR}");}
                 if (zUser.getAllowIpaddr() != null) {SET("allow_ipaddr=#{allowIpaddr, jdbcType=VARCHAR}");}
                 if (zUser.getNotes() != null) { SET("notes=#{notes, jdbcType=VARCHAR}");}
                 if (zUser.getUpdateOn() != null) { SET("update_on=#{updateOn, jdbcType=TIMESTAMP}"); }

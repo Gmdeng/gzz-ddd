@@ -42,7 +42,11 @@ public class UserCmdApplication {
      */
     public void saveCmd(UserSaveCmd cmd){
         User user = BeanConvertUtil.convertOne(cmd, User.class, (src, dest) -> {
-            dest.setUserId(new UserId(src.getId(), src.getUserId()));
+           dest.setUserId(new UserId(src.getId(), src.getUserId()));
+           List<RoleId> roleIds =  Arrays.stream(src.getRoles()).map(id->{
+                return new RoleId(Long.parseLong(id));
+            }).collect(Collectors.toList());
+           dest.setRoles(roleIds);
         });
         userRepo.save(user);
     }

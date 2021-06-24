@@ -6,11 +6,17 @@ import com.gzz.core.util.StringUtil;
 import com.gzz.retail.domain.system.entity.User;
 import com.gzz.retail.domain.system.primitive.UserId;
 import com.gzz.retail.infra.defines.CommStatus;
+import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
+import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZUserPo;
+import com.gzz.retail.infra.persistence.pojo.ZUserRolePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
 
 @Component
 public class UserRepo {
@@ -63,16 +69,15 @@ public class UserRepo {
         }
         if(num ==0)
             throw new BizzException("保存数据异常");
-//        //
-//        mapper.clearPermissions(po.getId());
-//        if(Objects.nonNull(entity.getPermissions())) {
-//            List<ZRolePermissionPo> permList = BeanConvertUtil.convertList(entity.getPermissions(), ZRolePermissionPo.class, (src, dest) -> {
-//                dest.setRoleId(po.getId());
-//                int power = src.getHasOperate().stream().mapToInt(OperateType::getKey).sum();
-//                dest.setHasPower(power);
-//            });
-//            mapper.batchInsertPermission(permList);
-//        }
+        //
+        mapper.clearRoles(po.getId());
+        if(Objects.nonNull(entity.getRoles())) {
+            List<ZUserRolePo> permList = BeanConvertUtil.convertList(entity.getRoles(), ZUserRolePo.class, (src, dest) -> {
+                dest.setUserId(po.getId());
+                dest.setRoleId(src.getId());
+            });
+            mapper.batchInsertRoles(permList);
+        }
     }
 
     /**

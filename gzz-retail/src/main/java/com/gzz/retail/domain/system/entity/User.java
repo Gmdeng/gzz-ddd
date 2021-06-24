@@ -7,6 +7,7 @@ import com.gzz.retail.domain.system.primitive.UserId;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,7 +59,7 @@ public class User {
     /**
      * 会
      */
-    private Set<RoleId> hasRoles;
+    private List<RoleId> roles;
     /**
      * 登录验证
      *

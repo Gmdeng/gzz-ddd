@@ -2,10 +2,12 @@ package com.gzz.retail.application.cqrs.system.dto;
 
 import com.gzz.boot.mybatis.autofill.AutoFillTime;
 import com.gzz.boot.mybatis.autofill.AutoFillUser;
+import com.gzz.retail.domain.system.primitive.RoleName;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class UserDto {
@@ -33,6 +35,10 @@ public class UserDto {
      * 手机号 mobile
      */
     private String mobile;
+    /**
+     * 邮箱 email
+     */
+    private String email;
     /**
      * 允许登录IP allowIpaddr
      */
@@ -64,4 +70,9 @@ public class UserDto {
      * 创建人 createBy
      */
     private String createBy;
+
+    /**
+     *
+     */
+    private List<RoleName> roles;
 }
