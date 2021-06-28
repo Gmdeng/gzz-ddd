@@ -4,6 +4,7 @@ import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.assembler.ModuleAssembler;
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
+import com.gzz.retail.application.cqrs.system.dto.MenuDto;
 import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
 import com.gzz.retail.application.cqrs.system.dto.ModuleFormDto;
 import com.gzz.retail.application.cqrs.system.queries.ModuleQuery;
@@ -136,5 +137,11 @@ public class ModuleQueryApplication {
         ModuleAssembler.toTreeSelectNode(poList, dto);
 //        return ModelAssembler.toTreeSelect(poList, dto);
         return dto;
+    }
+
+    public List<MenuDto> getMenuList(ModuleQuery query) {
+        List<ZModulePo> poList = moduleMapper.findLists(new ParamMap());
+        MenuDto root = new MenuDto(0L, "", "", "");
+        return ModuleAssembler.toTreeMenus(poList, root);
     }
 }

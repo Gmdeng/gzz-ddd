@@ -56,7 +56,6 @@ public interface IZModuleMapper {
     List<ZModulePo> findLists(@Param("param") ParamMap param);
 
 
-
     @ResultMap("zModuleMap")
     @SelectProvider(type = ZModuleSqlProvider.class, method = "findList")
     <T> List<T> findList(@Param("param") ParamMap param);

@@ -1,6 +1,7 @@
 package com.gzz.retail.application.assembler;
 
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
+import com.gzz.retail.application.cqrs.system.dto.MenuDto;
 import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
 import com.gzz.retail.application.assembler.dto.ActionOption;
 import com.gzz.retail.application.assembler.dto.MenuNode;
@@ -73,6 +74,18 @@ public class ModuleAssembler {
 //                    actions.add("Add");
 //                    actions.add("Edit");
                     n.setNotes(optionList);
+                    //
+                    n.setChildren(toTreeMenus(source, n));
+                    return n;
+                }).collect(Collectors.toList());
+    }
+
+
+    public static List<MenuDto> toTreeMenus(List<ZModulePo> source, MenuDto node){
+        return source.stream()
+                .filter(it-> node.getId().compareTo(it.getParentId())==0)
+                .map(item ->{
+                    MenuDto n = new MenuDto(item.getId(), item.getCode(), item.getName(), item.getIcon());
                     //
                     n.setChildren(toTreeMenus(source, n));
                     return n;
