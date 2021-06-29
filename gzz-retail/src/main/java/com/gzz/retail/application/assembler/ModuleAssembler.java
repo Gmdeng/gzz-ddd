@@ -85,7 +85,7 @@ public class ModuleAssembler {
         return source.stream()
                 .filter(it-> node.getId().compareTo(it.getParentId())==0)
                 .map(item ->{
-                    MenuDto n = new MenuDto(item.getId(), item.getCode(), item.getName(), item.getIcon());
+                    MenuDto n = new MenuDto(item.getId(), item.getCode(), item.getName(), item.getIcon(), item.getUrl());
                     //
                     n.setChildren(toTreeMenus(source, n));
                     return n;

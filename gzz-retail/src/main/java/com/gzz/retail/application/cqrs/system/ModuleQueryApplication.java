@@ -141,7 +141,7 @@ public class ModuleQueryApplication {
 
     public List<MenuDto> getMenuList(ModuleQuery query) {
         List<ZModulePo> poList = moduleMapper.findLists(new ParamMap());
-        MenuDto root = new MenuDto(0L, "", "", "");
+        MenuDto root = new MenuDto(0L, "", "", "", "url");
         return ModuleAssembler.toTreeMenus(poList, root);
     }
 }

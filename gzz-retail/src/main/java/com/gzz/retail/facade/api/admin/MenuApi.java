@@ -27,6 +27,7 @@ public class MenuApi {
     @GetMapping("/getMenuList")
     public HttpResult getMenuList(){
         List<MenuDto> list = moduleQueryApp.getMenuList(new ModuleQuery());
+        list.add(0, new MenuDto(0L, "code", "主页", "BankOutlined", "/home"));
         return HttpResult.success().data(list);
     }
 }
