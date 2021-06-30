@@ -79,6 +79,10 @@ public interface IZUserMapper {
     @UpdateProvider(type = ZUserSqlProvider.class, method = "update")
     int update(ZUserPo zUser);
 
+    // 审核
+    @Update({"update z_user set status=#{status}", " where id = #{userId}"})
+    int audit(@Param("userId") Long userId, @Param("status") int status);
+
     // 角色列表
     @Select({"select r.name  roleName, r.id roleId, a.user_id userId ",
             " from z_role r, z_user_roles a where r.id = a.role_id and a.user_id=#{userId}"})

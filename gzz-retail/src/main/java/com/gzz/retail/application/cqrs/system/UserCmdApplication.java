@@ -64,7 +64,7 @@ public class UserCmdApplication {
      * @param cmd
      */
     public void approvalCmd(UserAuditCmd cmd){
-        User user = userRepo.loadUser(new UserId(cmd.getId()));
+        int i = userMapper.audit(cmd.getId(), cmd.getStatus());
         if(i ==0 ){
             throw new BizzException("该记录不存在。未能删除");
         }

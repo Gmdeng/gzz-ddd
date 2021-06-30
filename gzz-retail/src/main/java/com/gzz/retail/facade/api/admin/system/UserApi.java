@@ -95,8 +95,8 @@ public class UserApi {
      * @return
      */
     @PostMapping("/authData")
-    public HttpResult authData(UserAuditCmd cmd) {
-        userCmdApp.auditCmd(cmd);
+    public HttpResult authData(@Validated UserAuditCmd cmd) {
+        userCmdApp.approvalCmd (cmd);
         return HttpResult.success();
     }
 
@@ -107,7 +107,7 @@ public class UserApi {
      * @return
      */
     @PostMapping("/deleteData")
-    public HttpResult deleteData(UserDeleteCmd cmd){
+    public HttpResult deleteData(@Validated UserDeleteCmd cmd){
         userCmdApp.deleteCmd(cmd);
         return HttpResult.success();
     }
