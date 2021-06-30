@@ -5,8 +5,7 @@ import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.application.cqrs.system.UserCmdApplication;
 import com.gzz.retail.application.cqrs.system.UserQueryApplication;
-import com.gzz.retail.application.cqrs.system.command.RoleSaveCmd;
-import com.gzz.retail.application.cqrs.system.command.UserSaveCmd;
+import com.gzz.retail.application.cqrs.system.command.*;
 import com.gzz.retail.application.cqrs.system.dto.RoleDto;
 import com.gzz.retail.application.cqrs.system.dto.RoleFormDto;
 import com.gzz.retail.application.cqrs.system.dto.UserDto;
@@ -36,7 +35,6 @@ public class UserApi {
     private UserCmdApplication userCmdApp;
     @Autowired
     private UserQueryApplication userQueryApp;
-
 
     /**
      * 获取表单数据
@@ -88,6 +86,29 @@ public class UserApi {
     public HttpResult saveData(@Validated UserSaveCmd cmd) {
         log.info("接收到参数： {}",cmd.toString());
         userCmdApp.saveCmd(cmd);
+        return HttpResult.success();
+    }
+
+    /**
+     * 审核数据
+     *
+     * @return
+     */
+    @PostMapping("/authData")
+    public HttpResult authData(UserAuditCmd cmd) {
+        userCmdApp.auditCmd(cmd);
+        return HttpResult.success();
+    }
+
+
+    /**
+     * 册除数据
+     * @param cmd
+     * @return
+     */
+    @PostMapping("/deleteData")
+    public HttpResult deleteData(UserDeleteCmd cmd){
+        userCmdApp.deleteCmd(cmd);
         return HttpResult.success();
     }
 }

@@ -16,7 +16,7 @@ public abstract class BaseQuery {
             Object value = beanMap.get(key);
             paramMap.put(key+"", value);
         }
-
         return paramMap;
     }
 }
+

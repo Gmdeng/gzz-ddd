@@ -204,7 +204,6 @@ public class RoleApi {
      */
     @PostMapping("/authData")
     public HttpResult authData(RoleAuditCmd cmd) {
-
         roleCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }
@@ -215,7 +214,7 @@ public class RoleApi {
      * @param cmd
      * @return
      */
-    @GetMapping("/deleteData")
+    @PostMapping("/deleteData")
     public HttpResult deleteData(RoleDeleteCmd cmd){
         roleCmdApp.deleteCmd(cmd);
         return HttpResult.success();

@@ -4,10 +4,7 @@ import com.gzz.core.exception.BizzException;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.core.validation.ValidationUtils;
 import com.gzz.retail.application.ICommand;
-import com.gzz.retail.application.cqrs.system.command.RoleSaveCmd;
-import com.gzz.retail.application.cqrs.system.command.UserDeleteCmd;
-import com.gzz.retail.application.cqrs.system.command.UserSaveCmd;
-import com.gzz.retail.application.cqrs.system.command.UserModifyPasswdCmd;
+import com.gzz.retail.application.cqrs.system.command.*;
 import com.gzz.retail.domain.system.entity.Permission;
 import com.gzz.retail.domain.system.entity.Role;
 import com.gzz.retail.domain.system.entity.User;
@@ -20,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -51,32 +49,25 @@ public class UserCmdApplication {
         userRepo.save(user);
     }
 
-    /**
-     * 新增
-     * @param cmd
-     */
-    public void insertCmd(UserSaveCmd cmd){
-
-    }
-
-    /**
-     * 修改
-     * @param cmd
-     */
-    public void updateCmd(UserSaveCmd cmd){
-
-    }
 
     /**
      * 册除。。
      * @param cmd
      */
-    public void deleteCmd(UserDeleteCmd cmd){
-       ValidationUtils.validate(cmd);
-       int i= userMapper.delete(cmd.getId());
-       if(i ==0 ){
-           throw new BizzException("该记录不存在。未能删除");
-       }
+    public void deleteCmd(@Valid UserDeleteCmd cmd){
+       //ValidationUtils.validate(cmd);
+       User user = userRepo.loadUser(new UserId(cmd.getId()));
+       userRepo.delete(user);
+    }
+    /**
+     * 审批
+     * @param cmd
+     */
+    public void approvalCmd(UserAuditCmd cmd){
+        User user = userRepo.loadUser(new UserId(cmd.getId()));
+        if(i ==0 ){
+            throw new BizzException("该记录不存在。未能删除");
+        }
     }
 
     /**

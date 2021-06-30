@@ -30,8 +30,12 @@ public class UserRepo {
      */
     public User loadUser(UserId userId){
         ZUserPo po = mapper.getById(userId.getId());
+        if(po == null){
+            po = mapper.getByUserId(userId.getName());
+        }
+        if(po == null) throw new BizzException("找不该用户信息");
         User user = BeanConvertUtil.convertOne(po, User.class, (src, dest)->{
-            dest.setUserId(new UserId(po.getId(), po.getUserId()));
+            dest.setUserId(new UserId(src.getId(), src.getUserId()));
             //dest.setStatus(CommStatus.valueOf(src.getStatus()).get());
         });
         return user;

@@ -4,12 +4,13 @@ import com.gzz.core.model.BaseQuery;
 import com.gzz.core.toolkit.Pager;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 @Data
 public class UserQuery extends BaseQuery {
     public UserQuery(Pager pager){
         this.setPager(pager);
     }
-    private String name;
-    private String address;
+    private String created;
+    private String userId;
+    private String mobile;
+    private String email;
 }

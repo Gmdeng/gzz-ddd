@@ -80,7 +80,6 @@ public class ModuleApi {
         //if (err.isHasError()) {
         //  return HttpResult.fail().data(err.getErrors());
         //}
-
         moduleCmdApp.saveCmd(cmd);
         return HttpResult.success();
     }
@@ -89,7 +88,7 @@ public class ModuleApi {
      * 审核数据
      * @return
      */
-    @PatchMapping("/authData")
+    @PostMapping("/authData")
     public HttpResult authData(@Valid Long moduleId) {
         ModuleAuditCmd cmd = new ModuleAuditCmd();
         cmd.setModuleId(moduleId);
@@ -103,7 +102,7 @@ public class ModuleApi {
      * @param moduleId
      * @return
      */
-    @DeleteMapping("/deleteData")
+    @PostMapping("/deleteData")
     public HttpResult deleteData(@Valid Long moduleId){
         ModuleDeleteCmd cmd = new ModuleDeleteCmd();
         cmd.setModuleId(moduleId);

@@ -5,14 +5,15 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class UserDeleteCmd{
+public class UserAuditCmd {
     /**
      * ID id
      */
     @NotEmpty(message = "用户ID不能为空")
     private Long id;
+
     /**
-     * 用户名 userId
+     * status
      */
-    private String userId;
+    private int status;
 }

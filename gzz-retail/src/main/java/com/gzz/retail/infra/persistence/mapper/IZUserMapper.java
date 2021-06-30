@@ -32,7 +32,9 @@ public interface IZUserMapper {
             @Result(property = "createBy", column = "create_by"),
     })
     ZUserPo getById(Long id);
-
+    @ResultMap("zUserMap")
+    @Select({"select * from z_user  where user_id = #{userId}"})
+    ZUserPo getByUserId(String userId);
     // 列表
     @ResultMap("zUserMap")
     @SelectProvider(type = ZUserSqlProvider.class, method = "findList")
