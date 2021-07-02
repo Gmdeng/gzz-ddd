@@ -96,7 +96,7 @@ public class UserApi {
      */
     @PostMapping("/authData")
     public HttpResult authData(@Validated UserAuditCmd cmd) {
-        userCmdApp.approvalCmd (cmd);
+        userCmdApp.auditCmd(cmd);
         return HttpResult.success();
     }
 

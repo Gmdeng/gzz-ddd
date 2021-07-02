@@ -20,6 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 ///**
 // * 定制化注解，支持参数值与指定类型数组列表值进行匹配(缺点是需要将枚举值写死在字段定义的注解中)
 // */
+//@EnumValueValid(intValues = {1, 2, 4, 8}, message = "订单类型错误")
 //@EnumValueValid(strValues = {"pay", "refund"}, message = "订单类型错误")
 //private String orderType;
 ///**
@@ -29,8 +30,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 //private String status;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
-@Documented
 @Constraint(validatedBy = {CheckEnumValue.Validator.class})
+@Documented
 public @interface CheckEnumValue {
 
     //默认错误消息
@@ -95,22 +96,18 @@ public @interface CheckEnumValue {
         public boolean isValid(Object value, ConstraintValidatorContext context) {
             //针对字符串数组的校验匹配
             if (strValues != null && strValues.length > 0) {
+                //判断值类型是否为String类型
                 if (value instanceof String) {
-                    for (String s : strValues) {//判断值类型是否为Integer类型
-                        if (s.equals(value)) {
-                            return true;
-                        }
-                    }
+                    for (String s : strValues)
+                        if (s.equalsIgnoreCase(value.toString())) return true;
                 }
             }
             //针对整型数组的校验匹配
             if (intValues != null && intValues.length > 0) {
-                if (value instanceof Integer) {//判断值类型是否为Integer类型
-                    for (Integer s : intValues) {
-                        if (s == value) {
-                            return true;
-                        }
-                    }
+                //判断值类型是否为Integer类型
+                if (value instanceof Integer) {
+                    for (Integer s : intValues)
+                        if (s.compareTo((int)value) == 0) return true;
                 }
             }
             //针对枚举类型的校验匹配

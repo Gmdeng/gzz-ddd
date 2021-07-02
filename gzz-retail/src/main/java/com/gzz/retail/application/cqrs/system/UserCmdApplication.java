@@ -63,10 +63,10 @@ public class UserCmdApplication {
      * 审批
      * @param cmd
      */
-    public void approvalCmd(UserAuditCmd cmd){
+    public void auditCmd(UserAuditCmd cmd){
         int i = userMapper.audit(cmd.getId(), cmd.getStatus());
         if(i ==0 ){
-            throw new BizzException("该记录不存在。未能删除");
+            throw new BizzException("审核失败，记录不须审核或不存在");
         }
     }
 
@@ -74,5 +74,7 @@ public class UserCmdApplication {
      * 更改密码
      * @param cmd
      */
-    public void modifyPasswdCmd(UserModifyPasswdCmd cmd){}
+    public void modifyPasswdCmd(UserModifyPasswdCmd cmd){
+
+    }
 }

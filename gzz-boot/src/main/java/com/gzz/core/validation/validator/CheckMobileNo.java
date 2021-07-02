@@ -21,11 +21,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 验证手机号，空和正确的手机号都能验证通过
  * 正确的手机号由11位数字组成，第一位为1
  */
-@ConstraintComposition(CompositionType.OR)
-@Pattern(regexp = "1[1|2|3|4|5|6|7|8|9]\\d{9}")
+
 @Null
 @Length(min = 0, max = 0)
 @Documented
+@ConstraintComposition(CompositionType.OR)
+@Pattern(regexp = "1[1|2|3|4|5|6|7|8|9]\\d{9}")
 @Constraint(validatedBy = {})
 @Target({METHOD, FIELD, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)

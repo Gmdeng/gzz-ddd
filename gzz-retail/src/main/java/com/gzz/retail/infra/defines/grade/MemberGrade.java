@@ -2,6 +2,7 @@ package com.gzz.retail.infra.defines.grade;
 
 import com.gzz.boot.mybatis.handler.IEnumPlus;
 
+import java.util.EnumSet;
 import java.util.Optional;
 import java.util.stream.Stream;
 
