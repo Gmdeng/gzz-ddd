@@ -7,10 +7,6 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
 import java.lang.annotation.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -20,14 +16,14 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
-@Constraint(validatedBy = {CheckEnumPlus.Validator.class})
+@Constraint(validatedBy = {CheckEnum.Validator.class})
 @Documented
-public @interface CheckEnumPlus {
+public @interface CheckEnum {
     //默认错误消息
     String message() default "与指定类型不相符";
 
     // 枚举类型
-    En enumClass();
+    Class<? extends Enum<?>> enumClass();
 
     // 枚举类型中的验证方法
     String enumMethod();
@@ -40,11 +36,11 @@ public @interface CheckEnumPlus {
     /**
      * 校验类逻辑定义
      */
-    static class Validator implements ConstraintValidator<CheckEnumPlus, String> {
+    static class Validator implements ConstraintValidator<CheckEnum, String> {
         private Class<? extends Enum<?>> enumClass;
         //private String enumMethod;
         @Override
-        public void initialize(CheckEnumPlus constraintAnnotation) {
+        public void initialize(CheckEnum constraintAnnotation) {
             //enumMethod = constraintAnnotation.enumMethod();
             enumClass = constraintAnnotation.enumClass();
         }
@@ -53,7 +49,6 @@ public @interface CheckEnumPlus {
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
             Enum e = enumClass.newInstance();
-            e.
 //            Class<?> valueClass = value.getClass();
 //            try {
 //                Method method = enumClass.getMethod(enumMethod, valueClass);
@@ -72,7 +67,7 @@ public @interface CheckEnumPlus {
 //            } catch (NoSuchMethodException | SecurityException e) {
 //                throw new RuntimeException(String.format("This %s(%s) method does not exist in the %s", enumMethod, valueClass, enumClass), e);
 //            }
-            //return false;
+            return false;
         }
     }
 }
