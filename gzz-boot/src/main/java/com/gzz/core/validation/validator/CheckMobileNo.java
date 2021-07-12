@@ -23,7 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 
 @Null
-@Length(min = 0, max = 0)
+@Length(min = 0, max = 11)
 @Documented
 @ConstraintComposition(CompositionType.OR)
 @Pattern(regexp = "1[1|2|3|4|5|6|7|8|9]\\d{9}")

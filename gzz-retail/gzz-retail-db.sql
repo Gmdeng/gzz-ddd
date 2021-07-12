@@ -712,20 +712,28 @@ CREATE TABLE `z_module` (
   `create_on` timestamp NOT NULL COMMENT '创建时间',
   `create_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
 
 /*Data for the table `z_module` */
 
 insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`url`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`) values 
+(33,0,'M','销售管理','SALE_MANAGEMENT',1,'BlockOutlined','',0,0,'2021-07-12 14:49:46','AutoModifyer','2021-07-12 14:49:46','AutoModifyer'),
+(32,24,'M','商品管理','GOODS_PRODUCT',63,'','',2,0,'2021-07-12 14:46:59','AutoModifyer','2021-07-12 14:46:59','AutoModifyer'),
+(31,24,'M','分类属性','GOODS_CATALOG_ATTRIBUTE',63,'','',1,0,'2021-07-12 14:45:45','AutoModifyer','2021-07-12 14:45:30','AutoModifyer'),
 (29,28,'M','待支付订单','ORDERS_UNPAY',63,'','',0,0,'2021-05-21 14:36:16','AutoModifyer','2021-05-21 14:36:16','AutoModifyer'),
 (30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
-(28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'TeamOutlined','',0,0,'2021-06-29 11:57:18','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
-(27,24,'M','分类管理','GOODS_CALOG',63,'','',0,0,'2021-05-21 11:35:48','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
+(28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'PieChartOutlined','',0,0,'2021-06-30 11:29:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
+(27,24,'M','分类管理','GOODS_CATALOG',63,'','',0,0,'2021-07-12 14:43:44','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
 (26,22,'M','用户管理','SYSTEM_USER',63,'','/userList',0,0,'2021-06-03 15:32:16','AutoModifyer','2021-05-21 11:33:25','AutoModifyer'),
 (24,0,'M','商品管理','GOODS_MANAGEMENT',32,'BlockOutlined','',0,0,'2021-06-29 11:57:39','AutoModifyer','2021-05-14 17:55:37','AutoModifyer'),
 (25,22,'M','角色管理','SYSTEM_ROLE',63,'','/roleList',0,0,'2021-06-03 15:32:02','AutoModifyer','2021-05-21 11:29:42','AutoModifyer'),
-(22,0,'M','系统管理','SYSTEM_MANAGEMENT',1,'BankOutlined','',2,0,'2021-06-29 11:56:39','AutoModifyer','2020-10-15 00:59:50','ricky'),
-(23,22,'M','模块管理','SYSTEM_MODULE',63,'https://wwww.g-zz.com','/moduleList',0,0,'2021-06-03 15:31:46','AutoModifyer','2020-10-15 01:02:40','ricky');
+(22,0,'M','系统管理','SYSTEM_MANAGEMENT',1,'UnorderedListOutlined','',2,0,'2021-06-30 11:27:58','AutoModifyer','2020-10-15 00:59:50','ricky'),
+(23,22,'M','模块管理','SYSTEM_MODULE',63,'https://wwww.g-zz.com','/moduleList',0,0,'2021-06-03 15:31:46','AutoModifyer','2020-10-15 01:02:40','ricky'),
+(34,33,'M','在售商品','SALE_ONLINE',63,'','',0,0,'2021-07-12 14:50:50','AutoModifyer','2021-07-12 14:50:50','AutoModifyer'),
+(35,33,'M','下架商品','SALE_OFFLINE',49,'','',0,0,'2021-07-12 14:52:25','AutoModifyer','2021-07-12 14:52:25','AutoModifyer'),
+(36,0,'M','库存管理','INVENTORY_MANAGEMENT',33,'AccountBookOutlined','',0,0,'2021-07-12 15:00:02','AutoModifyer','2021-07-12 15:00:02','AutoModifyer'),
+(37,36,'M','商品库存','INVENTORY_GOODS',33,'','',0,0,'2021-07-12 15:00:53','AutoModifyer','2021-07-12 15:00:53','AutoModifyer'),
+(38,36,'M','库存调整','INVENTORY_ADJUSTMENT',33,'','',0,0,'2021-07-12 15:03:53','AutoModifyer','2021-07-12 15:01:59','AutoModifyer');
 
 /*Table structure for table `z_role` */
 
@@ -805,13 +813,12 @@ insert  into `z_user`(`id`,`user_id`,`passwd`,`salt`,`pet_name`,`email`,`mobile`
 (1,'23','vsZBxWqcczcpEpikTUAdMxHZhyoAiEnW','I3UwZJuGuDoIoL8m','我是一小印度虾','hi.gmdeng@gmail.com','18520357735','','',NULL,0,'2021-06-29 17:11:58','AutoModifyer','2021-06-21 11:50:40','AutoModifyer'),
 (5,'sdfsdf','bJUuxUhNNSCbxifCewERePjHLNiudgDb','x8SNN7N2HV7MB07a','sdf','hi.gmdeng@126.com','13763363377','asfd','asdfasdf',NULL,0,'2021-06-29 15:20:34','AutoModifyer','2021-06-23 15:37:44','AutoModifyer'),
 (4,'userId','password','salt','petName','18625023272@229.com','18625023272','',NULL,NULL,2,'2021-06-29 16:34:17','AutoModifyer','2021-06-22 14:45:51','testing'),
-(6,'eqwer','PcjaqraAdXWaqpTNbmleTyBOHOOxFFdD','G3UhzqrQcNqb5p53','sdfa',NULL,NULL,'3323','23',NULL,0,'2021-06-23 15:47:27','AutoModifyer','2021-06-23 15:47:27','AutoModifyer'),
-(7,'332323','jKztiQuLPNlKhTRfzIFMmpMzpMVFuKUd','ioyRvNvwbwyARTQN','232323',NULL,NULL,'2323','2323',NULL,0,'2021-06-23 16:13:12','AutoModifyer','2021-06-23 16:13:12','AutoModifyer'),
-(8,'2312','JOusENQhJPvGPfsjBphkupFznhPZqkfi','ZqOWZY7NVV1yMXl0','12',NULL,NULL,'3323','23',NULL,0,'2021-06-23 16:16:13','AutoModifyer','2021-06-23 16:16:13','AutoModifyer'),
-(9,'3423412','pDUEYXwxXAxDNKeJzaLDmrsjukyAkqMm','VFjQrGdCiZ6uMAsv','323',NULL,NULL,'33','23',NULL,0,'2021-06-23 16:18:39','AutoModifyer','2021-06-23 16:18:39','AutoModifyer'),
-(10,'23452345','DuTLAqzRezmhWDRYGWWtmqOVPLwujQoh','Z2NC7Z0WggjtVNP0','3454',NULL,NULL,'52345','34523',NULL,0,'2021-06-23 16:18:55','AutoModifyer','2021-06-23 16:18:55','AutoModifyer'),
-(11,'2323','zvAZGZPpXVgVcNfPazwhYKTYqDXNqRYf','oJMmOwtNpHQ7RM1g','23',NULL,NULL,'','234',NULL,0,'2021-06-23 16:19:51','AutoModifyer','2021-06-23 16:19:51','AutoModifyer'),
-(12,'65456456','tSfeqMewkKMQofxbXKfEAgBpoxGQEhhp','wcEdq2jkwXBNVSkG','456456',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:03','AutoModifyer','2021-06-23 16:20:03','AutoModifyer'),
+(7,'332323','jKztiQuLPNlKhTRfzIFMmpMzpMVFuKUd','ioyRvNvwbwyARTQN','232323','hi.gmdeng@139.com','19800000011','2323','2323',NULL,0,'2021-07-08 11:19:43','AutoModifyer','2021-06-23 16:13:12','AutoModifyer'),
+(8,'2312','JOusENQhJPvGPfsjBphkupFznhPZqkfi','ZqOWZY7NVV1yMXl0','12','wgde@139.com','19800000012','3323','23',NULL,0,'2021-07-08 11:21:12','AutoModifyer','2021-06-23 16:16:13','AutoModifyer'),
+(9,'3423412','pDUEYXwxXAxDNKeJzaLDmrsjukyAkqMm','VFjQrGdCiZ6uMAsv','323','hi@133.com','19800000013','33','23',NULL,0,'2021-07-08 11:21:44','AutoModifyer','2021-06-23 16:18:39','AutoModifyer'),
+(10,'23452345','DuTLAqzRezmhWDRYGWWtmqOVPLwujQoh','Z2NC7Z0WggjtVNP0','3454','19800000014@123.com','19800000014','52345','34523',NULL,0,'2021-07-08 14:45:59','AutoModifyer','2021-06-23 16:18:55','AutoModifyer'),
+(11,'2323','zvAZGZPpXVgVcNfPazwhYKTYqDXNqRYf','oJMmOwtNpHQ7RM1g','23','13900000015@14.com','13900000015','33323','234',NULL,0,'2021-07-08 15:09:46','AutoModifyer','2021-06-23 16:19:51','AutoModifyer'),
+(12,'65456456','tSfeqMewkKMQofxbXKfEAgBpoxGQEhhp','wcEdq2jkwXBNVSkG','456456','','1879999888','','',NULL,0,'2021-07-12 11:38:06','AutoModifyer','2021-06-23 16:20:03','AutoModifyer'),
 (13,'45645','cuiuyZZbseFwqKEEHsYGbPXAwbWIrnTP','sHlvcEj3PVQK3tsR','4565',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:16','AutoModifyer','2021-06-23 16:20:16','AutoModifyer'),
 (14,'4564562','dayuxmTSDKwOMRligNFHCpWJigdwxIse','4JAldFjXE3hLMwER','454',NULL,NULL,'23','23',NULL,0,'2021-06-23 16:20:31','AutoModifyer','2021-06-23 16:20:31','AutoModifyer'),
 (15,'87867867','RDwPqurpdzULcUDdzjdPHlbqYqbTXkrk','grX86nuuELK7fwbY','678678',NULL,NULL,'','',NULL,0,'2021-06-23 16:20:50','AutoModifyer','2021-06-23 16:20:50','AutoModifyer'),
@@ -822,7 +829,7 @@ insert  into `z_user`(`id`,`user_id`,`passwd`,`salt`,`pet_name`,`email`,`mobile`
 (20,'3456','ZvQhkoDmdOtIMQZHkdgYfRsGVQDqfwOs','sgG6NkxEYN721AvR','4565',NULL,NULL,'','',NULL,0,'2021-06-23 16:21:59','AutoModifyer','2021-06-23 16:21:59','AutoModifyer'),
 (21,'456','OTskaKjwQXYQxFLYklBWccNPgabYJjGd','KyWoAhncchZ5F0B6','thhdgh56',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:11','AutoModifyer','2021-06-23 16:22:11','AutoModifyer'),
 (22,'hjfghh','ovZaUnunPOGUESzyfQKuYBsoQfjQEbrx','m4MWdLsHvMdIFNFE','ghj',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:23','AutoModifyer','2021-06-23 16:22:23','AutoModifyer'),
-(23,'ghjfgh','PRKfcpXhROdCpPiZOvveRMZbZOAiWgxH','A7MKWztXirncyeAP','fghghjfgh',NULL,NULL,'','',NULL,0,'2021-06-23 16:22:36','AutoModifyer','2021-06-23 16:22:36','AutoModifyer'),
+(23,'ghjfgh','PRKfcpXhROdCpPiZOvveRMZbZOAiWgxH','A7MKWztXirncyeAP','fghghjfgh','hi.gmdeng@gmail.com','13900000001','132.178.178.198','',NULL,0,'2021-07-08 11:31:42','AutoModifyer','2021-06-23 16:22:36','AutoModifyer'),
 (24,'2222222','TPFtXVPjPmdwFuHovfyXxYtFdIAIXWwo','UCqG2mtj8WADSGfB','34563','13812345678','13812345678','','',NULL,0,'2021-06-29 16:34:33','AutoModifyer','2021-06-23 16:23:26','AutoModifyer');
 
 /*Table structure for table `z_user_roles` */
@@ -834,7 +841,7 @@ CREATE TABLE `z_user_roles` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `user_id` bigint(20) NOT NULL COMMENT '模块ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色';
 
 /*Data for the table `z_user_roles` */
 
@@ -845,7 +852,18 @@ insert  into `z_user_roles`(`id`,`role_id`,`user_id`) values
 (32,9,16),
 (33,10,16),
 (34,10,1),
-(35,9,1);
+(35,9,1),
+(38,10,7),
+(39,9,7),
+(40,9,8),
+(41,9,9),
+(42,10,23),
+(43,9,23),
+(44,9,10),
+(45,10,10),
+(46,10,11),
+(47,9,11),
+(48,10,12);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
