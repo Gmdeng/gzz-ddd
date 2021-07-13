@@ -1,6 +1,6 @@
 package com.gzz.retail.domain.goods;
 
-import com.gzz.retail.domain.goods.model.Brand;
+import com.gzz.retail.domain.goods.entity.Brand;
 import com.gzz.retail.infra.persistence.mapper.IPBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

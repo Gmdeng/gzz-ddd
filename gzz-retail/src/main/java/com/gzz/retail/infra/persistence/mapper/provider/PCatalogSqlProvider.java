@@ -2,13 +2,14 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.PCatalog;
+import com.gzz.retail.infra.persistence.pojo.PCatalogPo;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Description: 主要用途：根据复杂的业务需求来动态生成SQL.
@@ -17,29 +18,28 @@ import java.util.Map;
 public class PCatalogSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(PCatalog pCatalog) {
+    public String insertSelective(PCatalogPo pCatalog) {
         return new SQL() {
             {
                 INSERT_INTO("p_catalog");
-                if (pCatalog.getId() != null) {
+                if (Objects.nonNull(pCatalog.getId())) {
                     VALUES("id", "#{id}");
                 }
-                if (pCatalog.getParentId() != null) {
+                if (Objects.nonNull(pCatalog.getParentId())) {
                     VALUES("parent_id", "#{parentId}");
                 }
-                if (pCatalog.getName() != null) {
+                if (Objects.nonNull(pCatalog.getName())) {
                     VALUES("name", "#{name}");
                 }
-                if (pCatalog.getThumb() != null) {
+                if (Objects.nonNull(pCatalog.getThumb())) {
                     VALUES("thumb", "#{thumb}");
                 }
-                if (pCatalog.getIdx() != null) {
-                    VALUES("idx", "#{idx}");
-                }
-                if (pCatalog.getKeywords() != null) {
+                VALUES("enable", "#{enable}");
+                VALUES("idx", "#{idx}");
+                if (Objects.nonNull(pCatalog.getKeywords())) {
                     VALUES("keywords", "#{keywords}");
                 }
-                if (pCatalog.getNotes() != null) {
+                if (Objects.nonNull(pCatalog.getNotes())) {
                     VALUES("notes", "#{notes}");
                 }
             }
@@ -47,8 +47,8 @@ public class PCatalogSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<PCatalog>> map) {
-        List<PCatalog> list = (List<PCatalog>) map.get("list");
+    public String insertBatch(Map<String, List<PCatalogPo>> map) {
+        List<PCatalogPo> list = (List<PCatalogPo>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].parentId}, #'{'list[{0}].name}, #'{'list[{0}].thumb}, #'{'list[{0}].idx}, #'{'list[{0}].keywords}, #'{'list[{0}].notes})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -60,7 +60,7 @@ public class PCatalogSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(PCatalog pCatalog) {
+    public String update(PCatalogPo pCatalog) {
         return new SQL() {
             {
                 UPDATE("p_catalog");
@@ -73,9 +73,7 @@ public class PCatalogSqlProvider {
                 if (pCatalog.getThumb() != null) {
                     SET("thumb=#{thumb}");
                 }
-                if (pCatalog.getIdx() != null) {
-                    SET("idx=#{idx}");
-                }
+                SET("idx=#{idx}");
                 if (pCatalog.getKeywords() != null) {
                     SET("keywords=#{keywords}");
                 }

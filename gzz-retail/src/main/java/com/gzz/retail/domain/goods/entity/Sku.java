@@ -1,4 +1,4 @@
-package com.gzz.retail.domain.goods.model;
+package com.gzz.retail.domain.goods.entity;
 
 import java.math.BigDecimal;
 
