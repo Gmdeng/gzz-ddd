@@ -30,16 +30,8 @@ public class CatalogCmdApplication {
      */
     public void saveCmd(CatalogSaveCmd cmd){
         Catalog catalog = BeanConvertUtil.convertOne(cmd, Catalog.class, (src, dest) -> {
-            log.info("========================={}", src);
-//            if(src.getId() != null)
-//                dest.setModuleId(new ModuleId(src.getId()));
-//            dest.setParent(new Module(new ModuleId(src.getParentId())));
-//            dest.setOperates(new HashSet<>());
-//            if(src.getOperate() !=null && src.getOperate().length>0){
-//                Arrays.stream(src.getOperate()).forEach(it->{
-//                    dest.getOperates().add(OperateType.valueOf(it).get());
-//                });
-//            }
+            // log.info("========================={}", src);
+            dest.setEnable(true);
         });
         catalogRepo.save(catalog);
     }

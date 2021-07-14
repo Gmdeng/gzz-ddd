@@ -1,13 +1,16 @@
 package com.gzz.retail.infra.persistence.pojo;
+
 import lombok.Data;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+
 /**
  *  实体类
  * @author Auto-Builder
  * @CrateOn 2021-7-13 11:54:13
  */
 @Data
-public class PCatalogPo {
+public class PCatalogPo implements Serializable {
 	/**
 	 *  ID id
 	 */

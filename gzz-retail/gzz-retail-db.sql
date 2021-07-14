@@ -520,17 +520,22 @@ CREATE TABLE `p_brand` (
 DROP TABLE IF EXISTS `p_catalog`;
 
 CREATE TABLE `p_catalog` (
-  `id` bigint(20) NOT NULL,
-  `parent_id` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idx` tinyint(4) DEFAULT NULL,
-  `keywords` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `parent_id` bigint(20) NOT NULL COMMENT '上级ID',
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
+  `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
+  `idx` tinyint(4) DEFAULT '0' COMMENT '排序',
+  `keywords` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关键字',
+  `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  `enable` tinyint(4) DEFAULT NULL COMMENT '是否可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `p_catalog` */
+
+insert  into `p_catalog`(`id`,`parent_id`,`name`,`thumb`,`idx`,`keywords`,`notes`,`enable`) values 
+(1,0,'日用品','aerwert',0,'日用品','fsfdg',1),
+(2,0,'化工品','化工品',0,'','',1);
 
 /*Table structure for table `p_catalog_attr` */
 
@@ -723,7 +728,7 @@ insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`
 (29,28,'M','待支付订单','ORDERS_UNPAY',63,'','',0,0,'2021-05-21 14:36:16','AutoModifyer','2021-05-21 14:36:16','AutoModifyer'),
 (30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
 (28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'PieChartOutlined','',0,0,'2021-06-30 11:29:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
-(27,24,'M','分类管理','GOODS_CATALOG',63,'','',0,0,'2021-07-12 14:43:44','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
+(27,24,'M','分类管理','GOODS_CATALOG',63,'','/catalogList',0,0,'2021-07-13 16:45:00','AutoModifyer','2021-05-21 11:35:48','AutoModifyer'),
 (26,22,'M','用户管理','SYSTEM_USER',63,'','/userList',0,0,'2021-06-03 15:32:16','AutoModifyer','2021-05-21 11:33:25','AutoModifyer'),
 (24,0,'M','商品管理','GOODS_MANAGEMENT',32,'BlockOutlined','',0,0,'2021-06-29 11:57:39','AutoModifyer','2021-05-14 17:55:37','AutoModifyer'),
 (25,22,'M','角色管理','SYSTEM_ROLE',63,'','/roleList',0,0,'2021-06-03 15:32:02','AutoModifyer','2021-05-21 11:29:42','AutoModifyer'),
