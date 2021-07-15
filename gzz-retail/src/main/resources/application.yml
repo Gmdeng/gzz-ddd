@@ -96,8 +96,11 @@ mybatis:
   # mapperLocations: classpath:mapper/*.xml
   # typeAliasesPackage: com.cmc.schedule.entity.entity
   # typeHandlersPackage: com.cmc.schedule.entity.handler
-#
+# 自定义参数
 gzz:
+  # 上传文件保存目录
+  upload:
+    path: d:/opt/upload/images
   sms:  #短信接口配置
     type: aliyun
     clusterName: hello-elasticsearch

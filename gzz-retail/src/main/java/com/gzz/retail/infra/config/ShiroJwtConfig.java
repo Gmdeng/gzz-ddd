@@ -58,7 +58,7 @@ public class ShiroJwtConfig {
         filterChainDefinitionMap.put("/demo/**", "anon");
         // 业务开放权限
         filterChainDefinitionMap.put("/admin/**", "anon");
-
+        filterChainDefinitionMap.put("/Upload/**", "anon");
         // 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
         filterChainDefinitionMap.put("/**", "jwt");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
