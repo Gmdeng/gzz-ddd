@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PTagSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.PTag;
+import com.gzz.retail.infra.persistence.pojo.PGoodsTag;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -23,17 +23,17 @@ public interface IPTagMapper {
             @Result(property = "website", column = "website"),
             @Result(property = "stroy", column = "stroy"),
     })
-    PTag getById(Long id);
+    PGoodsTag getById(Long id);
 
     // 列表
     @SelectProvider(type = PTagSqlProvider.class, method = "findList")
-    List<PTag> findLists(@Param("param") ParamMap param);
+    List<PGoodsTag> findLists(@Param("param") ParamMap param);
 
     <T> List<T> findList(@Param("param") ParamMap param);
 
     // 分页列表
     @SelectProvider(type = PTagSqlProvider.class, method = "findListByPage")
-    List<PTag> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+    List<PGoodsTag> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
@@ -44,15 +44,15 @@ public interface IPTagMapper {
             "values(",
             "#{id}, #{cnName}, #{enName}, #{logo}, #{website}, #{stroy}",
             ")"})
-    int insert(PTag pTag);
+    int insert(PGoodsTag pTag);
 
     @InsertProvider(type = PTagSqlProvider.class, method = "insertSelective")
-    int insertSelective(PTag pTag);
+    int insertSelective(PGoodsTag pTag);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
     @InsertProvider(type = PTagSqlProvider.class, method = "insertBatch")
-    int insertBatch(@Param("list") List<PTag> pTagList);
+    int insertBatch(@Param("list") List<PGoodsTag> pTagList);
 
     // 删除
     @Delete("delete from p_tag where id = #{id}")
@@ -63,5 +63,5 @@ public interface IPTagMapper {
     //		"cn_name=#{cnName}, en_name=#{enName}, logo=#{logo}, website=#{website}, stroy=#{stroy}"
     //		," where id = #{id}"})
     @UpdateProvider(type = PTagSqlProvider.class, method = "update")
-    int update(PTag pTag);
+    int update(PGoodsTag pTag);
 }

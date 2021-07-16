@@ -2,7 +2,6 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.PGoodsAttr;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;

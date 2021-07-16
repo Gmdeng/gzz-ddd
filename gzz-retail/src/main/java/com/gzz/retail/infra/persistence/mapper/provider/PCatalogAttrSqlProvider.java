@@ -2,7 +2,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.PCatalogAttr;
+import com.gzz.retail.infra.persistence.pojo.PCatalogAttrPo;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class PCatalogAttrSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(PCatalogAttr pCatalogAttr) {
+    public String insertSelective(PCatalogAttrPo pCatalogAttr) {
         return new SQL() {
             {
                 INSERT_INTO("p_catalog_attr");
@@ -38,8 +38,8 @@ public class PCatalogAttrSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<PCatalogAttr>> map) {
-        List<PCatalogAttr> list = (List<PCatalogAttr>) map.get("list");
+    public String insertBatch(Map<String, List<PCatalogAttrPo>> map) {
+        List<PCatalogAttrPo> list = (List<PCatalogAttrPo>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].catalogId}, #'{'list[{0}].name}, #'{'list[{0}].values})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -51,7 +51,7 @@ public class PCatalogAttrSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(PCatalogAttr pCatalogAttr) {
+    public String update(PCatalogAttrPo pCatalogAttr) {
         return new SQL() {
             {
                 UPDATE("p_catalog_attr");

@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PGoodsSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.PGoods;
+import com.gzz.retail.infra.persistence.pojo.PGoodsPo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -32,12 +32,12 @@ public interface IPGoodsMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "averageCost", column = "average_cost"),
     })
-    PGoods getById(Long id);
+    PGoodsPo getById(Long id);
 
     // 列表
     @ResultMap("pGoodsMap")
     @SelectProvider(type = PGoodsSqlProvider.class, method = "findList")
-    List<PGoods> findLists(@Param("param") ParamMap param);
+    List<PGoodsPo> findLists(@Param("param") ParamMap param);
 
     @ResultMap("pGoodsMap")
     @SelectProvider(type = PGoodsSqlProvider.class, method = "findList")
@@ -46,7 +46,7 @@ public interface IPGoodsMapper {
     // 分页列表
     @ResultMap("pGoodsMap")
     @SelectProvider(type = PGoodsSqlProvider.class, method = "findListByPage")
-    List<PGoods> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+    List<PGoodsPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     @ResultMap("pGoodsMap")
     @SelectProvider(type = PGoodsSqlProvider.class, method = "findListByPage")
@@ -64,15 +64,15 @@ public interface IPGoodsMapper {
             " #{idx,jdbcType=TINYINT}, #{salePrice,jdbcType=VARCHAR}, #{marketPrice,jdbcType=VARCHAR},",
             " #{pv,jdbcType=VARCHAR}, #{status, jdbcType=TINYINT}, #{averageCost,jdbcType=DECIMAL}",
             ")"})
-    int insert(PGoods pGoods);
+    int insert(PGoodsPo pGoods);
 
     @InsertProvider(type = PGoodsSqlProvider.class, method = "dynamicInsert")
-    int dynamicInsert(PGoods pGoods);
+    int dynamicInsert(PGoodsPo pGoods);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
     @InsertProvider(type = PGoodsSqlProvider.class, method = "batchInsert")
-    int batchInsert(@Param("list") List<PGoods> pGoodsList);
+    int batchInsert(@Param("list") List<PGoodsPo> pGoodsList);
 
     // 删除
     @Delete("delete from P_GOODS where id = #{id}")
@@ -83,5 +83,5 @@ public interface IPGoodsMapper {
     //		"catalog_id=#{catalogId,jdbcType=BIGINT}, code=#{code,jdbcType=VARCHAR}, name=#{name,jdbcType=VARCHAR}, bar_code=#{barCode,jdbcType=VARCHAR}, brand_id=#{brandId,jdbcType=BIGINT}, thumb=#{thumb,jdbcType=VARCHAR}, unit=#{unit,jdbcType=VARCHAR}, spec=#{spec,jdbcType=VARCHAR}, idx=#{idx,jdbcType=TINYINT}, sale_price=#{salePrice,jdbcType=VARCHAR}, market_price=#{marketPrice,jdbcType=VARCHAR}, pv=#{pv,jdbcType=VARCHAR}, status=#{status,jdbcType=TINYINT}, average_cost=#{averageCost,jdbcType=DECIMAL}"
     //		," where id = #{id}"})
     @UpdateProvider(type = PGoodsSqlProvider.class, method = "dynamicUpdate")
-    int update(PGoods pGoods);
+    int update(PGoodsPo pGoods);
 }

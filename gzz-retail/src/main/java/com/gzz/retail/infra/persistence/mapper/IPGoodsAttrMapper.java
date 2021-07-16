@@ -4,7 +4,6 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PGoodsAttrSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.PGoodsAttr;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

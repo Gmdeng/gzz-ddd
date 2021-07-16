@@ -4,14 +4,14 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 实体类
+ * 标签 实体类
  *
  * @author Auto-Builder
- * @CrateOn 2020-10-10 11:03:11
+ * @CrateOn 2020-10-10 11:00:51
  */
 @Data
 @Accessors
-public class PBrand {
+public class PGoodsTag {
     /**
      * ID id
      */

@@ -2,7 +2,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.infra.persistence.pojo.PSku;
+import com.gzz.retail.infra.persistence.pojo.PGoodsSkuPo;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class PSkuSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(PSku pSku) {
+    public String insertSelective(PGoodsSkuPo pSku) {
         return new SQL() {
             {
                 INSERT_INTO("p_sku");
@@ -47,8 +47,8 @@ public class PSkuSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<PSku>> map) {
-        List<PSku> list = (List<PSku>) map.get("list");
+    public String insertBatch(Map<String, List<PGoodsSkuPo>> map) {
+        List<PGoodsSkuPo> list = (List<PGoodsSkuPo>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].goodsId}, #'{'list[{0}].attrSet}, #'{'list[{0}].salePrice}, #'{'list[{0}].status}, #'{'list[{0}].thumb}, #'{'list[{0}].pv})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -60,7 +60,7 @@ public class PSkuSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(PSku pSku) {
+    public String update(PGoodsSkuPo pSku) {
         return new SQL() {
             {
                 UPDATE("p_sku");

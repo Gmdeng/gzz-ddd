@@ -3,7 +3,7 @@ package com.gzz.retail.domain.goods.repo;
 import com.gzz.core.util.BeanUtil;
 import com.gzz.retail.domain.goods.entity.Goods;
 import com.gzz.retail.infra.persistence.mapper.IPGoodsMapper;
-import com.gzz.retail.infra.persistence.pojo.PGoods;
+import com.gzz.retail.infra.persistence.pojo.PGoodsPo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class GoodsRepo {
      * @return
      */
     public Goods loadGoods(Long goodsId) {
-        PGoods pGoods = goodsMapper.getById(goodsId);
+        PGoodsPo pGoods = goodsMapper.getById(goodsId);
         if (pGoods == null) return null;
         return BeanUtil.shadowCopy(pGoods, Goods.class);
     }
@@ -36,7 +36,7 @@ public class GoodsRepo {
      */
     @Transactional
     public void saveGoods(Goods goods) {
-        PGoods pGoods = BeanUtil.deepCopy(goods, PGoods.class);
+        PGoodsPo pGoods = BeanUtil.deepCopy(goods, PGoodsPo.class);
         if (pGoods.getId() == null) {
             goodsMapper.insert(pGoods);
         } else {

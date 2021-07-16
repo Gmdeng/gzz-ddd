@@ -1,16 +1,13 @@
 package com.gzz.retail.infra.persistence.mapper;
 
 
-import com.gzz.retail.infra.persistence.pojo.PBrandPo;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.session.RowBounds;
-import org.apache.ibatis.type.JdbcType;
-
-import java.util.Date;
-import java.util.List;
-
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
+import com.gzz.retail.infra.persistence.pojo.PBrandPo;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.cache.decorators.FifoCache;
+
+import java.util.List;
 
 /**
  * 开启缓存

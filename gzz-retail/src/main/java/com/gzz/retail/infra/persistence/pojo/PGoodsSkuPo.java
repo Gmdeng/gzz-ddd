@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors
-public class PSku {
+public class PGoodsSkuPo {
     /**
      * ID id
      */

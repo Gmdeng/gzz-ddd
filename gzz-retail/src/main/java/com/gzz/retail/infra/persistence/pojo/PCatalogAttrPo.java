@@ -7,19 +7,19 @@ import lombok.experimental.Accessors;
  * 实体类
  *
  * @author Auto-Builder
- * @CrateOn 2020-10-10 11:01:23
+ * @CrateOn 2020-10-10 11:01:57
  */
 @Data
 @Accessors
-public class PGoodsAttr {
+public class PCatalogAttrPo {
     /**
      * ID id
      */
     private Long id;
     /**
-     * goods_id goodsId
+     * 分类ID catalogId
      */
-    private Long goodsId;
+    private Long catalogId;
     /**
      * 属性名称 name
      */

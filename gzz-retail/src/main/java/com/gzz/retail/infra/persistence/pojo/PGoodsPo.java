@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Data
 @Accessors
-public class PGoods {
+public class PGoodsPo {
     /**
      * id id
      */

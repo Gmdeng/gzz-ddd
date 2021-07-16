@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PSkuSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.PSku;
+import com.gzz.retail.infra.persistence.pojo.PGoodsSkuPo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -24,17 +24,17 @@ public interface IPSkuMapper {
             @Result(property = "thumb", column = "thumb"),
             @Result(property = "pv", column = "pv"),
     })
-    PSku getById(Long id);
+    PGoodsSkuPo getById(Long id);
 
     // 列表
     @SelectProvider(type = PSkuSqlProvider.class, method = "findList")
-    List<PSku> findLists(@Param("param") ParamMap param);
+    List<PGoodsSkuPo> findLists(@Param("param") ParamMap param);
 
     <T> List<T> findList(@Param("param") ParamMap param);
 
     // 分页列表
     @SelectProvider(type = PSkuSqlProvider.class, method = "findListByPage")
-    List<PSku> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+    List<PGoodsSkuPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
     <T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 
@@ -45,15 +45,15 @@ public interface IPSkuMapper {
             "values(",
             "#{id}, #{goodsId}, #{attrSet}, #{salePrice}, #{status}, #{thumb}, #{pv}",
             ")"})
-    int insert(PSku pSku);
+    int insert(PGoodsSkuPo pSku);
 
     @InsertProvider(type = PSkuSqlProvider.class, method = "insertSelective")
-    int insertSelective(PSku pSku);
+    int insertSelective(PGoodsSkuPo pSku);
 
     /* 批量增加 */
     @Options(useGeneratedKeys = true, keyProperty = "id") // 主键自增,默认主键名为id
     @InsertProvider(type = PSkuSqlProvider.class, method = "insertBatch")
-    int insertBatch(@Param("list") List<PSku> pSkuList);
+    int insertBatch(@Param("list") List<PGoodsSkuPo> pSkuList);
 
     // 删除
     @Delete("delete from p_sku where id = #{id}")
@@ -64,5 +64,5 @@ public interface IPSkuMapper {
     //		"goods_id=#{goodsId}, attr_set=#{attrSet}, sale_price=#{salePrice}, status=#{status}, thumb=#{thumb}, pv=#{pv}"
     //		," where id = #{id}"})
     @UpdateProvider(type = PSkuSqlProvider.class, method = "update")
-    int update(PSku pSku);
+    int update(PGoodsSkuPo pSku);
 }

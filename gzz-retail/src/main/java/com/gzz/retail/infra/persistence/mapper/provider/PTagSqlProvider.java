@@ -3,7 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.StringUtil;
-import com.gzz.retail.infra.persistence.pojo.PTag;
+import com.gzz.retail.infra.persistence.pojo.PGoodsTag;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.text.MessageFormat;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class PTagSqlProvider {
 
     // 选择性新增SQL
-    public String insertSelective(PTag pTag) {
+    public String insertSelective(PGoodsTag pTag) {
         return new SQL() {
             {
                 INSERT_INTO("p_tag");
@@ -45,8 +45,8 @@ public class PTagSqlProvider {
     }
 
     // 批量插入
-    public String insertBatch(Map<String, List<PTag>> map) {
-        List<PTag> list = (List<PTag>) map.get("list");
+    public String insertBatch(Map<String, List<PGoodsTag>> map) {
+        List<PGoodsTag> list = (List<PGoodsTag>) map.get("list");
         MessageFormat mf = new MessageFormat("(#'{'list[{0}].id}, #'{'list[{0}].cnName}, #'{'list[{0}].enName}, #'{'list[{0}].logo}, #'{'list[{0}].website}, #'{'list[{0}].stroy})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -58,7 +58,7 @@ public class PTagSqlProvider {
     }
 
     // 选择性更新SQL
-    public String update(PTag pTag) {
+    public String update(PGoodsTag pTag) {
         return new SQL() {
             {
                 UPDATE("p_tag");

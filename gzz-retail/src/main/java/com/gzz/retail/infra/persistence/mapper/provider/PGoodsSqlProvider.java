@@ -3,7 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.StringUtil;
-import com.gzz.retail.infra.persistence.pojo.PGoods;
+import com.gzz.retail.infra.persistence.pojo.PGoodsPo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class PGoodsSqlProvider {
 
     // 选择性新增SQL insertSelective
-    public String dynamicInsert(PGoods pGoods) {
+    public String dynamicInsert(PGoodsPo pGoods) {
         return new SQL() {
             {
                 INSERT_INTO("P_GOODS");
@@ -72,7 +72,7 @@ public class PGoodsSqlProvider {
     }
 
     // 批量插入
-    public String batchInsert(@Param("dataList") List<PGoods> dataList) {
+    public String batchInsert(@Param("dataList") List<PGoodsPo> dataList) {
         MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].id}, #'{'dataList[{0}].catalogId}, #'{'dataList[{0}].code}, #'{'dataList[{0}].name}, #'{'dataList[{0}].barCode}, #'{'dataList[{0}].brandId}, #'{'dataList[{0}].thumb}, #'{'dataList[{0}].unit}, #'{'dataList[{0}].spec}, #'{'dataList[{0}].idx}, #'{'dataList[{0}].salePrice}, #'{'dataList[{0}].marketPrice}, #'{'dataList[{0}].pv}, #'{'dataList[{0}].status}, #'{'dataList[{0}].averageCost})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
@@ -83,7 +83,7 @@ public class PGoodsSqlProvider {
     }
 
     // 选择性更新SQL
-    public String dynamicUpdate(PGoods pGoods) {
+    public String dynamicUpdate(PGoodsPo pGoods) {
         return new SQL() {
             {
                 UPDATE("P_GOODS");
