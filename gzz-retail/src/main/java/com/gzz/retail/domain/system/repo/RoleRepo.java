@@ -12,11 +12,9 @@ import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.ObjectError;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Component
 public class RoleRepo {

@@ -4,7 +4,6 @@ import com.gzz.retail.infra.defines.types.OperateType;
 import lombok.Data;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 订可

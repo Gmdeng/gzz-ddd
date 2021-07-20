@@ -1,14 +1,13 @@
 package com.gzz.retail.application.assembler;
 
+import com.gzz.retail.application.assembler.dto.ActionOption;
+import com.gzz.retail.application.assembler.dto.MenuNode;
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
 import com.gzz.retail.application.cqrs.system.dto.MenuDto;
 import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
-import com.gzz.retail.application.assembler.dto.ActionOption;
-import com.gzz.retail.application.assembler.dto.MenuNode;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

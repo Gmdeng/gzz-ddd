@@ -38,6 +38,22 @@ CREATE TABLE `a_article` (
 
 /*Data for the table `a_article` */
 
+/*Table structure for table `a_article_tag` */
+
+DROP TABLE IF EXISTS `a_article_tag`;
+
+CREATE TABLE `a_article_tag` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
+  `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
+  `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
+  `keywords` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关键字',
+  `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章标签';
+
+/*Data for the table `a_article_tag` */
+
 /*Table structure for table `a_catalog` */
 
 DROP TABLE IF EXISTS `a_catalog`;
@@ -54,22 +70,6 @@ CREATE TABLE `a_catalog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章分类';
 
 /*Data for the table `a_catalog` */
-
-/*Table structure for table `a_tag` */
-
-DROP TABLE IF EXISTS `a_tag`;
-
-CREATE TABLE `a_tag` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '名称',
-  `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
-  `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
-  `keywords` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '关键字',
-  `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章标签';
-
-/*Data for the table `a_tag` */
 
 /*Table structure for table `b_sale_order` */
 
@@ -499,6 +499,34 @@ CREATE TABLE `f_transfer` (
 
 /*Data for the table `f_transfer` */
 
+/*Table structure for table `p_attribute` */
+
+DROP TABLE IF EXISTS `p_attribute`;
+
+CREATE TABLE `p_attribute` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `catalog_id` bigint(20) NOT NULL COMMENT '分类ID',
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
+  `values` varchar(250) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值项，用逗号隔里',
+  `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='分类销售属性';
+
+/*Data for the table `p_attribute` */
+
+/*Table structure for table `p_attribute_options` */
+
+DROP TABLE IF EXISTS `p_attribute_options`;
+
+CREATE TABLE `p_attribute_options` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `attr_id` bigint(20) NOT NULL COMMENT '属性ID',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '选项名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='分类销售属性值项';
+
+/*Data for the table `p_attribute_options` */
+
 /*Table structure for table `p_brand` */
 
 DROP TABLE IF EXISTS `p_brand`;
@@ -510,6 +538,7 @@ CREATE TABLE `p_brand` (
   `logo` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'LOGO图标',
   `website` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '网站',
   `stroy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '品牌故事',
+  `summary` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '简介',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -537,91 +566,74 @@ insert  into `p_catalog`(`id`,`parent_id`,`name`,`thumb`,`idx`,`keywords`,`notes
 (1,0,'日用品','aerwert',0,'日用品','fsfdg',1),
 (2,0,'化工品','化工品',0,'','',1);
 
-/*Table structure for table `p_catalog_attr` */
+/*Table structure for table `p_goods_sku` */
 
-DROP TABLE IF EXISTS `p_catalog_attr`;
+DROP TABLE IF EXISTS `p_goods_sku`;
 
-CREATE TABLE `p_catalog_attr` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
-  `catalog_id` bigint(20) NOT NULL COMMENT '分类ID',
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
-  `values` varchar(250) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值项，用逗号隔里',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `p_catalog_attr` */
-
-/*Table structure for table `p_goods` */
-
-DROP TABLE IF EXISTS `p_goods`;
-
-CREATE TABLE `p_goods` (
-  `id` bigint(20) NOT NULL,
-  `catalog_id` bigint(20) DEFAULT NULL COMMENT '分类ID',
-  `code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品编码',
-  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品名称',
-  `bar_code` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品条码',
-  `brand_id` bigint(20) DEFAULT NULL,
-  `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
-  `unit` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '单位',
-  `spec` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
-  `sale_price` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '销售价',
-  `market_price` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市场价',
-  `pv` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '价值 ',
-  `status` tinyint(4) DEFAULT NULL COMMENT '销售状态',
-  `average_cost` decimal(10,2) DEFAULT NULL COMMENT '商品加权平均成本',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `p_goods` */
-
-/*Table structure for table `p_goods_attr` */
-
-DROP TABLE IF EXISTS `p_goods_attr`;
-
-CREATE TABLE `p_goods_attr` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
-  `goods_id` bigint(20) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
-  `values` varchar(250) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值项，用逗号隔里',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `p_goods_attr` */
-
-/*Table structure for table `p_sku` */
-
-DROP TABLE IF EXISTS `p_sku`;
-
-CREATE TABLE `p_sku` (
+CREATE TABLE `p_goods_sku` (
   `id` bigint(20) NOT NULL COMMENT 'ID',
   `goods_id` bigint(20) NOT NULL COMMENT '商品ID',
-  `attr_set` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '属性集',
-  `sale_price` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '销售价',
-  `status` tinyint(4) DEFAULT NULL COMMENT '销售状态 0',
+  `attrs_own` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '属性集JSON',
+  `attrs_indexes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '属性ID用用＿串连',
+  `price` decimal(10,2) NOT NULL COMMENT '销售价',
+  `pv` decimal(10,2) DEFAULT NULL COMMENT '价值',
+  `status` tinyint(4) NOT NULL COMMENT '销售状态 0',
+  `thumb` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SKU';
+
+/*Data for the table `p_goods_sku` */
+
+/*Table structure for table `p_goods_spu` */
+
+DROP TABLE IF EXISTS `p_goods_spu`;
+
+CREATE TABLE `p_goods_spu` (
+  `id` bigint(20) NOT NULL,
+  `catalog_id` bigint(20) DEFAULT NULL COMMENT '分类ID',
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
+  `code` char(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品编码',
+  `bar_code` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品条码',
+  `brand_id` bigint(20) DEFAULT NULL COMMENT '品牌ID',
   `thumb` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缩略图',
-  `pv` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '价值',
+  `unit` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '单位',
+  `specs_own` varchar(300) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '规格参数JSON',
+  `idx` tinyint(4) DEFAULT NULL COMMENT '排序',
+  `price` decimal(10,2) NOT NULL COMMENT '销售价',
+  `pv` decimal(10,2) DEFAULT NULL COMMENT '价值 ',
+  `status` tinyint(4) NOT NULL COMMENT '销售状态',
+  `average_cost` decimal(10,2) DEFAULT NULL COMMENT '商品加权平均成本',
+  `freight` decimal(10,2) DEFAULT NULL COMMENT '运费',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商品SPU';
 
-/*Data for the table `p_sku` */
+/*Data for the table `p_goods_spu` */
 
-/*Table structure for table `p_tag` */
+/*Table structure for table `p_specification` */
 
-DROP TABLE IF EXISTS `p_tag`;
+DROP TABLE IF EXISTS `p_specification`;
 
-CREATE TABLE `p_tag` (
+CREATE TABLE `p_specification` (
   `id` bigint(20) NOT NULL COMMENT 'ID',
-  `cn_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '中文名称',
-  `en_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '英文名称',
-  `logo` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'LOGO图标',
-  `website` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '网站',
-  `stroy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '品牌故事',
+  `param_label` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数名',
+  `param_value` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数值',
+  `group_id` bigint(20) NOT NULL COMMENT '分组ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='标签';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='规格参数';
 
-/*Data for the table `p_tag` */
+/*Data for the table `p_specification` */
+
+/*Table structure for table `p_specification_group` */
+
+DROP TABLE IF EXISTS `p_specification_group`;
+
+CREATE TABLE `p_specification_group` (
+  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='规格参数组';
+
+/*Data for the table `p_specification_group` */
 
 /*Table structure for table `q_stock` */
 

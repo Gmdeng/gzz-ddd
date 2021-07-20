@@ -8,7 +8,6 @@ import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 系

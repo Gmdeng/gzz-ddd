@@ -8,4 +8,5 @@ import org.springframework.stereotype.Component;
 public class BrandRepo {
     @Autowired
     private IPBrandMapper brandMapper;
+
 }

@@ -63,6 +63,23 @@ spring:
         max-idle: 50
         # 连接池中的最小空闲连接
         min-idle: 5
+# 设计rabbitmq连接
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: root
+#    password: 123456
+#    # 设置虚拟主机
+#    virtual-host: keduw-order
+#    # 设置发布者确认机制
+#    # correlated发布消息成功到交换器后会触发回调方法，默认是none
+#    publisher-confirm-type: correlated
+#    publisher-returns: true
+#    # 消息为手动确认
+#    listener:
+#      direct:
+#        acknowledge-mode: manual
+
 #Logback配置示
 logging:
   level:

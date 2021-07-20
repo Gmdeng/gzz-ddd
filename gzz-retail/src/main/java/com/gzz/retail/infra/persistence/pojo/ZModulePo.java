@@ -2,14 +2,10 @@ package com.gzz.retail.infra.persistence.pojo;
 
 import com.gzz.boot.mybatis.autofill.AutoFillTime;
 import com.gzz.boot.mybatis.autofill.AutoFillUser;
-import com.gzz.retail.infra.defines.CommStatus;
-import com.gzz.retail.infra.defines.types.OperateType;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * 模块 实体类

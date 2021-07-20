@@ -4,7 +4,6 @@ import com.gzz.boot.mybatis.autofill.AutoFillTime;
 import com.gzz.boot.mybatis.autofill.AutoFillUser;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,7 +1,6 @@
 package com.gzz.retail.infra.persistence.pojo;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 

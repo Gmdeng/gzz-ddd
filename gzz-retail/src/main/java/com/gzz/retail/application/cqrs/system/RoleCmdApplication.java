@@ -1,7 +1,9 @@
 package com.gzz.retail.application.cqrs.system;
 
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.retail.application.cqrs.system.command.*;
+import com.gzz.retail.application.cqrs.system.command.RoleAuditCmd;
+import com.gzz.retail.application.cqrs.system.command.RoleDeleteCmd;
+import com.gzz.retail.application.cqrs.system.command.RoleSaveCmd;
 import com.gzz.retail.domain.system.entity.Permission;
 import com.gzz.retail.domain.system.entity.Role;
 import com.gzz.retail.domain.system.primitive.RoleId;

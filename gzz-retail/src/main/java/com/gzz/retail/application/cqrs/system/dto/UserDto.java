@@ -1,7 +1,5 @@
 package com.gzz.retail.application.cqrs.system.dto;
 
-import com.gzz.boot.mybatis.autofill.AutoFillTime;
-import com.gzz.boot.mybatis.autofill.AutoFillUser;
 import com.gzz.retail.domain.system.primitive.RoleName;
 import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;

@@ -10,26 +10,16 @@ import com.gzz.retail.application.cqrs.goods.command.CatalogSaveCmd;
 import com.gzz.retail.application.cqrs.goods.dto.CatalogDto;
 import com.gzz.retail.application.cqrs.goods.dto.CatalogFormDto;
 import com.gzz.retail.application.cqrs.goods.queries.CatalogQuery;
-import com.gzz.retail.application.cqrs.system.ModuleCmdApplication;
-import com.gzz.retail.application.cqrs.system.ModuleQueryApplication;
-import com.gzz.retail.application.cqrs.system.command.ModuleAuditCmd;
-import com.gzz.retail.application.cqrs.system.command.ModuleDeleteCmd;
-import com.gzz.retail.application.cqrs.system.command.ModuleSaveCmd;
-import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
-import com.gzz.retail.application.cqrs.system.dto.ModuleFormDto;
-import com.gzz.retail.application.cqrs.system.queries.ModuleQuery;
-import com.gzz.retail.facade.api.admin.system.vo.ModuleVo;
-import com.gzz.retail.infra.defines.types.OperateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 商品分类管理

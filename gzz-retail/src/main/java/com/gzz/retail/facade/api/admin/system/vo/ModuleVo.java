@@ -3,7 +3,6 @@ package com.gzz.retail.facade.api.admin.system.vo;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 import java.util.Set;

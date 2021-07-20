@@ -1,9 +1,6 @@
 package com.gzz.retail.application.cqrs.system.dto;
 
-import com.gzz.retail.infra.defines.CommStatus;
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class UserFormDto {

@@ -15,9 +15,15 @@ import java.util.concurrent.ThreadPoolExecutor;
  *
  * @Async
  */
-@EnableAsync
+@EnableAsync //开启异步调用
 @Configuration
 public class AsyncConfig implements AsyncConfigurer {
+    /**
+     *  springboot异步操作可以使用@EnableAsync和@Async两个注解，本质就是多线程和动态代理
+     *  异步方法使用注解@Async ,返回值为void或者Future
+     *  异步方法和调用方法一定要写在不同的类中,如果写在一个类中是没有效果的
+     * @return
+     */
     @Override
     public Executor getAsyncExecutor() {
 

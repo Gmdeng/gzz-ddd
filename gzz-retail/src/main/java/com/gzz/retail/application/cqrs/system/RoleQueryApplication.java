@@ -1,6 +1,5 @@
 package com.gzz.retail.application.cqrs.system;
 
-import com.gzz.core.response.HttpResult;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.cqrs.system.dto.RoleDto;
@@ -10,7 +9,6 @@ import com.gzz.retail.domain.system.primitive.RoleName;
 import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZRoleMapper;
-import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import com.gzz.retail.infra.persistence.pojo.ZRolePo;
 import lombok.extern.slf4j.Slf4j;

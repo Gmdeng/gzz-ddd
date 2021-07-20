@@ -1,10 +1,7 @@
 package com.gzz.retail.domain.system.primitive;
 
 import com.gzz.core.util.StringUtil;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class UserId {

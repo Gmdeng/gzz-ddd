@@ -1,8 +1,8 @@
 package com.gzz.retail.application.cqrs.system;
 
 import com.gzz.core.toolkit.ParamMap;
-import com.gzz.retail.domain.system.repo.SystemRepo;
 import com.gzz.retail.domain.system.entity.Module;
+import com.gzz.retail.domain.system.repo.SystemRepo;
 import com.gzz.retail.infra.defines.types.OperateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

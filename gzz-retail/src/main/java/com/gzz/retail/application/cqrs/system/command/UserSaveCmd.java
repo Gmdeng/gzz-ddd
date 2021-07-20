@@ -4,10 +4,7 @@ import com.gzz.core.validation.validator.CheckMobileNo;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
 
 @Data
 public class UserSaveCmd {

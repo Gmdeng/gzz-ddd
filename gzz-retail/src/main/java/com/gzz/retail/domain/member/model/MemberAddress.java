@@ -1,8 +1,6 @@
 package com.gzz.retail.domain.member.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 会员地址

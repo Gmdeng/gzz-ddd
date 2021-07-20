@@ -1,9 +1,6 @@
 package com.gzz.retail.infra.defines.types;
 
-import com.alibaba.fastjson.annotation.JSONType;
 import com.gzz.boot.mybatis.handler.IEnumPlus;
-import com.gzz.core.enumtype.EnumDeserializer;
-import com.gzz.core.enumtype.EnumSerializer;
 
 import java.util.Optional;
 import java.util.stream.Stream;

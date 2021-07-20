@@ -2,8 +2,6 @@ package com.gzz.retail.application.assembler.dto.param;
 
 import com.gzz.core.validation.validator.CheckPassword;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;

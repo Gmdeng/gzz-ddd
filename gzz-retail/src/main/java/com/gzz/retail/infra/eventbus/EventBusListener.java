@@ -3,7 +3,6 @@ package com.gzz.retail.infra.eventbus;
 import com.google.common.eventbus.EventBus;
 import org.apache.shiro.event.Subscribe;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

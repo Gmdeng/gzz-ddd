@@ -2,9 +2,9 @@ package com.gzz.retail.infra.config;
 
 import com.gzz.boot.mybatis.DataSourceInterceptor;
 import com.gzz.boot.mybatis.DataSourceRouting;
-import com.gzz.boot.mybatis.interceptor.PaginationInterceptor;
 import com.gzz.boot.mybatis.autofill.AutoFillInterceptor;
 import com.gzz.boot.mybatis.cache.RedisCacheTransfer;
+import com.gzz.boot.mybatis.interceptor.PaginationInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

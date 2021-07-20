@@ -2,16 +2,14 @@ package com.gzz.retail.application.cqrs.system;
 
 import com.gzz.core.exception.BizzException;
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.core.validation.ValidationUtils;
-import com.gzz.retail.application.ICommand;
-import com.gzz.retail.application.cqrs.system.command.*;
-import com.gzz.retail.domain.system.entity.Permission;
-import com.gzz.retail.domain.system.entity.Role;
+import com.gzz.retail.application.cqrs.system.command.UserAuditCmd;
+import com.gzz.retail.application.cqrs.system.command.UserDeleteCmd;
+import com.gzz.retail.application.cqrs.system.command.UserModifyPasswdCmd;
+import com.gzz.retail.application.cqrs.system.command.UserSaveCmd;
 import com.gzz.retail.domain.system.entity.User;
 import com.gzz.retail.domain.system.primitive.RoleId;
 import com.gzz.retail.domain.system.primitive.UserId;
 import com.gzz.retail.domain.system.repo.UserRepo;
-import com.gzz.retail.infra.defines.types.OperateType;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

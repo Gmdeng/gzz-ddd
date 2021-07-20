@@ -2,8 +2,6 @@ package com.gzz.retail.domain.member.model;
 
 import com.gzz.retail.infra.defines.grade.MemberGrade;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 会员实体类

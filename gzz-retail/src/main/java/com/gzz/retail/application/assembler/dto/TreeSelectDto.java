@@ -1,6 +1,5 @@
 package com.gzz.retail.application.assembler.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;

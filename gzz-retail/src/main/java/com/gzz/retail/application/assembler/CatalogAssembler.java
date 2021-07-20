@@ -2,9 +2,7 @@ package com.gzz.retail.application.assembler;
 
 import com.gzz.retail.application.assembler.dto.TreeSelectDto;
 import com.gzz.retail.application.cqrs.goods.dto.CatalogDto;
-import com.gzz.retail.application.cqrs.system.dto.ModuleDto;
 import com.gzz.retail.infra.persistence.pojo.PCatalogPo;
-import com.gzz.retail.infra.persistence.pojo.ZModulePo;
 
 import java.util.List;
 

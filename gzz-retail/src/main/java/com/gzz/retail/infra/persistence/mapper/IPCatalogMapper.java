@@ -3,6 +3,7 @@ package com.gzz.retail.infra.persistence.mapper;
 
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
+import com.gzz.retail.infra.persistence.mapper.provider.PCatalogSqlProvider;
 import com.gzz.retail.infra.persistence.pojo.PCatalogPo;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.cache.decorators.FifoCache;

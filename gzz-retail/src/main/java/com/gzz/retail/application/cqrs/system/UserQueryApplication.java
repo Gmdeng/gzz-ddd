@@ -5,7 +5,6 @@ import com.gzz.retail.application.cqrs.system.dto.UserDto;
 import com.gzz.retail.application.cqrs.system.dto.UserFormDto;
 import com.gzz.retail.application.cqrs.system.queries.UserQuery;
 import com.gzz.retail.domain.system.primitive.RoleName;
-import com.gzz.retail.infra.defines.CommStatus;
 import com.gzz.retail.infra.persistence.mapper.IZUserMapper;
 import com.gzz.retail.infra.persistence.pojo.ZUserPo;
 import com.gzz.retail.infra.persistence.pojo.ZUserRolePo;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleList;
 import java.util.List;
 import java.util.Objects;
 

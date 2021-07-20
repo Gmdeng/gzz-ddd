@@ -2,7 +2,6 @@ package com.gzz.retail.application.cqrs.system.command;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data

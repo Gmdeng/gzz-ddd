@@ -1,43 +1,46 @@
 package com.gzz.retail.infra.persistence.pojo;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 /**
- * 实体类
- *
+ * 商品SKU 实体类
  * @author Auto-Builder
- * @CrateOn 2020-10-10 11:01:14
+ * @CrateOn 2021-7-20 16:36:29
  */
 @Data
-@Accessors
-public class PGoodsSkuPo {
-    /**
-     * ID id
-     */
-    private Long id;
-    /**
-     * 商品ID goodsId
-     */
-    private Long goodsId;
-    /**
-     * 属性集 attrSet
-     */
-    private String attrSet;
-    /**
-     * 销售价 salePrice
-     */
-    private String salePrice;
-    /**
-     * 销售状态 0 status
-     */
-    private Byte status;
-    /**
-     * 缩略图 thumb
-     */
-    private String thumb;
-    /**
-     * 价值 pv
-     */
-    private String pv;
+public class PGoodsSkuPo implements Serializable  {
+	/**
+	 *  ID id
+	 */
+	private Long id;
+	/**
+	 *  商品ID goodsId
+	 */
+	private Long goodsId;
+	/**
+	 *  属性集JSON attrsOwn
+	 */
+	private String attrsOwn;
+	/**
+	 *  属性ID用用＿串连 attrsIndexes
+	 */
+	private String attrsIndexes;
+	/**
+	 *  销售价 price
+	 */
+	private BigDecimal price;
+	/**
+	 *  价值 pv
+	 */
+	private BigDecimal pv;
+	/**
+	 *  销售状态 0 status
+	 */
+	private Byte status;
+	/**
+	 *  缩略图 thumb
+	 */
+	private String thumb;
 }

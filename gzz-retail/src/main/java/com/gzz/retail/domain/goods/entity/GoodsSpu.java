@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 @Data
 @Accessors(chain = true)
-public class Goods {
+public class GoodsSpu {
     // id
     private Long id;
     // 分类

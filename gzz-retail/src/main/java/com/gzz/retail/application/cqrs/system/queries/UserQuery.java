@@ -5,6 +5,7 @@ import com.gzz.core.toolkit.Pager;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class UserQuery extends BaseQuery {
     public UserQuery(Pager pager){
         this.setPager(pager);
