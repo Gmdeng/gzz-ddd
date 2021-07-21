@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * 订单超时自动取消监听
  * 监听的是死信队列。
  */
-@Component
+// @Component
 public class OrderCancelListener implements ChannelAwareMessageListener {
     @Autowired
     private RabbitTemplate rabbitTemplate;

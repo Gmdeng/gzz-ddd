@@ -2,7 +2,7 @@ package com.gzz.retail.domain.goods.entity;
 
 import java.math.BigDecimal;
 
-public class Sku {
+public class GoodsSku {
     // id
     private Long id;
     // 商品ID

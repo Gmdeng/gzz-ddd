@@ -1,4 +1,4 @@
 package com.gzz.retail.application.cqrs.goods;
 
-public class GoodsQueryApplication {
+public class AttributeQueryApplication {
 }

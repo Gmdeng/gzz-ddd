@@ -38,7 +38,7 @@ public class PGoodsSkuPo implements Serializable  {
 	/**
 	 *  销售状态 0 status
 	 */
-	private Byte status;
+	private int status;
 	/**
 	 *  缩略图 thumb
 	 */

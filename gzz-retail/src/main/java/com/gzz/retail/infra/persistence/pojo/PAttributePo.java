@@ -29,5 +29,5 @@ public class PAttributePo implements Serializable  {
 	/**
 	 *  排序 idx
 	 */
-	private Byte idx;
+	private int idx;
 }

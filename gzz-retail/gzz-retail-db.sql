@@ -736,7 +736,7 @@ CREATE TABLE `z_module` (
 insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`url`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`) values 
 (33,0,'M','销售管理','SALE_MANAGEMENT',1,'BlockOutlined','',0,0,'2021-07-12 14:49:46','AutoModifyer','2021-07-12 14:49:46','AutoModifyer'),
 (32,24,'M','商品管理','GOODS_PRODUCT',63,'','',2,0,'2021-07-12 14:46:59','AutoModifyer','2021-07-12 14:46:59','AutoModifyer'),
-(31,24,'M','分类属性','GOODS_CATALOG_ATTRIBUTE',63,'','',1,0,'2021-07-12 14:45:45','AutoModifyer','2021-07-12 14:45:30','AutoModifyer'),
+(31,24,'M','分类属性','GOODS_CATALOG_ATTRIBUTE',63,'','/attributeList',1,0,'2021-07-21 10:45:01','AutoModifyer','2021-07-12 14:45:30','AutoModifyer'),
 (29,28,'M','待支付订单','ORDERS_UNPAY',63,'','',0,0,'2021-05-21 14:36:16','AutoModifyer','2021-05-21 14:36:16','AutoModifyer'),
 (30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
 (28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'PieChartOutlined','',0,0,'2021-06-30 11:29:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),

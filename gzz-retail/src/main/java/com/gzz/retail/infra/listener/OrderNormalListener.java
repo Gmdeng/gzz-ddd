@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * https://www.jianshu.com/p/89fcb4711850
  */
-@Component
+// @Component
 public class OrderNormalListener {
 
     @RabbitListener(queues = "q.order",ackMode = "MANUAL")

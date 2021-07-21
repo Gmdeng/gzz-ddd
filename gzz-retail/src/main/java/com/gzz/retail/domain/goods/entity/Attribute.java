@@ -3,7 +3,7 @@ package com.gzz.retail.domain.goods.entity;
 /**
  * 销售属性
  */
-public class SaleAttr {
+public class Attribute {
     private Long id;
     // 所有者id(catalogId/goodsId)
     private Long ownerId;

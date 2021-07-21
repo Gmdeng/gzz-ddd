@@ -50,7 +50,7 @@ public class PGoodsSpuPo implements Serializable  {
 	/**
 	 *  排序 idx
 	 */
-	private Byte idx;
+	private int idx;
 	/**
 	 *  销售价 price
 	 */
@@ -62,7 +62,7 @@ public class PGoodsSpuPo implements Serializable  {
 	/**
 	 *  销售状态 status
 	 */
-	private Byte status;
+	private int status;
 	/**
 	 *  商品加权平均成本 averageCost
 	 */

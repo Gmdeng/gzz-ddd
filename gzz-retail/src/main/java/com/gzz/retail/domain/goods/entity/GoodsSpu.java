@@ -2,7 +2,6 @@ package com.gzz.retail.domain.goods.entity;
 
 import com.gzz.retail.infra.defines.state.SaleStatus;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
@@ -10,7 +9,6 @@ import java.math.BigDecimal;
  * 商品
  */
 @Data
-@Accessors(chain = true)
 public class GoodsSpu {
     // id
     private Long id;
@@ -36,6 +34,4 @@ public class GoodsSpu {
     private BigDecimal pv;
     // 销售状态
     private SaleStatus status;
-    // 商品信息
-    private GoodsInfo info;
 }

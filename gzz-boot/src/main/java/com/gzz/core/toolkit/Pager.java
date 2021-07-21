@@ -42,8 +42,11 @@ public class Pager {
         return pageSize;
     }
 
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
     public int getOffset() {
-        return offset;
+        return this.pageSize * (this.indexPage - 1);
     }
 
     public int getTotalPage() {
@@ -56,6 +59,5 @@ public class Pager {
 
     public void setIndexPage(int indexPage) {
         this.indexPage = indexPage;
-        this.offset = this.pageSize * (this.indexPage - 1);
     }
 }

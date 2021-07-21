@@ -127,6 +127,12 @@ public class ZUserSqlProvider {
                 if (param.get("petName") != null) WHERE("pet_name like CONCAT('%',#{param.petName},'%')");
                 if (param.get("name") != null) WHERE("name like CONCAT('%',#{param.name},'%')");
 
+                if (param.get("keywords") != null){
+                    WHERE("user_id like CONCAT('%',#{param.keywords},'%')");
+                    OR();
+                    WHERE("mobile like CONCAT('%',#{param.keywords},'%')");
+                }
+
             }
         }.toString();
     }

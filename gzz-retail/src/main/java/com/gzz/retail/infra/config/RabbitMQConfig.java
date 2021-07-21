@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * RabbitMQ配置类
  */
-@Configuration
+// @Configuration
 public class RabbitMQConfig {
     /**
      * 使用DirectMessageListenerContainer，您需要确保ConnectionFactory配置了一个任务执行器，
