@@ -1,8 +1,11 @@
 package com.gzz.retail.domain.goods.entity;
 
+import lombok.Data;
+
 /**
  * 销售属性
  */
+@Data
 public class Attribute {
     private Long id;
     // 所有者id(catalogId/goodsId)

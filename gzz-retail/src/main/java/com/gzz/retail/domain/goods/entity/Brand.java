@@ -7,17 +7,32 @@ import lombok.Data;
  */
 @Data
 public class Brand {
-    // ID
+    /**
+     *  ID id
+     */
     private Long id;
-    // 中文名称
+    /**
+     *  中文名称 cnName
+     */
     private String cnName;
-    // 英文名称
+    /**
+     *  英文名称 enName
+     */
     private String enName;
-    // 品牌字母
-    private String letter;
-    // LOGO图
+    /**
+     *  LOGO图标 logo
+     */
     private String logo;
-    // 备注
-    private String notes;
-
+    /**
+     *  网站 website
+     */
+    private String website;
+    /**
+     *  品牌故事 stroy
+     */
+    private String stroy;
+    /**
+     *  简介 summary
+     */
+    private String summary;
 }

@@ -1,4 +1,10 @@
 package com.gzz.retail.application.cqrs.goods.queries;
 
-public class AttributeQuery {
+import com.gzz.core.model.BaseQuery;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class AttributeQuery extends BaseQuery {
 }

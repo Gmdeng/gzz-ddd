@@ -39,6 +39,7 @@ public class PaginationInterceptor implements Interceptor {
     private final static ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private final static ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
     private final static ReflectorFactory DEFAULT_REFLECTOR_FACTORY = new DefaultReflectorFactory();
+
     @Override
     public Object intercept(Invocation inv) throws Throwable {
         //log.debug("进入了注解。MyBatisPaginationInterceptor。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。");
@@ -70,18 +71,20 @@ public class PaginationInterceptor implements Interceptor {
             // 获取方法的参数
             Object params = boundSql.getParameterObject();
             // log.info("params {}", params);
+            // 获取参数值META
+            MetaObject metaParam = MetaObject.forObject(params, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY,
+                    DEFAULT_REFLECTOR_FACTORY);
             // 获取分页参数
-            Pager pager = GetPager(params);
+            Pager pager = GetPager(params, metaParam);
             // 获取当前连接对象
             Connection connection = (Connection) inv.getArgs()[0];
-
             // 统计总记录
-            int totalRecord = calcTotalRecords(sqlQuery, connection, boundSql.getParameterMappings(), metaObject);
+            int totalRecord = calcTotalRecords(sqlQuery, connection, boundSql.getParameterMappings(), metaParam);
             pager.setTotalRecord(totalRecord);
 
             // 重新构建为分页功能的SQL语句
             sqlQuery = RebuildSQL(sqlQuery, pager.getOffset(), pager.getPageSize());
-            log.info("重构分页后的SQL语句: {}" + sqlQuery);
+            log.info("重构分页后的SQL语句: " + sqlQuery);
             // 将构建完成的SQL语句赋值个体""
             metaObject.setValue("delegate.boundSql.sql", sqlQuery);
             // 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数
@@ -126,12 +129,10 @@ public class PaginationInterceptor implements Interceptor {
      * @param params
      * @return
      */
-    private Pager GetPager(Object params){
+    private Pager GetPager(Object params, MetaObject metaObj){
         if (params instanceof Pager) {
             return (Pager) params;
         } else if (params instanceof java.util.HashMap) {
-            MetaObject metaObj = MetaObject.forObject(params, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY,
-                    DEFAULT_REFLECTOR_FACTORY);
             return  (Pager) metaObj.getValue("pager");
         } else {
             return new Pager();

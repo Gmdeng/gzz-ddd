@@ -1,9 +1,21 @@
 package com.gzz.boot.mybatis.interceptor;
 
+import com.gzz.boot.mybatis.dialect.IDialect;
+import com.gzz.core.toolkit.Pager;
+import org.apache.ibatis.cache.CacheKey;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.plugin.Intercepts;
+import org.apache.ibatis.plugin.Invocation;
+import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * Plugin 类其实就是一个代理类，因为它实现了jdk动态代理接口 InvocationHandler
@@ -21,8 +33,14 @@ import java.lang.reflect.Method;
  *                   比如直接调用 Executor 的 update 方法进行更新数据库
  *
  */
-class PluginDemo implements InvocationHandler {
 
+@Intercepts({
+        @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class, RowBounds.class,
+                ResultHandler.class }),
+        @Signature(type = Executor.class, method = "query", args = { MappedStatement.class, Object.class, RowBounds.class,
+                ResultHandler.class, CacheKey.class, BoundSql.class }), })
+class PluginDemo implements InvocationHandler {
+    private volatile IDialect dialect;
     public static Object wrap(Object target, Interceptor interceptor) {
         // 省略
         return null;
@@ -32,5 +50,42 @@ class PluginDemo implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // 省略
         return null;
+    }
+    public Object invoke(Invocation invocation) throws Throwable {
+        try {
+            Object[] args = invocation.getArgs();
+            // 参数
+            MappedStatement ms = (MappedStatement) args[0];
+            Object parameter = args[1];
+            RowBounds rowBounds = (RowBounds) args[2];
+            ResultHandler resultHandler = (ResultHandler) args[3];
+            CacheKey cacheKey = (CacheKey) args[4];
+
+            // 执行器
+            Executor executor = (Executor) invocation.getTarget();
+            // sql
+            // BoundSql boundSql = (BoundSql) args[5];
+            BoundSql boundSql = ms.getBoundSql(parameter);
+            // 分页sql
+            //String sql = dialect.getPagedSql(boundSql, rowBounds);
+
+            Map<String, Object> params = (Map<String, Object>) parameter;
+            // 判断参数中是否有分页
+            if (params.containsKey("pageInfo")) {
+                Pager pageinfo = (Pager) params.get("pageInfo");
+                if (pageinfo.getIndexPage() > 0 && pageinfo.getPageSize() > 0) {
+                    RowBounds rb = new RowBounds((pageinfo.getIndexPage() - 1) * pageinfo.getPageSize(), pageinfo.getPageSize());
+                    // 使用方言分页
+                    String sql = dialect.getPagedSql(boundSql, rb);
+                    boundSql = new BoundSql(ms.getConfiguration(), sql, boundSql.getParameterMappings(), parameter);
+                    return executor.query(ms, parameter, RowBounds.DEFAULT, resultHandler, null, boundSql);
+                }
+            }
+            return null;
+        } finally {
+            if (dialect != null) {
+                dialect.afterAll();
+            }
+        }
     }
 }

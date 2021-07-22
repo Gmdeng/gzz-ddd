@@ -1,5 +1,6 @@
 package com.gzz.boot.mybatis.interceptor;
 
+import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
@@ -11,6 +12,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 import java.lang.reflect.InvocationHandler;
@@ -84,9 +86,12 @@ import java.util.Properties;
         @Signature(method = "update", type = Executor.class, args = {MappedStatement.class, Object.class}),
         @Signature(method = "query", type = StatementHandler.class, args = {Statement.class, ResultHandler.class}),
         //@Signature(method = "query", type = Executor.class, args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+        //@Signature(method = "query", type = Executor.class, args = { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class }), })
         @Signature(method = "setParameter", type = ParameterHandler.class, args = {PreparedStatement.class}),
         @Signature(method = "handleResultSets", type = ResultSetHandler.class, args = {Statement.class}),
-        @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class, Integer.class})
+        @Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class, Integer.class}),
+        //
+
 })
 public class DemoInterceptor implements Interceptor {
 
