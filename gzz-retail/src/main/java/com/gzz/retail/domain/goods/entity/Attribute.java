@@ -7,11 +7,26 @@ import lombok.Data;
  */
 @Data
 public class Attribute {
+    /**
+     *  ID id
+     */
     private Long id;
-    // 所有者id(catalogId/goodsId)
-    private Long ownerId;
-    // 属性名称
+    /**
+     *  分类ID catalogId
+     */
+    private Long catalogId;
+    /**
+     *  属性名称 name
+     */
     private String name;
-    // 属性值项
-    private String[] values;
+    /**
+     *  属性值项，用逗号隔里 values
+     */
+    private String values;
+    /**
+     *  排序 idx
+     */
+    private int idx;
+
+    private List<>
 }
