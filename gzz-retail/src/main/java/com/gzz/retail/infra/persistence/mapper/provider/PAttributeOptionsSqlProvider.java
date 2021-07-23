@@ -3,7 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.StringUtil;
-import com.gzz.retail.infra.persistence.pojo.PAttributeOptionsPo;
+import com.gzz.retail.infra.persistence.pojo.PAttributeOptionPo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class PAttributeOptionsSqlProvider {
 
     // 选择性新增SQL insertSelective
-    public String dynamicInsert(PAttributeOptionsPo pAttributeOptions) {
+    public String dynamicInsert(PAttributeOptionPo pAttributeOptions) {
         return new SQL(){
             {
                 INSERT_INTO("P_ATTRIBUTE_OPTIONS");
@@ -32,7 +32,7 @@ public class PAttributeOptionsSqlProvider {
     }
 
     // 批量插入
-    public String batchInsert(@Param("dataList") List<PAttributeOptionsPo> dataList) {
+    public String batchInsert(@Param("dataList") List<PAttributeOptionPo> dataList) {
         MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].id}, #'{'dataList[{0}].attrId}, #'{'dataList[{0}].name})");
         List<String> rows = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
@@ -42,7 +42,7 @@ public class PAttributeOptionsSqlProvider {
         + String.join(", ", rows);
     }
     // 选择性更新SQL
-    public String dynamicUpdate(PAttributeOptionsPo pAttributeOptions) {
+    public String dynamicUpdate(PAttributeOptionPo pAttributeOptions) {
         return new SQL() {
             {
                 UPDATE("P_ATTRIBUTE_OPTIONS");

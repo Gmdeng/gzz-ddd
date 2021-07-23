@@ -51,7 +51,7 @@ public class PaginationInterceptor implements Interceptor {
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
 
         String[] properties = metaObject.getGetterNames();
-        log.info("SetterNames {}", properties);
+        // log.info("SetterNames", properties);
 //        Map<String, Object> parameterObject = (Map<String, Object>) metaObject.getValue("parameterHandler.parameterObject");
 //        log.info("parameterObject {}", parameterObject);
         // 获取查询接口映射的相关信息

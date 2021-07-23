@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @CrateOn 2021-7-20 16:35:41
  */
 @Data
-public class PAttributeOptionsPo implements Serializable  {
+public class PAttributeOptionPo implements Serializable  {
 	/**
 	 *  ID id
 	 */
@@ -22,4 +22,9 @@ public class PAttributeOptionsPo implements Serializable  {
 	 *  选项名 name
 	 */
 	private String name;
+
+	/**
+	 *  备注 notes
+	 */
+	private String notes;
 }

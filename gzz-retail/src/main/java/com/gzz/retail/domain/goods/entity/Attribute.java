@@ -2,8 +2,10 @@ package com.gzz.retail.domain.goods.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
- * 销售属性
+ * 销售属性 VO
  */
 @Data
 public class Attribute {
@@ -28,5 +30,8 @@ public class Attribute {
      */
     private int idx;
 
-    private List<>
+    /**
+     * 属性选项
+     */
+    private List<AttributeOption> options;
 }

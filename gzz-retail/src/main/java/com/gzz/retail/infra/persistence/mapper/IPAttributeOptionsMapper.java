@@ -4,7 +4,7 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PAttributeOptionsSqlProvider;
-import com.gzz.retail.infra.persistence.pojo.PAttributeOptionsPo;
+import com.gzz.retail.infra.persistence.pojo.PAttributeOptionPo;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.cache.decorators.FifoCache;
 
@@ -37,19 +37,19 @@ public interface IPAttributeOptionsMapper {
 		@Result(property = "attrId", column = "attr_id"),
 		@Result(property = "name", column = "name"),
 	})
-	PAttributeOptionsPo getById(Long id);
+    PAttributeOptionPo getById(Long id);
 
 	// 列表
 	@ResultMap("pAttributeOptionsMap")
 	@SelectProvider(type = PAttributeOptionsSqlProvider.class, method = "findList")
-	List<PAttributeOptionsPo> findLists(@Param("param") ParamMap param);
+	List<PAttributeOptionPo> findLists(@Param("param") ParamMap param);
 	@ResultMap("pAttributeOptionsMap")
     @SelectProvider(type = PAttributeOptionsSqlProvider.class, method = "findList")
 	<T> List<T> findList(@Param("param") ParamMap param);
 	// 分页列表
 	@ResultMap("pAttributeOptionsMap")
 	@SelectProvider(type = PAttributeOptionsSqlProvider.class, method = "findListByPage")
-	List<PAttributeOptionsPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
+	List<PAttributeOptionPo> findListByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
 	@ResultMap("pAttributeOptionsMap")
     @SelectProvider(type = PAttributeOptionsSqlProvider.class, method = "findListByPage")
 	<T> List<T> findListsByPage(@Param("param") ParamMap param, @Param("pager") Pager pager);
@@ -61,16 +61,16 @@ public interface IPAttributeOptionsMapper {
 		"values(",
 		"#{id,jdbcType=BIGINT}, #{attrId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}",
         ")" })
-	int insert(PAttributeOptionsPo pAttributeOptions);
+	int insert(PAttributeOptionPo pAttributeOptions);
 
     @Options(flushCache = Options.FlushCachePolicy.TRUE) //刷新缓存
 	@InsertProvider(type = PAttributeOptionsSqlProvider.class, method = "dynamicInsert")
-    int dynamicInsert(PAttributeOptionsPo pAttributeOptions);
+    int dynamicInsert(PAttributeOptionPo pAttributeOptions);
 
 	/* 批量增加 */
 	@Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
 	@InsertProvider(type = PAttributeOptionsSqlProvider.class, method = "batchInsert")
-	int batchInsert(@Param("list") List<PAttributeOptionsPo> pAttributeOptionsList);
+	int batchInsert(@Param("list") List<PAttributeOptionPo> pAttributeOptionsList);
 
 
     /*================================修改===========================================*/
@@ -80,7 +80,7 @@ public interface IPAttributeOptionsMapper {
 	//		," where id = #{id}"})
 	@Options(flushCache = Options.FlushCachePolicy.TRUE)
 	@UpdateProvider(type = PAttributeOptionsSqlProvider.class, method = "dynamicUpdate")
-	int update(PAttributeOptionsPo pAttributeOptions);
+	int update(PAttributeOptionPo pAttributeOptions);
 
 	/*================================删除===========================================*/
 	// 删除
