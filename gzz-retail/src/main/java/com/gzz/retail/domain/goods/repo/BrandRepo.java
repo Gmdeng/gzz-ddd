@@ -29,7 +29,6 @@ public class BrandRepo {
     public void save(Brand entity){
         PBrandPo po = BeanConvertUtil.convertOne(entity, PBrandPo.class);
         int num =0;
-
         if(po.getId()== null) {
             num = mapper.insert(po);
         }else{
