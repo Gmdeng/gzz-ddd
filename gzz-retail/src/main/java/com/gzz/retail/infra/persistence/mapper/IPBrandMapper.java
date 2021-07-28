@@ -63,7 +63,8 @@ public interface IPBrandMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
 	@Insert({"insert into P_BRAND(id, cn_name, en_name, logo, website, stroy, summary) ",
 		"values(",
-		"#{id,jdbcType=BIGINT}, #{cnName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, #{stroy,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}",
+		"#{id,jdbcType=BIGINT}, #{cnName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, ",
+		"#{website,jdbcType=VARCHAR}, #{stroy,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}",
         ")" })
 	int insert(PBrandPo pBrand);
 

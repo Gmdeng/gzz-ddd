@@ -504,7 +504,7 @@ CREATE TABLE `f_transfer` (
 DROP TABLE IF EXISTS `p_attribute`;
 
 CREATE TABLE `p_attribute` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `catalog_id` bigint(20) NOT NULL COMMENT '分类ID',
   `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性名称',
   `values` varchar(250) COLLATE utf8mb4_general_ci NOT NULL COMMENT '属性值项，用逗号隔里',
@@ -514,25 +514,26 @@ CREATE TABLE `p_attribute` (
 
 /*Data for the table `p_attribute` */
 
-/*Table structure for table `p_attribute_options` */
+/*Table structure for table `p_attribute_option` */
 
-DROP TABLE IF EXISTS `p_attribute_options`;
+DROP TABLE IF EXISTS `p_attribute_option`;
 
-CREATE TABLE `p_attribute_options` (
+CREATE TABLE `p_attribute_option` (
   `id` bigint(20) NOT NULL COMMENT 'ID',
   `attr_id` bigint(20) NOT NULL COMMENT '属性ID',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '选项名',
+  `notes` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='分类销售属性值项';
 
-/*Data for the table `p_attribute_options` */
+/*Data for the table `p_attribute_option` */
 
 /*Table structure for table `p_brand` */
 
 DROP TABLE IF EXISTS `p_brand`;
 
 CREATE TABLE `p_brand` (
-  `id` bigint(20) NOT NULL COMMENT 'ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `cn_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '中文名称',
   `en_name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '英文名称',
   `logo` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'LOGO图标',
@@ -540,9 +541,13 @@ CREATE TABLE `p_brand` (
   `stroy` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '品牌故事',
   `summary` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '简介',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `p_brand` */
+
+insert  into `p_brand`(`id`,`cn_name`,`en_name`,`logo`,`website`,`stroy`,`summary`) values 
+(1,'天医中百','23','23','23','33323','333'),
+(2,'舰桥','仍然','323','23','23','33');
 
 /*Table structure for table `p_catalog` */
 
@@ -729,14 +734,14 @@ CREATE TABLE `z_module` (
   `create_on` timestamp NOT NULL COMMENT '创建时间',
   `create_by` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='模块';
 
 /*Data for the table `z_module` */
 
 insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`url`,`idx`,`status`,`update_on`,`update_by`,`create_on`,`create_by`) values 
 (33,0,'M','销售管理','SALE_MANAGEMENT',1,'BlockOutlined','',0,0,'2021-07-12 14:49:46','AutoModifyer','2021-07-12 14:49:46','AutoModifyer'),
-(32,24,'M','商品管理','GOODS_PRODUCT',63,'','',2,0,'2021-07-12 14:46:59','AutoModifyer','2021-07-12 14:46:59','AutoModifyer'),
-(31,24,'M','分类属性','GOODS_CATALOG_ATTRIBUTE',63,'','/attributeList',1,0,'2021-07-21 10:45:01','AutoModifyer','2021-07-12 14:45:30','AutoModifyer'),
+(32,24,'M','商品管理','GOODS_SPU',63,'','/goodsSpuList',2,0,'2021-07-22 10:55:01','AutoModifyer','2021-07-12 14:46:59','AutoModifyer'),
+(31,24,'M','销售属性','GOODS_ATTRIBUTE',63,'','/attributeList',1,0,'2021-07-22 11:00:56','AutoModifyer','2021-07-12 14:45:30','AutoModifyer'),
 (29,28,'M','待支付订单','ORDERS_UNPAY',63,'','',0,0,'2021-05-21 14:36:16','AutoModifyer','2021-05-21 14:36:16','AutoModifyer'),
 (30,28,'M','已支付订单','ORDERS_PAYED',63,'','',0,0,'2021-05-21 14:38:03','AutoModifyer','2021-05-21 14:38:03','AutoModifyer'),
 (28,0,'M','订单管理','ORDERS_MANAGEMENT',63,'PieChartOutlined','',0,0,'2021-06-30 11:29:09','AutoModifyer','2021-05-21 14:35:09','AutoModifyer'),
@@ -750,7 +755,9 @@ insert  into `z_module`(`id`,`parent_id`,`type`,`name`,`code`,`operate`,`icon`,`
 (35,33,'M','下架商品','SALE_OFFLINE',49,'','',0,0,'2021-07-12 14:52:25','AutoModifyer','2021-07-12 14:52:25','AutoModifyer'),
 (36,0,'M','库存管理','INVENTORY_MANAGEMENT',33,'AccountBookOutlined','',0,0,'2021-07-12 15:00:02','AutoModifyer','2021-07-12 15:00:02','AutoModifyer'),
 (37,36,'M','商品库存','INVENTORY_GOODS',33,'','',0,0,'2021-07-12 15:00:53','AutoModifyer','2021-07-12 15:00:53','AutoModifyer'),
-(38,36,'M','库存调整','INVENTORY_ADJUSTMENT',33,'','',0,0,'2021-07-12 15:03:53','AutoModifyer','2021-07-12 15:01:59','AutoModifyer');
+(38,36,'M','库存调整','INVENTORY_ADJUSTMENT',33,'','',0,0,'2021-07-12 15:03:53','AutoModifyer','2021-07-12 15:01:59','AutoModifyer'),
+(39,24,'M','品牌管理','GOODS_BRAND',63,'','/brandList',0,0,'2021-07-22 10:53:58','AutoModifyer','2021-07-22 10:53:58','AutoModifyer'),
+(40,24,'M','商品SKU管理','GOODS_SKU',63,'','/goodsSkuList',3,0,'2021-07-22 10:56:39','AutoModifyer','2021-07-22 10:56:39','AutoModifyer');
 
 /*Table structure for table `z_role` */
 

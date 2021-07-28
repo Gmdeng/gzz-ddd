@@ -74,6 +74,11 @@ public class PBrandSqlProvider {
                 FROM("P_BRAND");
                 if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name like CONCAT('%',#{param.name},'%')");
                 if(StringUtil.isNotEmpty(param.get("name"))) WHERE("name = #{param.name}");
+                if (param.get("keywords") != null){
+                    WHERE("cn_name like CONCAT('%',#{param.keywords},'%')");
+                    OR();
+                    WHERE("en_name like CONCAT('%',#{param.keywords},'%')");
+                }
             }
         }.toString();
     }

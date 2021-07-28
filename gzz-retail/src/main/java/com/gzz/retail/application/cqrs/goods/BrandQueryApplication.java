@@ -42,7 +42,7 @@ public class BrandQueryApplication {
 
         return dto;
     }
-    /**B
+    /**
      * 获取分页面
      * @param query
      * @return
