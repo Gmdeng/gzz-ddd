@@ -32,13 +32,13 @@ public class AttributeCmdApplication {
     }
 
 
-    /**
-     * 册除。。
-     * @param cmd
-     */
-    public void deleteCmd(@Valid AttributeDeleteCmd cmd){
-        //ValidationUtils.validate(cmd);
-//        User user = userRepo.loadUser(new UserId(cmd.getId()));
-//        userRepo.delete(user);
-    }
+//    /**
+//     * 册除。。
+//     * @param cmd
+//     */
+//    public void deleteCmd(@Valid AttributeDeleteCmd cmd){
+//        //ValidationUtils.validate(cmd);
+////        User user = userRepo.loadUser(new UserId(cmd.getId()));
+////        userRepo.delete(user);
+//    }
 }

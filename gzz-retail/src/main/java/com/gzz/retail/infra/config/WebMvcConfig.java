@@ -1,8 +1,7 @@
 package com.gzz.retail.infra.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  *
@@ -23,13 +22,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  *        实现 WebMvcConfigurer。
  *        将：  extends WebMvcConfigurationSupport
  *        改为：implements WebMvcConfigurer
+ *
+ *2. WebMvcConfigurer接口
+ *
+ * 2.1 addInterceptors：拦截器
+ * 2.2 addViewControllers：页面跳转 视图跳转控制器
+ * 2.3 addResourceHandlers：静态资源
+ * 2.4 configureDefaultServletHandling：默认静态资源处理器
+ * 2.5 configureViewResolvers：视图解析器
+ * 2.6 configureContentNegotiation：配置内容裁决的一些参数
+ * 2.7 addCorsMappings：跨域
+ * 2.8 configureMessageConverters：信息转换器
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
     /**
      * Cors 跨域设置
-     *
+     * 解决跨域问题
      * @param registry
      */
     @Override

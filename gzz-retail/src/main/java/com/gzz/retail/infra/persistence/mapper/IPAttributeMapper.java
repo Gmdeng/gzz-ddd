@@ -35,6 +35,7 @@ public interface IPAttributeMapper {
 	@Results(id="pAttributeMap",value = {
 	@Result(property = "id", column = "id"),
 		@Result(property = "catalogId", column = "catalog_id"),
+		@Result(property = "catalogName", column = "catalog_name"),
 		@Result(property = "name", column = "name"),
 		@Result(property = "values", column = "values"),
 		@Result(property = "idx", column = "idx"),
@@ -59,9 +60,9 @@ public interface IPAttributeMapper {
 	/*================================增加===========================================*/
 	// 增加
 	@Options(useGeneratedKeys = true, keyProperty = "id",flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
-	@Insert({"insert into P_ATTRIBUTE(id, catalog_id, name, values, idx) ",
+	@Insert({"insert into P_ATTRIBUTE(id, catalog_id, name, idx) ",
 		"values(",
-		"#{id,jdbcType=BIGINT}, #{catalogId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{values,jdbcType=VARCHAR}, #{idx,jdbcType=TINYINT}",
+		"#{id,jdbcType=BIGINT}, #{catalogId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{idx,jdbcType=TINYINT}",
         ")" })
 	int insert(PAttributePo pAttribute);
 

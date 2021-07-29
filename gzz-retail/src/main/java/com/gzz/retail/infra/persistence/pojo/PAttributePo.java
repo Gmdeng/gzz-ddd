@@ -19,6 +19,10 @@ public class PAttributePo implements Serializable  {
 	 */
 	private Long catalogId;
 	/**
+	 *  分类名称 catalogName
+	 */
+	private String catalogName;
+	/**
 	 *  属性名称 name
 	 */
 	private String name;

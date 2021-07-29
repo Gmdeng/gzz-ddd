@@ -10,7 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- *
+ * 验正全局配置
  */
 @Configuration
 public class ValidatorConfig {
