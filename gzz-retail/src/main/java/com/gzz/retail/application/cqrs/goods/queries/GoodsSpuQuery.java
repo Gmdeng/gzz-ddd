@@ -7,7 +7,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class GoodsSpuQuery extends BaseQuery {
-    private String moduleName;
-    private String parentId;
     private String code;
 }

@@ -4,7 +4,9 @@ import com.gzz.core.util.BeanConvertUtil;
 import com.gzz.retail.application.cqrs.goods.dto.AttributeDto;
 import com.gzz.retail.application.cqrs.goods.dto.AttributeFormDto;
 import com.gzz.retail.application.cqrs.goods.queries.AttributeQuery;
+import com.gzz.retail.domain.goods.entity.AttributeOption;
 import com.gzz.retail.infra.persistence.mapper.IPAttributeMapper;
+import com.gzz.retail.infra.persistence.pojo.PAttributeOptionPo;
 import com.gzz.retail.infra.persistence.pojo.PAttributePo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,10 @@ public class AttributeQueryApplication {
      */
     public AttributeFormDto getFormById(Long attributeId){
         PAttributePo po = attributeMapper.getById(attributeId);
-
         AttributeFormDto dto = BeanConvertUtil.convertOne(po, AttributeFormDto.class);
+        List<PAttributeOptionPo> optinList = attributeMapper.findOptions(po.getId());
+        List<AttributeOption> optins = BeanConvertUtil.convertList(optinList, AttributeOption.class);
+        dto.setOptions(optins);
         return dto;
     }
 
@@ -38,7 +42,9 @@ public class AttributeQueryApplication {
     public AttributeDto getDetailById(Long attributeId){
         PAttributePo po = attributeMapper.getById(attributeId);
         AttributeDto dto = BeanConvertUtil.convertOne(po, AttributeDto.class);
-
+        List<PAttributeOptionPo> optinList = attributeMapper.findOptions(po.getId());
+        List<AttributeOption> optins = BeanConvertUtil.convertList(optinList, AttributeOption.class);
+        dto.setOptions(optins);
         return dto;
     }
     /**

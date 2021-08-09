@@ -1,33 +1,33 @@
 package com.gzz.retail.domain.goods.repo;
 
 import com.gzz.core.util.BeanUtil;
+import com.gzz.retail.domain.goods.entity.GoodsSku;
 import com.gzz.retail.domain.goods.entity.GoodsSpu;
+import com.gzz.retail.infra.persistence.mapper.IPGoodsSkuMapper;
 import com.gzz.retail.infra.persistence.mapper.IPGoodsSpuMapper;
+import com.gzz.retail.infra.persistence.pojo.PGoodsSkuPo;
 import com.gzz.retail.infra.persistence.pojo.PGoodsSpuPo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 商品SPU仓库
- */
 @Slf4j
 @Component
-public class GoodsSpuRepo {
+public class GoodsSkuRepo {
 
     @Autowired
-    private IPGoodsSpuMapper goodsSpuMapper;
+    private IPGoodsSkuMapper mapper;
 
     /**
      * 加载商品
      *
      * @return
      */
-    public GoodsSpu loadGoods(Long goodsId) {
-        PGoodsSpuPo pGoods = goodsSpuMapper.getById(goodsId);
+    public GoodsSku loadGoods(Long goodsId) {
+        PGoodsSkuPo pGoods = mapper.getById(goodsId);
         if (pGoods == null) return null;
-        return BeanUtil.shadowCopy(pGoods, GoodsSpu.class);
+        return BeanUtil.shadowCopy(pGoods, GoodsSku.class);
     }
 
 
@@ -35,12 +35,12 @@ public class GoodsSpuRepo {
      * 保存商品
      */
     @Transactional
-    public void save(GoodsSpu spu) {
-        PGoodsSpuPo pGoods = BeanUtil.deepCopy(spu, PGoodsSpuPo.class);
+    public void save(GoodsSku spu) {
+        PGoodsSkuPo pGoods = BeanUtil.deepCopy(spu, PGoodsSkuPo.class);
         if (pGoods.getId() == null) {
-            goodsSpuMapper.insert(pGoods);
+            mapper.insert(pGoods);
         } else {
-            goodsSpuMapper.update(pGoods);
+            mapper.update(pGoods);
         }
 
     }

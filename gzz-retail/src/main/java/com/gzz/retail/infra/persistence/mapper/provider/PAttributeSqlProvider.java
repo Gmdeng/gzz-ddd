@@ -3,6 +3,7 @@ package com.gzz.retail.infra.persistence.mapper.provider;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.core.util.StringUtil;
+import com.gzz.retail.infra.persistence.pojo.PAttributeOptionPo;
 import com.gzz.retail.infra.persistence.pojo.PAttributePo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -78,5 +79,14 @@ public class PAttributeSqlProvider {
         }.toString();
     }
 
-
+    // 批量插入选项
+    public String batchInsertOptions(@Param("dataList") List<PAttributeOptionPo> dataList) {
+        MessageFormat mf = new MessageFormat("(#'{'dataList[{0}].attrId}, #'{'dataList[{0}].name}, #'{'dataList[{0}].notes})");
+        List<String> rows = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            rows.add(mf.format(new Object[] { i }));
+        }
+        return "INSERT INTO P_ATTRIBUTE_OPTION (attr_id, name, notes) VALUES "
+                + String.join(", ", rows);
+    }
 }

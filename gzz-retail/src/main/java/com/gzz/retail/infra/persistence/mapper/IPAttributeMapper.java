@@ -4,7 +4,10 @@ package com.gzz.retail.infra.persistence.mapper;
 import com.gzz.core.toolkit.Pager;
 import com.gzz.core.toolkit.ParamMap;
 import com.gzz.retail.infra.persistence.mapper.provider.PAttributeSqlProvider;
+import com.gzz.retail.infra.persistence.mapper.provider.ZRoleSqlProvider;
+import com.gzz.retail.infra.persistence.pojo.PAttributeOptionPo;
 import com.gzz.retail.infra.persistence.pojo.PAttributePo;
+import com.gzz.retail.infra.persistence.pojo.ZRolePermissionPo;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.cache.decorators.FifoCache;
 
@@ -90,4 +93,25 @@ public interface IPAttributeMapper {
     @Options(flushCache = Options.FlushCachePolicy.TRUE)
     @Delete("delete from P_ATTRIBUTE where id = #{id}")
     int delete(Long id);
+
+	/*================================选项处理===========================================*/
+	// 清空选项
+	@Options(flushCache = Options.FlushCachePolicy.TRUE)
+	@Delete("delete from P_ATTRIBUTE_OPTION where attr_id = #{attrId}")
+	int clearOptions(Long attrId);
+
+	// 获取选项
+	@Results(id="pAttributeOptionMap",value = {
+			@Result(property = "id", column = "id"),
+			@Result(property = "attrId", column = "attr_id"),
+			@Result(property = "name", column = "name"),
+			@Result(property = "notes", column = "notes")
+	})
+	@Select("select * from P_ATTRIBUTE_OPTION where attr_id = #{attrId}")
+	List<PAttributeOptionPo> findOptions(Long attrId);
+
+	// 批量增加选项
+	@Options(useGeneratedKeys = true, keyProperty = "id", flushCache = Options.FlushCachePolicy.TRUE) // 主键自增,默认主键名为id
+	@InsertProvider(type = PAttributeSqlProvider.class, method = "batchInsertOptions")
+	int batchInsertOption(@Param("dataList") List<PAttributeOptionPo> pAttributeOptionList);
 }

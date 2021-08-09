@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Api(value = "用户API", tags = {"用户操作接口"})
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/userApi")
 public class UserRestApi {
     @Autowired
     private IdGenerator idGenerator;

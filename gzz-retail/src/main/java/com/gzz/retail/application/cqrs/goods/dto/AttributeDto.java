@@ -4,6 +4,9 @@ import com.gzz.retail.domain.goods.entity.AttributeOption;
 import lombok.Data;
 import java.util.List;
 
+/**
+ *
+ */
 @Data
 public class AttributeDto {
     /**

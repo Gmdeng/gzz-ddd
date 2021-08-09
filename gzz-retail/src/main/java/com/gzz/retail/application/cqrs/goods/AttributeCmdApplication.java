@@ -1,18 +1,13 @@
 package com.gzz.retail.application.cqrs.goods;
 
 import com.gzz.core.util.BeanConvertUtil;
-import com.gzz.retail.application.cqrs.goods.command.*;
+import com.gzz.retail.application.cqrs.goods.command.AttributeSaveCmd;
 import com.gzz.retail.domain.goods.entity.Attribute;
-import com.gzz.retail.domain.goods.entity.Brand;
 import com.gzz.retail.domain.goods.repo.AttributeRepo;
-import com.gzz.retail.domain.goods.repo.BrandRepo;
 import com.gzz.retail.infra.persistence.mapper.IPAttributeMapper;
-import com.gzz.retail.infra.persistence.mapper.IPBrandMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
 
 @Slf4j
 @Service
